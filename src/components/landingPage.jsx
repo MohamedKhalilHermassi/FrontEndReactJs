@@ -3,7 +3,8 @@ function LandingPage()
 {
     return (
         <>
-            <div className="section features-1">
+        
+  <div className="section features-1">
     <div className="container">
       <div className="row">
         <div className="col-md-8 mx-auto text-center">

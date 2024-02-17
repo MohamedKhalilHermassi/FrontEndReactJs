@@ -1,11 +1,17 @@
+import Footer from "./footer";
+import { NavBar } from "./navbar";
+
 function Courses()
 {
     return (
         <>
+        <NavBar></NavBar>
           <section className="section team-2">
     <div className="container">
       <div className="row">
         <div className="col-md-8 mx-auto text-center mb-5">
+            <br />
+
           <h3 className="display-3">The Executive Team</h3>
           <h4 className="lead">This is the paragraph where you can write more details about your team. Keep you user engaged by providing meaningful information.</h4>
         </div>
@@ -175,6 +181,8 @@ function Courses()
       </div>
     </div>
   </section>
-        </>
+  <Footer></Footer>
+          </>
     )
 } export default Courses;
+

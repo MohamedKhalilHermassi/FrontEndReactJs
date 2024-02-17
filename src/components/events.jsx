@@ -1,11 +1,16 @@
+import Footer from "./footer";
+import { NavBar } from "./navbar";
+
 function Events()
 {
     return (
         <>
+        <NavBar></NavBar>
      <section className="section blogs-1">
     <div className="container">
       <div className="row mb-5">
         <div className="col-md-8">
+          <br />
           <h3 className="display-3">Our recent writings</h3>
           <p className="lead mt-1">The time is now for it to be okay to be great. People in this world shun people for being great.</p>
         </div>
@@ -98,6 +103,7 @@ function Events()
       </button>
     </div>
   </section>
+  <Footer></Footer>
         </>
     )
 } export default Events;
