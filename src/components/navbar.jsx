@@ -37,12 +37,19 @@ export const NavBar = () => {
           
         </ul>
         <ul className="nav navbar-nav navbar-right">
+        <button type="button" class="btn btn-warning btn-sm rounded-pill">Create Account</button>
+
+
           <li className="nav-item"><a className="nav-link" href="https://twitter.com/CreativeTim"><i className="fab fa-twitter" /></a></li>
           <li className="nav-item"><a className="nav-link" href="https://www.facebook.com/CreativeTim"><i className="fab fa-facebook-square" /></a></li>
           <li className="nav-item"><a className="nav-link" href="https://www.instagram.com/CreativeTimOfficial"><i className="fab fa-instagram" /></a></li>
         </ul>
       </div>
+      
     </div>
+    
   </nav>
+  
+  
   )
 }

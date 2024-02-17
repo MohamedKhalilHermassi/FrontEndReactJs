@@ -103,7 +103,6 @@ function Events()
       </button>
     </div>
   </section>
-  <Footer></Footer>
         </>
     )
 } export default Events;

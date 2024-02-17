@@ -86,6 +86,7 @@ const NavBar = () => {
             </ul>
           </div>
         </nav>
+        
         {/* / Navbar */}
     </>
   )

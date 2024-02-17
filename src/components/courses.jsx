@@ -181,7 +181,6 @@ function Courses()
       </div>
     </div>
   </section>
-  <Footer></Footer>
           </>
     )
 } export default Courses;
