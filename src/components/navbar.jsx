@@ -37,7 +37,7 @@ export const NavBar = () => {
           
         </ul>
         <ul className="nav navbar-nav navbar-right">
-        <button type="button" class="btn btn-warning btn-sm rounded-pill">Create Account</button>
+        <button type="button" class="btn btn-warning btn-sm rounded-pill"><Link to="/signin">Create Account</Link></button>
 
 
           <li className="nav-item"><a className="nav-link" href="https://twitter.com/CreativeTim"><i className="fab fa-twitter" /></a></li>
