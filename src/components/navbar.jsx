@@ -1,7 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const NavBar = () => {
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/signin');
+  };
   return (
     <nav className="navbar navbar-expand-lg bg-white navbar-absolute">
     <div className="container">
@@ -37,7 +41,7 @@ export const NavBar = () => {
           
         </ul>
         <ul className="nav navbar-nav navbar-right">
-        <button type="button" class="btn btn-warning btn-sm rounded-pill"><Link to="/signin">Create Account</Link></button>
+        <button type="button" className="btn btn-warning btn-sm rounded-pill" onClick={handleClick}>Create Account</button>
 
 
           <li className="nav-item"><a className="nav-link" href="https://twitter.com/CreativeTim"><i className="fab fa-twitter" /></a></li>

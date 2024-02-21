@@ -1,18 +1,16 @@
-import Footer from "./footer";
-import { NavBar } from "./navbar";
 
 function Courses()
 {
     return (
         <>
-        <NavBar></NavBar>
+      
           <section className="section team-2">
     <div className="container">
       <div className="row">
         <div className="col-md-8 mx-auto text-center mb-5">
             <br />
 
-          <h3 className="display-3">The Executive Team</h3>
+          <h3 className="display-3 text-orange">Our Available Instrument Courses</h3>
           <h4 className="lead">This is the paragraph where you can write more details about your team. Keep you user engaged by providing meaningful information.</h4>
         </div>
       </div>
@@ -27,14 +25,14 @@ function Courses()
                   <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end"><a className="dropdown-item" href="javascript:;">Edit Profile</a><a className="dropdown-item" href="javascript:;">Settings</a><a className="dropdown-item" href="javascript:;">Log out</a></div>
                 </div>
                 <a href="javascript:;">
-                  <img className="img rounded" src="https://app.creative-tim.com/argon_placeholder/faces/ali-pazani.jpg" />
+                  <img className="img rounded" src="https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg?cs=srgb&dl=pexels-north-1407322.jpg&fm=jpg" />
                 </a>
               </div>
             </div>
             
             <div className="card-body pt-0">
-              <h4 className="display-4 mb-0">Sofia Scarlett</h4>
-              <p className="lead">UX Designer</p>
+              <h4 className="display-4 mb-0">Guitar Course</h4>
+              <p className="lead">Individual lesson</p>
               <div className="table-responsive">
                 <ul className="list-unstyled">
                   <li className="py-1">
@@ -81,13 +79,13 @@ function Courses()
                   <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end"><a className="dropdown-item" href="javascript:;">Edit Profile</a><a className="dropdown-item" href="javascript:;">Settings</a><a className="dropdown-item" href="javascript:;">Log out</a></div>
                 </div>
                 <a href="javascript:;">
-                  <img className="img rounded" src="https://app.creative-tim.com/argon_placeholder/faces/team-5.jpg" />
+                  <img className="img rounded" src="https://media.istockphoto.com/id/1129332575/photo/favorite-classical-music-close-up-view-of-gentle-female-hands-playing-a-melody-on-piano-while.jpg?s=612x612&w=0&k=20&c=GJEJTdGtmgHpKjDL7BE9KO2diJNQ4lPinInWiJAOSCQ=" />
                 </a>
               </div>
             </div>
             <div className="card-body pt-0">
-              <h4 className="display-4 mb-0">Dylan Wyatt</h4>
-              <p className="lead">Team Lead</p>
+              <h4 className="display-4 mb-0">Piano Course</h4>
+              <p className="lead">Individual lesson</p>
               <div className="table-responsive">
                 <ul className="list-unstyled">
                   <li className="py-1">
@@ -134,13 +132,13 @@ function Courses()
                   <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end"><a className="dropdown-item" href="javascript:;">Edit Profile</a><a className="dropdown-item" href="javascript:;">Settings</a><a className="dropdown-item" href="javascript:;">Log out</a></div>
                 </div>
                 <a href="javascript:;">
-                  <img className="img rounded" src="https://app.creative-tim.com/argon_placeholder/faces/atikh.jpg" />
+                  <img className="img rounded" src="https://www.violinist.com/art/blog/29298.jpg" />
                 </a>
               </div>
             </div>
             <div className="card-body pt-0">
-              <h4 className="display-4 mb-0">Mila Skylar</h4>
-              <p className="lead">Content Creator</p>
+              <h4 className="display-4 mb-0">Violon Course</h4>
+              <p className="lead">Individual lesson</p>
               <div className="table-responsive">
                 <ul className="list-unstyled">
                   <li className="py-1">
