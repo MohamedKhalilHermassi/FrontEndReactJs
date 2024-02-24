@@ -15,8 +15,9 @@ function App() {
 
   return (
     <>
-      <NavBar/>
+      
       <Routes>
+      
         <Route path = "" element={<LandingPage/>}>
         <Route path = "" element={<Acceuil/>}></Route>
         <Route path = "events" element={<Events/>}></Route>

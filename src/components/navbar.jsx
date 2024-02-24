@@ -45,7 +45,7 @@ export const NavBar = () => {
 
 
           <li className="nav-item"><a className="nav-link" href="https://twitter.com/CreativeTim"><i className="fab fa-twitter" /></a></li>
-          <li className="nav-item"><a className="nav-link" href="https://www.facebook.com/CreativeTim"><i className="fab fa-facebook-square" /></a></li>
+          <li className="nav-item"><a className="nav-link" href="https://www.facebook.com/ConservatoireElkindy/?locale=fr_FR"><i className="fab fa-facebook-square" /></a></li>
           <li className="nav-item"><a className="nav-link" href="https://www.instagram.com/CreativeTimOfficial"><i className="fab fa-instagram" /></a></li>
         </ul>
       </div>
