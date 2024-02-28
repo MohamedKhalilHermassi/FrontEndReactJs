@@ -1,13 +1,14 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const SideBar = () => {
   return (
     <>
               {/* Menu */}
         <div className="app-brand demo">
-          <a href="index.html" className="app-brand-link justify-content-center">
+          <Link className="app-brand-link justify-content-center" to="/admin">
               <img className="h-75 w-75 mb-2" src="images/Untitled-1.png" alt="" />
-          </a>
+          </Link>
           <a href="javascript:void(0);" className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
             <i className="bx bx-chevron-left bx-sm align-middle" />
           </a>
@@ -40,7 +41,21 @@ const SideBar = () => {
             </ul>
           </li>
           <li className="menu-header small text-uppercase">
-            <span className="menu-header-text">Pages</span>
+            <span className="menu-header-text">Features</span>
+          </li>
+          <li className="menu-item">
+            <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#courses" aria-expanded="false" aria-controls="courses">
+              <i className="menu-icon fas fa-book" />
+              <div data-i18n="Layouts">Courses</div>
+            </a>
+            <ul id="courses" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <li class="sidebar-item">
+                  <Link className="sidebar-link menu-link" to="/admin/addcourse"><i className='menu-icon fas fa-plus'/>Add</Link>
+                </li>
+                <li class="sidebar-item">
+                    <Link class="sidebar-link menu-link" to="/admin/courses"><i class="menu-icon fas fa-grip"></i>List of courses</Link>
+                </li>
+            </ul>
           </li>
         </ul>
       {/* / Menu */}
