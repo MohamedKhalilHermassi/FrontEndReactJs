@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import school from '../../../assets/img/classe.png'
 
 const CourseList = () => {
     const [courses, setCourses] = useState([]);
@@ -8,11 +9,11 @@ const CourseList = () => {
         axios.get(import.meta.env.VITE_APIURL+'courses')
         .then(result => setCourses(result.data))
         .catch(err => console.log(err))
-    },[])
+    },[courses])
 
 const handleDelete = (id) => {
     console.log(id);
-    axios.delete(import.meta.env.VITE_APIURL+'courses/np'+id)
+    axios.delete(import.meta.env.VITE_APIURL+'courses/'+id)
     .then(res => console.log(res))
     .catch(err =>console.log(err));
 }
@@ -24,12 +25,13 @@ const handleDelete = (id) => {
   <div className="col-md-4 mt-3">
     <div key={index} className="card p-3 mb-2">
       <div className="d-flex justify-content-between">
-        <div className="d-flex flex-row align-items-center">
-          <div className="icon"> <i class="fas fa-school"></i> </div>
-          <div className="ms-2 c-details">
-            <h6 className="mb-0">{course.courseType}</h6> {/*<span>1 days ago</span>*/}
-          </div>
-        </div>
+<div className="view view-cascade overlay">
+  <img className="card-img-top" src={school} alt="Card image cap" />
+  <a href="#!">
+    <div className="mask rgba-white-slight waves-effect waves-light" />
+  </a>
+</div>
+
       </div>
       <div className="mt-5">
         <h3 className="heading">{course.name}</h3>

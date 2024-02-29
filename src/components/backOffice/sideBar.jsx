@@ -1,13 +1,13 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-
+import kindyLogo from '../../assets/img/logo.png'
 const SideBar = () => {
   return (
     <>
               {/* Menu */}
         <div className="app-brand demo">
           <Link className="app-brand-link justify-content-center" to="/admin">
-              <img className="h-75 w-75 mb-2" src="images/Untitled-1.png" alt="" />
+              <img className="h-75 w-75 mb-2" src={kindyLogo} alt="" />
           </Link>
           <a href="javascript:void(0);" className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
             <i className="bx bx-chevron-left bx-sm align-middle" />
@@ -28,15 +28,15 @@ const SideBar = () => {
               <i className="menu-icon fas fa-spinner fa-flip" />
               <div data-i18n="Layouts">Layouts</div>
             </a>
-            <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                <li class="sidebar-item">
-                  <a href="#" class="sidebar-link menu-link">Analytics</a>
+            <ul id="pages" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <li className="sidebar-item">
+                  <a href="#" className="sidebar-link menu-link">Analytics</a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link menu-link">Ecommerce</a>
+                <li className="sidebar-item">
+                    <a href="#" className="sidebar-link menu-link">Ecommerce</a>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link menu-link">Crypto</a>
+                <li className="sidebar-item">
+                    <a href="#" className="sidebar-link menu-link">Crypto</a>
                 </li>
             </ul>
           </li>
@@ -48,12 +48,12 @@ const SideBar = () => {
               <i className="menu-icon fas fa-book" />
               <div data-i18n="Layouts">Courses</div>
             </a>
-            <ul id="courses" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                <li class="sidebar-item">
+            <ul id="courses" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <li className="sidebar-item">
                   <Link className="sidebar-link menu-link" to="/admin/addcourse"><i className='menu-icon fas fa-plus'/>Add</Link>
                 </li>
-                <li class="sidebar-item">
-                    <Link class="sidebar-link menu-link" to="/admin/courses"><i class="menu-icon fas fa-grip"></i>List of courses</Link>
+                <li className="sidebar-item">
+                    <Link className="sidebar-link menu-link" to="/admin/courses"><i className="menu-icon fas fa-grip"></i>List of courses</Link>
                 </li>
             </ul>
           </li>

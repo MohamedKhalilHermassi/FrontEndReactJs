@@ -1,18 +1,21 @@
 import axios from 'axios';
-import React from 'react'
+import React from 'react';
+import { useNavigate } from "react-router-dom";
+
 
 const CourseAdd = () => {
-    const levels = ['Niveau1', 'Niveau2', 'Niveau3', 'Niveau4', 'Niveau5'];
+    const levels = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6', 'Level 7'];
     const courseTypes = ['Instrument', 'Solfege'];
+    const navigate = useNavigate();
 
     const submitForm = (e) =>{
         e.preventDefault()
         const formData = new FormData(e.target);
         const payload = Object.fromEntries(formData)
 
-        console.log(import.meta.env.VITE_APIURL);
+        console.log(payload);
         axios.post(import.meta.env.VITE_APIURL+'courses/add', payload)
-        .then(result => console.log(result))
+        .then(result => navigate("/admin/courses"))
         .catch(err => console.log(err));
         
     }
@@ -29,17 +32,17 @@ const CourseAdd = () => {
         <div className="mb-3">
           <label className="form-label" htmlFor="basic-icon-default-fullname">Name</label>
           <div className="input-group input-group-merge">
-            <span id="basic-icon-default-fullname2" className="input-group-text"><i className="fas fa-heading" /></span>
             <input type="text" name='name' className="form-control" id="basic-icon-default-fullname" placeholder="Guitar" />
           </div>
         </div>
         <div className="mb-3">
-          <label className="form-label" htmlFor="basic-icon-default-email">Price</label>
+          <label className="form-label" htmlFor="basic-icon-default-email">Hourly based price</label>
           <div className="input-group input-group-merge">
             <span className="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
             <input type="text" name='price' id="basic-icon-default-email" className="form-control" placeholder="20$" />
           </div>
-          <div className="form-text"> You can use letters, numbers &amp; periods </div>
+          {/*<div className="form-text"> You can use letters, numbers &amp; periods </div>*/}
+
         </div>
         <div className="mb-3">
           <label className="form-label" htmlFor="basic-icon-default-phone">Type</label>
