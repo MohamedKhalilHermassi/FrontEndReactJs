@@ -1,16 +1,29 @@
 import { Link, useNavigate } from 'react-router-dom';
-
+import UserService from '../service/userService';
+import React, { useState,useEffect } from 'react';
 export const NavBar = () => {
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  const handleClick = () => {
+  useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+  const handleSignInClick = () => {
     navigate('/signin');
+  };
+
+  const handleLogOutClick =  () => {
+     UserService.logout();
+     window.location.href = '/';
+   
   };
   return (
     <nav className="navbar navbar-expand-lg bg-white navbar-absolute">
     <div className="container">
       <div className="navbar-translate">
-        <a className="navbar-brand" href="javascript:;"><img src="images/Untitled-1.png" alt width={100} /></a>
+        <a className="navbar-brand" ><Link to="/"><img src="images/Untitled-1.png" alt="" width={100} /></Link></a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-header-2" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
@@ -19,10 +32,7 @@ export const NavBar = () => {
         <div className="navbar-collapse-header">
           <div className="row">
             <div className="col-6 collapse-brand">
-              <a>
-                Argon
-                <span>PRO</span>
-              </a>
+             
             </div>
             <div className="col-6 collapse-close text-right">
               <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-header-2" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,16 +43,26 @@ export const NavBar = () => {
           </div>
         </div>
         <ul className="navbar-nav mx-auto">
-          <li className="nav-item"><a className="nav-link" href="javascript:;"><Link to="/">Home</Link></a></li>
-          <li className="nav-item"><a className="nav-link" href="javascript:;"><Link to="/courses">Courses</Link></a></li>
-          <li className="nav-item"><a className="nav-link" href="javascript:;"><Link to="/events">Events</Link></a></li>
-          <li className="nav-item"><a className="nav-link" href="javascript:;">Schedule</a></li>
-          <li className="nav-item"><a className="nav-link" href="javascript:;">Market Place</a></li>
+          {isLoggedIn && (<li className="nav-item"><a className="nav-link" ><Link to="/Profil">Profil</Link></a></li>)}
+          <li className="nav-item"><a className="nav-link" ><Link to="/">Home</Link></a></li>
+          <li className="nav-item"><a className="nav-link" ><Link to="/courses">Courses</Link></a></li>
+          <li className="nav-item"><a className="nav-link" ><Link to="/events">Events</Link></a></li>
+          <li className="nav-item"><a className="nav-link" ><Link to="/">Schedule</Link></a></li>
+          <li className="nav-item"><a className="nav-link" ><Link to="/">Market Place</Link></a></li>
           
         </ul>
         <ul className="nav navbar-nav navbar-right">
-        <button type="button" className="btn btn-warning btn-sm rounded-pill" onClick={handleClick}>Create Account</button>
-
+        {!isLoggedIn && (
+      <button type="button" className="btn btn-warning btn-sm rounded-pill" onClick={handleSignInClick}>
+        sign in
+      </button>
+    )}
+       
+        {isLoggedIn && (
+      <button type="button" className="btn btn-warning btn-sm rounded-pill" onClick={handleLogOutClick}>
+        Log Out
+      </button>
+    )}
 
           <li className="nav-item"><a className="nav-link" href="https://twitter.com/CreativeTim"><i className="fab fa-twitter" /></a></li>
           <li className="nav-item"><a className="nav-link" href="https://www.facebook.com/ConservatoireElkindy/?locale=fr_FR"><i className="fab fa-facebook-square" /></a></li>
