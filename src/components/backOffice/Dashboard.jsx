@@ -9,7 +9,9 @@ const Dashboard = () => {
   {/* Layout wrapper */}
   <div className="layout-wrapper layout-content-navbar">
     <div className="layout-container">
+    <aside id="layout-menu" className="layout-menu menu-vertical menu bg-menu-theme">
       <SideBar></SideBar>
+    </aside>
       {/* Layout container */}
       <div className="layout-page">
         <NavBar></NavBar>

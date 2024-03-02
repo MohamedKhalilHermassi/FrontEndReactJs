@@ -6,9 +6,9 @@ import Dashboard from './components/backOffice/Dashboard'
 import AdminLandingPage from './components/backOffice/adminLandingPage'
 import Acceuil from './components/acceuil'
 import Login from './components/login'
-import { NavBar } from './components/navbar'
 import AddProductForm from './components/sell'
 import ProductList from './components/market'
+import ProductListBack from './components/backOffice/products'
 
 const Events = lazy(()=> import("./components/events"));
 const Courses = lazy(()=> import ("./components/courses"));
@@ -16,8 +16,9 @@ function App() {
 
   return (
     <>
-      <NavBar/>
+      
       <Routes>
+      
         <Route path = "" element={<LandingPage/>}>
         <Route path = "" element={<Acceuil/>}></Route>
         <Route path = "events" element={<Events/>}></Route>
@@ -27,6 +28,7 @@ function App() {
         </Route>
         <Route path="admin" element={<Dashboard/>}>
           <Route path='' element={<AdminLandingPage/>}/>
+          <Route path='products' element={<ProductListBack></ProductListBack>}/>
         </Route>
         <Route path="signin" element={<Login/>}>
          

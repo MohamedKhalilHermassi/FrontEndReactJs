@@ -1,3 +1,4 @@
+import SideBar from './sideBar'
 
 const NavBar = () => {
   return (
@@ -5,10 +6,11 @@ const NavBar = () => {
                 {/* Navbar */}
                 <nav className="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
           <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-            <a className="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+            <a className="nav-item nav-link px-0 me-xl-4" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
               <i className="bx bx-menu bx-sm" />
             </a>
           </div>
+          
           <div className="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             {/* Search */}
             <div className="navbar-nav align-items-center">
@@ -19,10 +21,6 @@ const NavBar = () => {
             </div>
             {/* /Search */}
             <ul className="navbar-nav flex-row align-items-center ms-auto">
-              {/* Place this tag where you want the button to render. */}
-              <li className="nav-item lh-1 me-3">
-                <a className="github-button" href="https://github.com/themeselection/sneat-html-admin-template-free" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
-              </li>
               {/* User */}
               <li className="nav-item navbar-dropdown dropdown-user dropdown">
                 <a className="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -85,6 +83,9 @@ const NavBar = () => {
             </ul>
           </div>
         </nav>
+        <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <SideBar/>
+  </div>
         
         {/* / Navbar */}
     </>
