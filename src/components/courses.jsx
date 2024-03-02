@@ -22,7 +22,7 @@ function Courses()
               <div className="card-image">
                 <div className="dropdown">
                   <button className="btn btn-link dropdown-toggle btn-icon-only" type="button" data-toggle="dropdown" aria-expanded="false"><i className="ni ni-settings-gear-65" /></button>
-                  <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end"><a className="dropdown-item" href="javascript:;">Edit Profile</a><a className="dropdown-item" href="javascript:;">Settings</a><a className="dropdown-item" href="javascript:;">Log out</a></div>
+                  <div className="dropdown-menu dropdown-menu-right"><a className="dropdown-item" href="javascript:;">Edit Profile</a><a className="dropdown-item" href="javascript:;">Settings</a><a className="dropdown-item" href="javascript:;">Log out</a></div>
                 </div>
                 <a href="javascript:;">
                   <img className="img rounded" src="https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg?cs=srgb&dl=pexels-north-1407322.jpg&fm=jpg" />
@@ -76,7 +76,7 @@ function Courses()
               <div className="card-image">
                 <div className="dropdown">
                   <button className="btn btn-link dropdown-toggle btn-icon-only" type="button" data-toggle="dropdown" aria-expanded="false"><i className="ni ni-settings-gear-65" /></button>
-                  <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end"><a className="dropdown-item" href="javascript:;">Edit Profile</a><a className="dropdown-item" href="javascript:;">Settings</a><a className="dropdown-item" href="javascript:;">Log out</a></div>
+                  <div className="dropdown-menu dropdown-menu-right" ><a className="dropdown-item" href="javascript:;">Edit Profile</a><a className="dropdown-item" href="javascript:;">Settings</a><a className="dropdown-item" href="javascript:;">Log out</a></div>
                 </div>
                 <a href="javascript:;">
                   <img className="img rounded" src="https://media.istockphoto.com/id/1129332575/photo/favorite-classical-music-close-up-view-of-gentle-female-hands-playing-a-melody-on-piano-while.jpg?s=612x612&w=0&k=20&c=GJEJTdGtmgHpKjDL7BE9KO2diJNQ4lPinInWiJAOSCQ=" />
@@ -129,7 +129,7 @@ function Courses()
               <div className="card-image">
                 <div className="dropdown">
                   <button className="btn btn-link dropdown-toggle btn-icon-only" type="button" data-toggle="dropdown" aria-expanded="false"><i className="ni ni-settings-gear-65" /></button>
-                  <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end"><a className="dropdown-item" href="javascript:;">Edit Profile</a><a className="dropdown-item" href="javascript:;">Settings</a><a className="dropdown-item" href="javascript:;">Log out</a></div>
+                  <div className="dropdown-menu dropdown-menu-right" ><a className="dropdown-item" href="javascript:;">Edit Profile</a><a className="dropdown-item" href="javascript:;">Settings</a><a className="dropdown-item" href="javascript:;">Log out</a></div>
                 </div>
                 <a href="javascript:;">
                   <img className="img rounded" src="https://www.violinist.com/art/blog/29298.jpg" />

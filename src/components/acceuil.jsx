@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 function Acceuil()
 {
     return(
@@ -51,7 +51,7 @@ function Acceuil()
           <div className="info">
             <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle"><i className="ni ni-atom" /></div>
             <h6 className="info-title text-uppercase text-success">Analyze Performance</h6>
-            <p className="description opacity-8">Don't get your heart broken by people we love, even that we give them all we have. Then we lose family over time. As we live, our hearts turn colder.</p>
+            <p className="description opacity-8">Don&apost get your heart broken by people we love, even that we give them all we have. Then we lose family over time. As we live, our hearts turn colder.</p>
             <a className="text-primary" ><Link to="/">
               <span className="mr-1">Learn about our products</span>
               <i className="ni ni-bold-right text-primary" /></Link>

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from 'react';
+import { useState } from 'react';
 import UserService from '../service/userService';
 import { jwtDecode } from "jwt-decode";
 
@@ -87,12 +87,12 @@ function Login() {
                         <button  type="submit" className="btn btn-primary btn-block mb-4" disabled={isLoading}>
                         {isLoading ? 'Loading...' : 'Sign In'}
                         </button>
-                        <p class="text-center text-danger">
+                        <p className="text-center text-danger">
                         <span>{error}</span>
                        
                       </p>
                       </form>
-                      <p class="text-center">
+                      <p className="text-center">
                         <span>New on our platform?</span>
                         <a href="javascript:;">
                           <Link to="/register"> Create an account</Link>
