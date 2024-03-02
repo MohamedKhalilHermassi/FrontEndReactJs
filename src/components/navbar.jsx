@@ -48,7 +48,7 @@ export const NavBar = () => {
           <li className="nav-item"><a className="nav-link" ><Link to="/courses">Courses</Link></a></li>
           <li className="nav-item"><a className="nav-link" ><Link to="/events">Events</Link></a></li>
           <li className="nav-item"><a className="nav-link" ><Link to="/">Schedule</Link></a></li>
-          <li className="nav-item"><a className="nav-link" ><Link to="/">Market Place</Link></a></li>
+          <li className="nav-item"><a className="nav-link" href="javascript:;"><Link to="/marketplace">Marketplace</Link></a></li>
           
         </ul>
         <ul className="nav navbar-nav navbar-right">
