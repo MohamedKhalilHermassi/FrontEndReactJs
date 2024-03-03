@@ -27,8 +27,10 @@ const CourseList = () => {
         fetchData();
         toast('Course Deleted!', {
           icon: '🗑️',
-        },
-        {
+          style:{
+            width:'275px',
+            height:'50px'
+          },
           duration: 2000
         });
     } catch (error) {
