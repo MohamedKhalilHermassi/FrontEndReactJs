@@ -1,0 +1,56 @@
+.custom-calendar {
+    height: 800px;
+    background-color: #e8eaf6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-event {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: red; 
+    background-color: #D0E8F2;
+    font-weight: bold;
+  }
+  
+  .custom-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #c5cae9;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-toolbar button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #3f51b5;
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .custom-toolbar button:disabled {
+    background-color: #BDBDBD;
+  }
+  
+  .custom-toolbar select {
+    padding: 5px;
+    border: none;
+    background-color: #3f51b5; 
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }

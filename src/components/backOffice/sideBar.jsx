@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const SideBar = () => {
   return (
@@ -40,7 +41,24 @@ const SideBar = () => {
             </ul>
           </li>
           <li className="menu-header small text-uppercase">
-            <span className="menu-header-text">Pages</span>
+            <span className="menu-header-text">Features</span>
+          </li>
+          <li className="menu-item">
+            <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#events" aria-expanded="false" aria-controls="events">
+              <i className="menu-icon fas fa-book" />
+              <div data-i18n="Layouts">Events</div>
+            </a>
+            <ul id="events" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                <li className="sidebar-item">
+                  <Link className="sidebar-link menu-link" to="/admin/addevent"><i className='menu-icon fas fa-plus'/>Add Event</Link>
+                </li>
+                <li className="sidebar-item">
+                    <Link className="sidebar-link menu-link" to="/admin/events"><i className="menu-icon fas fa-grip"></i>List of events</Link>
+                </li>
+                <li className="sidebar-item">
+                    <Link className="sidebar-link menu-link" to="/admin/eventscalendar"><i className="menu-icon fas fa-grip"></i>Events Calendar </Link>
+                </li>
+            </ul>
           </li>
         </ul>
       {/* / Menu */}
