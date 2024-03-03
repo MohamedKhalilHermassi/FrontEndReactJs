@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import UserService from '../service/userService';
-import React, { useState,useEffect } from 'react';
+import  { useState,useEffect } from 'react';
 export const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();

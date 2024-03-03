@@ -11,6 +11,7 @@ import ProductList from './components/market'
 import ProductListBack from './components/backOffice/products'
 import Register from './components/register'
 import Users from './components/backOffice/users'
+import ArchivedProductList from './components/backOffice/archivedProducts'
 
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
@@ -32,7 +33,7 @@ function App() {
         </Route>
         <Route path="admin" element={<Dashboard/>}>
           <Route path='' element={<AdminLandingPage/>}/>
-          <Route path='Archivedproducts' element={<AdminLandingPage/>}/>
+          <Route path='Archivedproducts' element={<ArchivedProductList/>}/>
           <Route path='products' element={<ProductListBack></ProductListBack>}/>
           <Route path = "user" element={<Users/>}></Route>
         </Route>
