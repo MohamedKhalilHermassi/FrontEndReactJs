@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { decodeToken  } from "react-jwt";
 
 const BASE_URL =  'http://localhost:3000/users'; 
 
@@ -10,8 +10,11 @@ const userService = {
       
           if (response.status === 200) {
             const token = response.data.token;
+            const myDecodedToken = decodeToken(token);
+
             localStorage.setItem('userToken', token);
             localStorage.setItem('email', email);
+            localStorage.setItem('id', myDecodedToken.id);
             
             return token;
           }

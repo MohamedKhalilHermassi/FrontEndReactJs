@@ -8,14 +8,23 @@ function AddProductForm() {
     instrument: 'Instrument'
     
   };
+  const productCondition = {
+    Old: 'Old',
+    Slightly: 'Slightly Used',
+    New:'New'
+    
+  };
+
 
 
   const [formData, setFormData] = useState({
+    user: localStorage.getItem('id'),
     type: '',
     name: '',
     description: '',
+    archived: false,
     price: '',
-    condition: '',
+    condition: 'Old',
     image: null
   }); 
   const [loading, setLoading] = useState(false);
@@ -84,7 +93,6 @@ function AddProductForm() {
       const formDataToSend = new FormData();
       formDataToSend.append('product', JSON.stringify(formData));
       formDataToSend.append('image', formData.image);
-      
       setTimeout(() => {
         console.log('Waited for 3 seconds');
       }, 3000);
@@ -132,7 +140,11 @@ function AddProductForm() {
               {errors.price && <div className="text-danger">{errors.price}</div>}
             </div>
             <div className="col-md-4">
-              <input type="text" name="condition" className="form-control" placeholder="Product Condition" value={formData.condition} onChange={handleChange} />
+              <select name="condition" className="form-control" value={formData.condition} onChange={handleChange}>
+                {Object.entries(productCondition).map(([key, value]) => (
+                  <option key={key} value={key}>{value}</option>
+                ))}
+              </select>
               {errors.condition && <div className="text-danger">{errors.condition}</div>}
             </div>
             <div className="col-md-4">
@@ -145,7 +157,7 @@ function AddProductForm() {
                   <option key={key} value={key}>{value}</option>
                 ))}
               </select>
-              {errors.condition && <div className="text-danger">{errors.condition}</div>}
+              {errors.condition && <div className="text-danger">{errors.type}</div>}
             </div>
             <div className="col-12">
               <button type="submit" className="btn btn-primary position-relative w-auto" disabled={loading}>

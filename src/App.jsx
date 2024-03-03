@@ -32,6 +32,7 @@ function App() {
         </Route>
         <Route path="admin" element={<Dashboard/>}>
           <Route path='' element={<AdminLandingPage/>}/>
+          <Route path='Archivedproducts' element={<AdminLandingPage/>}/>
           <Route path='products' element={<ProductListBack></ProductListBack>}/>
           <Route path = "user" element={<Users/>}></Route>
         </Route>

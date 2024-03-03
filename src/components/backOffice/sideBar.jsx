@@ -68,6 +68,9 @@ const SideBar = () => {
             <li className="sidebar-item">
               <Link class="sidebar-link menu-link" to="/admin/products"><i className="menu-icon fas fa-grip" />List of products</Link>
             </li>
+            <li className="sidebar-item">
+              <Link class="sidebar-link menu-link" to="/admin/Archivedproducts"><i className="menu-icon fas fa-circle-xmark" />Archived products</Link>
+            </li>
           </ul>
         </li>
       </ul>
