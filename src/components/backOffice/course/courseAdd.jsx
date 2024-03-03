@@ -1,24 +1,42 @@
 import axios from 'axios';
 import React from 'react';
 import { useNavigate } from "react-router-dom";
+import { useFormik } from 'formik';
+import { courseValidator } from '../../Validators/CourseValidator';
+import { addCourse } from '../../../service/courseService';
+import toast from 'react-hot-toast';
+
+const initialValues = {
+  name: '',
+  price: '',
+  courseType: '',
+  level: '',
+  description: ''
+
+}
 
 
 const CourseAdd = () => {
     const levels = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6', 'Level 7'];
     const courseTypes = ['Instrument', 'Solfege'];
     const navigate = useNavigate();
-
-    const submitForm = (e) =>{
-        e.preventDefault()
-        const formData = new FormData(e.target);
-        const payload = Object.fromEntries(formData)
-
-        console.log(payload);
-        axios.post(import.meta.env.VITE_APIURL+'courses/add', payload)
-        .then(result => navigate("/admin/courses"))
-        .catch(err => console.log(err));
-        
-    }
+    const {values, handleBlur, handleChange, handleSubmit, errors, touched, isValid} = useFormik({
+      initialValues : initialValues, 
+      validationSchema: courseValidator,
+      onSubmit: async (values) => {
+        try {
+          await addCourse(values);
+          navigate("/admin/courses")
+          toast.success('Course added successfully!',
+          {
+            duration: 2000
+          }
+          )
+        } catch (error) {
+          console.error('Error adding course:', error);
+        }
+      }
+    })
 
   return (
     <>
@@ -28,19 +46,21 @@ const CourseAdd = () => {
       <h5 className="mb-0"><i className="menu-icon fas fa-book" />Add a course</h5>
     </div>
     <div className="card-body">
-      <form onSubmit={submitForm}>
+      <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label" htmlFor="basic-icon-default-fullname">Name</label>
           <div className="input-group input-group-merge">
-            <input type="text" name='name' className="form-control" id="basic-icon-default-fullname" placeholder="Guitar" />
+            <input type="text" name='name' value={values.name} onBlur={handleBlur} onChange={handleChange} className={errors.name && touched.name ? "form-control is-invalid" : "form-control"} id="basic-icon-default-fullname" placeholder="Guitar" />
           </div>
+          {errors.name && touched.name && <p className='alert alert-danger text-dark fw-bold'>{errors.name}</p>}
         </div>
         <div className="mb-3">
           <label className="form-label" htmlFor="basic-icon-default-email">Hourly based price</label>
           <div className="input-group input-group-merge">
             <span className="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
-            <input type="text" name='price' id="basic-icon-default-email" className="form-control" placeholder="20$" />
+            <input type="text" name='price' value={values.price} onBlur={handleBlur} onChange={handleChange} id="basic-icon-default-email" className={errors.price && touched.price ? "form-control is-invalid" : "form-control"} placeholder="20$" />
           </div>
+          {errors.price && touched.price && <p className='alert alert-danger text-dark fw-bold'>{errors.price}</p>}
           {/*<div className="form-text"> You can use letters, numbers &amp; periods </div>*/}
 
         </div>
@@ -48,32 +68,36 @@ const CourseAdd = () => {
           <label className="form-label" htmlFor="basic-icon-default-phone">Type</label>
           <div className="input-group input-group-merge">
             <span id="basic-icon-default-phone2" className="input-group-text"><i class="fas fa-list"></i></span>
-            <select id="select2Basic" name='courseType' class="select2 form-select form-select-lg" data-allow-clear="true">
+            <select id="select2Basic" name='courseType' value={values.courseType} onChange={handleChange} className={errors.courseType && touched.courseType  ? "select2 form-select form-select-lg is-invalid" : "select2 form-select form-select-lg"} data-allow-clear="true">
+            <option value="">Select a course type</option>
             {courseTypes.map((item, index) => (
                 <option key={index} value={item}>{item}</option>
             ))}
             </select>
           </div>
+          {errors.courseType && touched.courseType && <p className='alert alert-danger text-dark fw-bold'>{errors.courseType}</p>}
         </div>
         <div className="mb-3">
           <label className="form-label" htmlFor="basic-icon-default-phone">Level</label>
           <div className="input-group input-group-merge">
             <span id="basic-icon-default-phone2" className="input-group-text"><i class="fas fa-ranking-star"></i></span>
-            <select id="select2Basic" name='level' class="select2 form-select form-select-lg" data-allow-clear="true">
+            <select id="select2Basic" name='level' value={values.level} onChange={handleChange} className={errors.level && touched.level ? "select2 form-select form-select-lg is-invalid" : "select2 form-select form-select-lg"} data-allow-clear="true">
+            <option value="">Select a Level</option>
             {levels.map((item, index) => (
                 <option key={index} value={item}>{item}</option>
             ))}
             </select>
           </div>
+          {errors.level && touched.level && <p className='alert alert-danger text-dark fw-bold'>{errors.level}</p>}
         </div>
         <div className="mb-3">
           <label className="form-label" htmlFor="basic-icon-default-message">Description</label>
           <div className="input-group input-group-merge">
             <span id="basic-icon-default-message2" className="input-group-text"><i className="fas fa-align-left"></i></span>
-            <textarea id="basic-icon-default-message" name='description' className="form-control" placeholder="In this course you will master all the guitars features" />
+            <textarea id="basic-icon-default-message" name='description' value={values.description} onBlur={handleBlur} onChange={handleChange} className="form-control" placeholder="In this course you will master all the guitars features" />
           </div>
         </div>
-        <button type="submit" className="btn btn-primary">Save</button>
+        <button type="submit" className="btn btn-primary" disabled={!isValid}>Save</button>
       </form>
     </div>
   </div>

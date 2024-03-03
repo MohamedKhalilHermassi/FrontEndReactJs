@@ -1,22 +1,40 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import school from '../../../assets/img/classe.png'
+import { deleteCourse, fetchCourses } from '../../../service/courseService';
+import CourseDetails from './courseDetails';
+import toast from 'react-hot-toast';
 
 const CourseList = () => {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        axios.get(import.meta.env.VITE_APIURL+'courses')
-        .then(result => setCourses(result.data))
-        .catch(err => console.log(err))
-    },[courses])
+        fetchData();
+    },[])
 
-const handleDelete = (id) => {
-    console.log(id);
-    axios.delete(import.meta.env.VITE_APIURL+'courses/'+id)
-    .then(res => console.log(res))
-    .catch(err =>console.log(err));
-}
+    const fetchData = async () => {
+      try {
+          const coursesData = await fetchCourses();
+          setCourses(coursesData);
+      } catch (error) {
+          console.error(error.message);
+      }
+  };
+
+  const handleDelete = async (courseId) => {
+    try {
+        await deleteCourse(courseId);
+        fetchData();
+        toast('Course Deleted!', {
+          icon: '🗑️',
+        },
+        {
+          duration: 2000
+        });
+    } catch (error) {
+      toast.error(error.message)
+    }
+};
 
   return (
     <>
@@ -41,7 +59,7 @@ const handleDelete = (id) => {
           </div>
           <div className="mt-3"> <span className="text1">32 Applied <span className="text2">of 50 capacity</span></span> </div>
         </div>
-        <button className="btn btn-primary mt-3">View Details</button>
+        <CourseDetails/>
         <button className='btn btn-danger mt-3 ml-auto' onClick={(e) => handleDelete(course._id)}>delete</button>
       </div>
     </div>

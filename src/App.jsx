@@ -9,6 +9,7 @@ import Login from './components/login'
 import CourseAdd from './components/backOffice/course/courseAdd'
 import { NavBar } from './components/navbar'
 import CourseList from './components/backOffice/course/courseList'
+import { Toaster } from 'react-hot-toast'
 
 const Events = lazy(()=> import("./components/events"));
 const Courses = lazy(()=> import ("./components/courses"));
@@ -17,7 +18,7 @@ function App() {
 
   return (
     <>
-      
+      <div><Toaster position="top-right"/></div>
       <Routes>
       <Route path="" element={<LandingPage/>}>
         <Route path="" element={<Acceuil/>} />
