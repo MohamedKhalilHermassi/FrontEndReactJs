@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import UserService from '../service/userService';
-
-function Profile() {
-  const [userData, setUserData] = useState(null);
+import UserService from '../../service/userService';
+function editadmin()
+{
+    const [userData, setUserData] = useState(null);
 
 
   const [phone, setphone] = useState('');
@@ -106,9 +106,9 @@ if(image!=''){
           setIsLoading(false); 
        }
     }};
-  return (
-    <>
-      {userData ? (
+    return (
+        <>
+     {userData ? (
         <div className="vh-100" style={{ backgroundColor: '#f8f9fa', marginTop: '50px' }}>
         <div className="container py-5">
           <div className="row justify-content-center">
@@ -161,7 +161,7 @@ if(image!=''){
                         <label className="form-label" htmlFor="form3Example3">phone { !validatePhone(phone) && <span className="text-danger"> (Phone number must be 8 digits)</span> }</label>
                       </div>
                       {/* birthday input */}
-                     
+                    
                       {/* adress input */}
                       <div className="form-outline mb-4">
                         <input type="text" id="Address" className="form-control" value={adress} onChange={(event) => setadress(event.target.value)}/>
@@ -182,8 +182,6 @@ if(image!=''){
     </div>
   </div>
 </div>
-    </>
-  );
-}
-
-export default Profile;
+        </>
+    )
+}export default editadmin

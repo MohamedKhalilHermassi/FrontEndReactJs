@@ -51,14 +51,23 @@ async verifyuser(email,verificationCode){
     throw new Error(error.message);
 }
 },
-async banuser(email){
+async banuser(email) {
   try {
-    const response = await axios.post(`${BASE_URL}/BanUser/${email}` );
+    const token = localStorage.getItem('userToken'); 
+    const response = await axios.put(
+      `${BASE_URL}/BanUser/${email}`, 
+      {}, // Corps vide car il n'y a pas de données à envoyer
+      {
+        headers: { Authorization: `Bearer ${token}` }, 
+      }
+    );
     return response;
   } catch (error) {
     throw new Error(error.message);
-}
+  }
 },
+
+
   // Get all users (requires admin privileges)
   async getAllUsers() {
     try {
@@ -101,16 +110,19 @@ async banuser(email){
 
   async addtetcher(user) {
     try {
-        const response = await axios.post(`${BASE_URL}/addingtetcher`, user, {
-            headers: {
-              'Content-Type': 'multipart/form-data' 
-            }
-          });
-          return response.data;
+      const token = localStorage.getItem('userToken'); 
+      const response = await axios.post(`${BASE_URL}/addingtetcher`, user, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response.data;
     } catch (error) {
       throw new Error(error.message); 
     }
-  },
+  }
+,  
 
   // Update user (requires authentication)
   async updateUser(email, updatedUser) {
