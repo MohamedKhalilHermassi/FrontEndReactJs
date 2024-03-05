@@ -27,7 +27,38 @@ const userService = {
             throw new Error(error.message);
         }
       },
-
+async Forgetpassword(email){
+  try {
+    const response = await axios.post(`${BASE_URL}/forgetpassword`, { email } );
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+}
+},
+async verifypassword(email,verificationCode,password){
+  try {
+    const response = await axios.post(`${BASE_URL}/verify-forgetpassword`, {email,verificationCode,password} );
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+}
+},
+async verifyuser(email,verificationCode){
+  try {
+    const response = await axios.post(`${BASE_URL}/verify-user`, {email,verificationCode} );
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+}
+},
+async banuser(email){
+  try {
+    const response = await axios.post(`${BASE_URL}/BanUser/${email}` );
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+}
+},
   // Get all users (requires admin privileges)
   async getAllUsers() {
     try {
@@ -58,6 +89,19 @@ const userService = {
   async register(user) {
     try {
         const response = await axios.post(`${BASE_URL}/register`, user, {
+            headers: {
+              'Content-Type': 'multipart/form-data' 
+            }
+          });
+          return response.data;
+    } catch (error) {
+      throw new Error(error.message); 
+    }
+  },
+
+  async addtetcher(user) {
+    try {
+        const response = await axios.post(`${BASE_URL}/addingtetcher`, user, {
             headers: {
               'Content-Type': 'multipart/form-data' 
             }
