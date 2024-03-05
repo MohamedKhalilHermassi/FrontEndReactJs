@@ -32,10 +32,13 @@ function Login() {
     }
     window.location.href = redirectPath;
     } catch (error) {
-      if(error.message=="Request failed with status code 401"){
+      if(error.message=="Request failed with status code 400"){
         setError("Invalid email or password");
       }else if(error.message=="Request failed with status code 403"){
         setError("Sorry you don't have access");
+      }
+      else if(error.message=="Request failed with status code 401"){
+        setError("Please verify your account");
       }else{
         setError(error.message);
       }
