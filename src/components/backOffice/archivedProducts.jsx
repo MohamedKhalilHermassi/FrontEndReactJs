@@ -5,9 +5,18 @@ function ProductList() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem('userToken');
+  
+        // Set headers with the token
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        };
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/market/get-products');
+        const response = await axios.get('http://localhost:3000/market/get-products',{
+          headers: headers,
+        });
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);

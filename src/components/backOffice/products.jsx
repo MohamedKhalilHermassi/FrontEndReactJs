@@ -4,11 +4,19 @@ import { FaCheck, FaTimes } from 'react-icons/fa';
 
 function ProductListBack() {
   const [products, setProducts] = useState([]);
-
+  const token = localStorage.getItem('userToken');
+  
+        // Set headers with the token
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        };
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/market/get-products');
+        const response = await axios.get('http://localhost:3000/market/get-products',{
+          headers: headers,
+        });
         // Filter out archived products
         const filteredProducts = response.data.filter(product => !product.archived);
         setProducts(filteredProducts);
@@ -22,7 +30,9 @@ function ProductListBack() {
 
   const handleAccept = async (productId) => {
     try {
-      await axios.put(`http://localhost:3000/market/products/${productId}`, { productAvailability: true });
+      await axios.put(`http://localhost:3000/market/products/${productId}`, {
+      headers: headers,  
+      productAvailability: true });
       // Update the product's availability in the local state
       setProducts(products.map(product => {
         if (product._id === productId) {
@@ -38,7 +48,9 @@ function ProductListBack() {
   const handleReject = async (productId) => {
     try {
       // Send request to delete the product
-      await axios.put(`http://localhost:3000/market/archiveProducts/${productId}`, { archived: true });
+      await axios.put(`http://localhost:3000/market/archiveProducts/${productId}`, { 
+      headers: headers,  
+      archived: true });
       
       // Remove the deleted product from the local state
       setProducts(products.filter(product => product._id !== productId));

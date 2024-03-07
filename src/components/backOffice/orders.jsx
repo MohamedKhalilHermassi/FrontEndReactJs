@@ -5,17 +5,32 @@ function OrdersList() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/orders/get-orders');
+        // Retrieve token from localStorage
+        const token = localStorage.getItem('userToken');
+  
+        // Set headers with the token
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        };
+  
+        // Make the HTTP request with Axios
+        const response = await axios.get('http://localhost:3000/orders/get-orders', {
+          headers: headers,
+        });
+  
+        // Set the orders state with the response data
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
       }
     };
-
-    fetchProducts();
+  
+    fetchOrders();
   }, []);
+  
 
   // Filter out archived products
   
@@ -47,7 +62,12 @@ function OrdersList() {
                   <td>{order.user.email}</td>
                 <td>{order.products.map((product)=>
                 {
-                    return <p key={product._id}>* {product.productName}</p>
+                    return <p key={product._id}> <img 
+                    src={`http://localhost:3000/uploads/${product.filename}`}
+                    alt="image"
+                    style={{ width: '100px', height: 'auto' }} 
+                    />     
+                      {product.productName}</p>
                 })}</td>
                 <td>{order.totalPrice} TND</td>
                 <td><button className="btn btn-primary">PDF</button>
