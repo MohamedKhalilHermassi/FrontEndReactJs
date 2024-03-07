@@ -71,6 +71,21 @@ const SideBar = () => {
             <li className="sidebar-item">
               <Link class="sidebar-link menu-link" to="/admin/Archivedproducts"><i className="menu-icon fas fa-circle-xmark" />Archived products</Link>
             </li>
+            
+          </ul>
+        </li>
+        <li className="menu-item">
+          <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#orders" aria-expanded="false" aria-controls="orders">
+            <i className="menu-icon fa-solid fa-cart-shopping" />
+            <div data-i18n="Layouts">Orders</div>
+          </a>
+          <ul id="orders" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li className="sidebar-item">
+              <Link className="sidebar-link menu-link" to="/admin/ordersList"><i className="menu-icon fas fa-plus" />List of orders</Link>
+            </li>
+            
+           
+            
           </ul>
         </li>
       </ul>

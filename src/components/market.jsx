@@ -49,6 +49,28 @@ function ProductList() {
   };
 
   const filteredProducts = products.filter(product => product.productAvailability === true && !product.archived);
+  
+  const handleOrder = async () => {
+    try {
+        const productsList = cartItems.flatMap(item => Array.from({ length: item.quantity }, () => item._id));
+        
+        const response = await axios.post('http://localhost:3000/orders/add-order', {
+            totalPrice: totalPrice,
+            user: localStorage.getItem('id'),
+            products: productsList,
+        });
+        console.log(response.data.message); // Log success message
+        alert('Your order has been placed successfully!');
+
+        // Clear cart and other relevant state variables
+        setCartItems([]);
+        setTotalPrice(0);
+        setShowCart(false); // Hide cart dropdown after placing the order
+    } catch (error) {
+        console.error('Error placing order:', error);
+    }
+};
+
 
   return (
     <> <br />
@@ -99,6 +121,8 @@ function ProductList() {
             </ul>
           </div>
           <p>Total Price: {totalPrice} TND</p>
+          <button className="btn btn-primary" onClick={handleOrder}>Order</button> {/* Order button */}
+
         </div>
       )}
     </>
