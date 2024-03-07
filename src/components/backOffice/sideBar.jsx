@@ -7,7 +7,7 @@ const SideBar = () => {
       {/* Menu */}
       <div className="app-brand demo">
         <Link className="app-brand-link justify-content-center" to="/admin">
-          <img className="h-75 w-75 mb-2" src="images/Untitled-1.png" alt="" />
+          <img className="h-75 w-75 mb-2" src={kindyLogo} alt="" />
         </Link>
         <a href="javascript:void(0);" className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
           <i className="bx bx-chevron-left bx-sm align-middle" />
