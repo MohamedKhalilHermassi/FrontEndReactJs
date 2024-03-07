@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
-
+import React from 'react'
+import {Link} from 'react-router-dom'
+import kindyLogo from '../../assets/img/logo.png'
 const SideBar = () => {
   return (
     <>
@@ -71,7 +72,7 @@ const SideBar = () => {
             <li className="sidebar-item">
               <Link class="sidebar-link menu-link" to="/admin/Archivedproducts"><i className="menu-icon fas fa-circle-xmark" />Archived products</Link>
             </li>
-            
+
           </ul>
         </li>
         <li className="menu-item">
@@ -83,15 +84,15 @@ const SideBar = () => {
             <li className="sidebar-item">
               <Link className="sidebar-link menu-link" to="/admin/ordersList"><i className="menu-icon fas fa-plus" />List of orders</Link>
             </li>
-            
-           
-            
+
+
+
           </ul>
         </li>
       </ul>
       {/* / Menu */}
     </>
-  );
-};
+  )
+}
 
-export default SideBar;
+export default SideBar

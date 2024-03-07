@@ -1,4 +1,5 @@
 import SideBar from './sideBar'
+import avatar from '../../assets/img/1.png'
 
 const NavBar = () => {
   return (
@@ -25,7 +26,7 @@ const NavBar = () => {
               <li className="nav-item navbar-dropdown dropdown-user dropdown">
                 <a className="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                   <div className="avatar avatar-online">
-                    <img src="backoffice/assets/img/avatars/1.png" alt className="w-px-40 h-auto rounded-circle" />
+                    <img src={avatar} alt className="w-px-40 h-auto rounded-circle" />
                   </div>
                 </a>
                 <ul className="dropdown-menu dropdown-menu-end">
@@ -34,7 +35,7 @@ const NavBar = () => {
                       <div className="d-flex">
                         <div className="flex-shrink-0 me-3">
                           <div className="avatar avatar-online">
-                            <img src="backoffice/assets/img/avatars/1.png" alt className="w-px-40 h-auto rounded-circle" />
+                            <img src={avatar} alt className="w-px-40 h-auto rounded-circle" />
                           </div>
                         </div>
                         <div className="flex-grow-1">

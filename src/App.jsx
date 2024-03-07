@@ -13,6 +13,9 @@ import Register from './components/register'
 import Users from './components/backOffice/users'
 import ArchivedProductList from './components/backOffice/archivedProducts'
 import OrdersList from './components/backOffice/orders'
+import CourseAdd from './components/backOffice/course/courseAdd'
+import CourseList from './components/backOffice/course/courseList'
+import { Toaster } from 'react-hot-toast'
 
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
@@ -21,7 +24,7 @@ function App() {
 
   return (
     <>
-      
+      <div><Toaster position="top-right"/></div>
       <Routes>
       
         <Route path = "" element={<LandingPage/>}>
@@ -34,13 +37,15 @@ function App() {
         </Route>
         <Route path="admin" element={<Dashboard/>}>
           <Route path='' element={<AdminLandingPage/>}/>
+            <Route path="courses" element={<CourseList/>} />
+            <Route path="addcourse" element={<CourseAdd/>} />
           <Route path='Archivedproducts' element={<ArchivedProductList/>}/>
           <Route path='ordersList' element={<OrdersList/>}/>
           <Route path='products' element={<ProductListBack></ProductListBack>}/>
           <Route path = "user" element={<Users/>}></Route>
         </Route>
         <Route path="signin" element={<Login/>}>
-         
+
          </Route>
          <Route path="register" element={<Register/>}>
 
