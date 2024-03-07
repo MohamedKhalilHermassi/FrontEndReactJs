@@ -1,6 +1,4 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import school from '../../../assets/img/classe.png'
 import { deleteCourse, fetchCourses } from '../../../service/courseService';
 import CourseDetails from './courseDetails';
 import toast from 'react-hot-toast';
@@ -46,7 +44,7 @@ const CourseList = () => {
     <div key={index} className="card p-3 mb-2">
       <div className="d-flex justify-content-between">
 <div className="view view-cascade overlay">
-  <img className="card-img-top" src={school} alt="Card image cap" />
+  <img className="card-img-top" src={`http://localhost:3000/images/${course.image}`} alt="Card image cap" />
   <a href="#!">
     <div className="mask rgba-white-slight waves-effect waves-light" />
   </a>
@@ -61,7 +59,7 @@ const CourseList = () => {
           </div>
           <div className="mt-3"> <span className="text1">32 Applied <span className="text2">of 50 capacity</span></span> </div>
         </div>
-        <CourseDetails/>
+        <CourseDetails course = {course}/>
         <button className='btn btn-danger mt-3 ml-auto' onClick={(e) => handleDelete(course._id)}>delete</button>
       </div>
     </div>

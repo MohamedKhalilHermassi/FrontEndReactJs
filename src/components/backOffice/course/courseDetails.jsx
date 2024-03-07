@@ -1,12 +1,30 @@
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
+import CourseAdd from './courseAdd';
+import { fetchCourseById } from '../../../service/courseService';
 
-function CourseDetails() {
+function CourseDetails(props) {
   const [show, setShow] = useState(false);
+  const [course, setCourse] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+      fetchCourse(props.course._id);
+  }, []);
+
+
+
+  const fetchCourse = async (id) => {
+    try {
+        const courseData = await fetchCourseById(id);
+        console.log(courseData);
+        setCourse(courseData);
+    } catch (error) {
+        console.error(error.message);
+    }
+};
 
   return (
     <>
@@ -19,18 +37,11 @@ function CourseDetails() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>{props.course.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          I will not close if you click outside me. Do not even try to press
-          escape key.
+          <CourseAdd course = {course}/>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary">Understood</Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

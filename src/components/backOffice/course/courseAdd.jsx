@@ -1,23 +1,15 @@
-import axios from 'axios';
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
 import { courseValidator } from '../../Validators/CourseValidator';
 import { addCourse } from '../../../service/courseService';
-import toast from 'react-hot-toast';
-
-const initialValues = {
-  name: '',
-  price: '',
-  courseType: '',
-  level: '',
-  file:undefined,
-  description: ''
-
-}
 
 
-const CourseAdd = () => {
+const CourseAdd = (props) => {
+  const initialValues = {
+    ...props.course
+  
+  }
     const levels = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6', 'Level 7'];
     const courseTypes = ['Instrument', 'Solfege'];
     const navigate = useNavigate();
@@ -30,15 +22,7 @@ const CourseAdd = () => {
           Object.keys(values).forEach((key) => formData.append(key, values[key]));
           await addCourse(formData);
           navigate("/admin/courses")
-          toast.success('Course added successfully!',
-          {
-            style:{
-              width:'500px',
-              height:'50px'
-            },
-            duration: 2000
-          }
-          )
+
         } catch (error) {
           console.error('Error adding course:', error);
         }
@@ -50,7 +34,7 @@ const CourseAdd = () => {
 <div className="ml-4 mt-2 col-11">
   <div className="card mb-4">
     <div className="card-header d-flex justify-content-between align-items-center">
-      <h5 className="mb-0"><i className="menu-icon fas fa-book" />Add a course</h5>
+      <h5 className="mb-0"><i className="menu-icon fas fa-book" />Course</h5>
     </div>
     <div className="card-body">
       <form onSubmit={handleSubmit}>
@@ -65,9 +49,9 @@ const CourseAdd = () => {
           <label className="form-label" htmlFor="basic-icon-default-email">Hourly based price</label>
           <div className="input-group input-group-merge">
             <span className="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
-            <input type="text" name='price' value={values.price} onBlur={handleBlur} onChange={handleChange} id="basic-icon-default-email" className={errors.price && touched.price ? "form-control is-invalid" : "form-control"} placeholder="20$" />
+            <input type="text" name='hourly_based_price' value={values.hourly_based_price} onBlur={handleBlur} onChange={handleChange} id="basic-icon-default-email" className={errors.hourly_based_price && touched.hourly_based_price ? "form-control is-invalid" : "form-control"} placeholder="20 TND" />
           </div>
-          {errors.price && touched.price && <p className='alert alert-danger text-dark fw-bold'>{errors.price}</p>}
+          {errors.hourly_based_price && touched.hourly_based_price && <p className='alert alert-danger text-dark fw-bold'>{errors.hourly_based_price}</p>}
           {/*<div className="form-text"> You can use letters, numbers &amp; periods </div>*/}
 
         </div>

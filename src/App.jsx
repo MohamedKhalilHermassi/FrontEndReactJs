@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, lazy } from 'react'
 //import './App.css'
 import LandingPage from './components/landingPage'
 import {  Routes, Route } from 'react-router-dom'
@@ -7,14 +7,12 @@ import AdminLandingPage from './components/backOffice/adminLandingPage'
 import Acceuil from './components/acceuil'
 import Login from './components/login'
 import CourseAdd from './components/backOffice/course/courseAdd'
-import { NavBar } from './components/navbar'
 import CourseList from './components/backOffice/course/courseList'
 import { Toaster } from 'react-hot-toast'
 
 const Events = lazy(()=> import("./components/events"));
 const Courses = lazy(()=> import ("./components/courses"));
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
