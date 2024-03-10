@@ -30,10 +30,14 @@ function ProductListBack() {
 
   const handleAccept = async (productId) => {
     try {
+   
       await axios.put(`http://localhost:3000/market/products/${productId}`, {
-      headers: headers,  
-      productAvailability: true });
-      // Update the product's availability in the local state
+        productAvailability: true 
+      }, {
+        headers: headers 
+      });
+
+      
       setProducts(products.map(product => {
         if (product._id === productId) {
           return { ...product, productAvailability: true };
@@ -49,8 +53,9 @@ function ProductListBack() {
     try {
       // Send request to delete the product
       await axios.put(`http://localhost:3000/market/archiveProducts/${productId}`, { 
-      headers: headers,  
-      archived: true });
+     archived: true
+    },{
+      headers: headers });
       
       // Remove the deleted product from the local state
       setProducts(products.filter(product => product._id !== productId));

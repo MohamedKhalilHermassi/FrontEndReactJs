@@ -97,7 +97,17 @@ function AddProductForm() {
         console.log('Waited for 3 seconds');
       }, 3000);
       
-      await axios.post('http://localhost:3000/market/add-product', formDataToSend);
+      const token = localStorage.getItem('userToken');
+
+      // Set headers with the token
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      };
+      
+      axios.post('http://localhost:3000/market/add-product', formDataToSend, {
+        headers: headers
+      });
 
       console.log('Product added successfully');
       setSuccessMessage('Product added successfully');

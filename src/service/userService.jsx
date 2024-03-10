@@ -98,6 +98,7 @@ const userService = {
    logout(){
     localStorage.removeItem('userToken');
     localStorage.removeItem('email');
+    localStorage.removeItem('id');
     
   }
 };

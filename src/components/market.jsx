@@ -59,13 +59,13 @@ function ProductList() {
             user: localStorage.getItem('id'),
             products: productsList,
         });
-        console.log(response.data.message); // Log success message
+        console.log(response.data.message); 
         alert('Your order has been placed successfully!');
 
-        // Clear cart and other relevant state variables
+      
         setCartItems([]);
         setTotalPrice(0);
-        setShowCart(false); // Hide cart dropdown after placing the order
+        setShowCart(false); 
     } catch (error) {
         console.error('Error placing order:', error);
     }
