@@ -16,9 +16,9 @@ const SideBar = () => {
       <ul className="menu-inner py-1">
         {/* Dashboard */}
         <li className="menu-item active">
-          <a href="index.html" className="menu-link">
+          <a  className="menu-link"><Link to="/admin">
             <i className="menu-icon tf-icons bx bx-home-circle" />
-            <div data-i18n="Analytics">Dashboard</div>
+            <div data-i18n="Analytics">Dashboard</div></Link>
           </a>
         </li>
         {/* Layouts */}

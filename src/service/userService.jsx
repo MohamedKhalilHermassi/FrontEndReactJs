@@ -30,6 +30,46 @@ const userService = {
             throw new Error(error.message);
         }
       },
+async Forgetpassword(email){
+  try {
+    const response = await axios.post(`${BASE_URL}/forgetpassword`, { email } );
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+}
+},
+async verifypassword(email,verificationCode,password){
+  try {
+    const response = await axios.post(`${BASE_URL}/verify-forgetpassword`, {email,verificationCode,password} );
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+}
+},
+async verifyuser(email,verificationCode){
+  try {
+    const response = await axios.post(`${BASE_URL}/verify-user`, {email,verificationCode} );
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+}
+},
+async banuser(email) {
+  try {
+    const token = localStorage.getItem('userToken'); 
+    const response = await axios.put(
+      `${BASE_URL}/BanUser/${email}`, 
+      {}, // Corps vide car il n'y a pas de données à envoyer
+      {
+        headers: { Authorization: `Bearer ${token}` }, 
+      }
+    );
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+},
+
 
   // Get all users (requires admin privileges)
   async getAllUsers() {
@@ -70,6 +110,22 @@ const userService = {
       throw new Error(error.message); 
     }
   },
+
+  async addtetcher(user) {
+    try {
+      const token = localStorage.getItem('userToken'); 
+      const response = await axios.post(`${BASE_URL}/addingtetcher`, user, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message); 
+    }
+  }
+,  
 
   // Update user (requires authentication)
   async updateUser(email, updatedUser) {

@@ -1,13 +1,34 @@
 import SideBar from './sideBar'
-import avatar from '../../assets/img/1.png'
-import { jwtDecode } from 'jwt-decode';
-import { useEffect } from 'react';
-
+import { Link, useNavigate } from 'react-router-dom';
+import UserService from '../../service/userService';
+import React, { useState,useEffect } from 'react';
 const NavBar = () => {
-
-
-
+  const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem('userToken');
+   
+  }, []);
   
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = await UserService.getUser(localStorage.getItem('email'));
+        user.image = user.image.replace(/\\/g, '/'); 
+        setUserData(user);
+       
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  const handleLogOutClick =  () => {
+     UserService.logout();
+     window.location.href = '/';
+   
+  };
   return (
     <>
                 {/* Navbar */}
@@ -20,19 +41,18 @@ const NavBar = () => {
           
           <div className="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             {/* Search */}
-            <div className="navbar-nav align-items-center">
-              <div className="nav-item d-flex align-items-center">
-                <i className="bx bx-search fs-4 lh-0" />
-                <input type="text" className="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..." />
-              </div>
-            </div>
+           
             {/* /Search */}
             <ul className="navbar-nav flex-row align-items-center ms-auto">
               {/* User */}
               <li className="nav-item navbar-dropdown dropdown-user dropdown">
                 <a className="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                   <div className="avatar avatar-online">
-                    <img src={avatar} alt className="w-px-40 h-auto rounded-circle" />
+                  {userData ? (
+                    <img src={`http://localhost:3000/${userData.image}`} alt="" className="w-px-40 h-auto rounded-circle" />
+                    ) : (
+                      <p>Loading...</p>
+                    )}
                   </div>
                 </a>
                 <ul className="dropdown-menu dropdown-menu-end">
@@ -41,13 +61,21 @@ const NavBar = () => {
                       <div className="d-flex">
                         <div className="flex-shrink-0 me-3">
                           <div className="avatar avatar-online">
-                            <img src={avatar} alt className="w-px-40 h-auto rounded-circle" />
+                          {userData ? (
+                    <img src={`http://localhost:3000/${userData.image}`} alt="" className="w-px-40 h-auto rounded-circle" />
+                    ) : (
+                      <p>Loading...</p>
+                    )}
                           </div>
                         </div>
+                        {userData ? (
                         <div className="flex-grow-1">
-                          <span className="fw-semibold d-block">John Doe</span>
-                          <small className="text-muted">Admin</small>
+                          <span className="fw-semibold d-block">{userData.fullname}</span>
+                          <small className="text-muted">{userData.email}</small>
                         </div>
+                          ) : (
+                            <p>Loading...</p>
+                          )}
                       </div>
                     </a>
                   </li>
@@ -55,34 +83,24 @@ const NavBar = () => {
                     <div className="dropdown-divider" />
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="bx bx-user me-2" />
+                    <a className="dropdown-item" href='#' ><Link to="editadmin">
+                    <i className="bx bx-user me-2" />
                       <span className="align-middle">My Profile</span>
+                    </Link>
+                    
                     </a>
                   </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <i className="bx bx-cog me-2" />
-                      <span className="align-middle">Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      <span className="d-flex align-items-center align-middle">
-                        <i className="flex-shrink-0 bx bx-credit-card me-2" />
-                        <span className="flex-grow-1 align-middle">Billing</span>
-                        <span className="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                      </span>
-                    </a>
-                  </li>
+                 
+                 
                   <li>
                     <div className="dropdown-divider" />
                   </li>
                   <li>
-                    <a className="dropdown-item" href="auth-login-basic.html">
-                      <i className="bx bx-power-off me-2" />
+                    
+                    <button type="button" className="dropdown-item" onClick={handleLogOutClick}>
+                    <i className="bx bx-power-off me-2" />
                       <span className="align-middle">Log Out</span>
-                    </a>
+      </button>
                   </li>
                 </ul>
               </li>

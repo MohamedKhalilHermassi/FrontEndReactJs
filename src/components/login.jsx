@@ -10,6 +10,11 @@ function Login() {
   const handleClick = () => {
     navigate('/');
   };
+  const [pwd, setpwd] = useState('');
+  const [veriff, setveriff] = useState('');
+  const [cpwd, setcpwd] = useState('');
+  const [verif, setverif] = useState('');
+  const [emailll, setEmailll] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -28,10 +33,13 @@ function Login() {
     }
     window.location.href = redirectPath;
     } catch (error) {
-      if(error.message=="Request failed with status code 401"){
+      if(error.message=="Request failed with status code 400"){
         setError("Invalid email or password");
       }else if(error.message=="Request failed with status code 403"){
         setError("Sorry you don't have access");
+      }
+      else if(error.message=="Request failed with status code 401"){
+        $('#veriffModal').modal('show');
       }else{
         setError(error.message);
       }
@@ -40,9 +48,83 @@ function Login() {
       setIsLoading(false); // Reset loading state
     }
   };
-  
+
+  const forget = async (event) => {
+    event.preventDefault();
+    setError(null); // Clear any previous errors
+
+    try {
+      setIsLoading(true);
+      const response = await UserService.Forgetpassword(emailll);
+      if(response){
+        $("[data-dismiss=modal]").trigger({ type: "click" });
+        $('#ResetModal').modal('show');
+      }
+    } catch (error) {
+      console.log(error.message)
+      if(error.message=="Request failed with status code 404"){
+        $("[data-dismiss=modal]").trigger({ type: "click" });
+        $('#errorModal').modal('show');
+      }
+     
+    } finally {
+      setIsLoading(false); // Reset loading state
+    }
+  };
+
+  const reset = async (event) => {
+    event.preventDefault();
+    setError(null); // Clear any previous errors
+
+    try {
+      setIsLoading(true);
+      let isvalid=true;
+      
+      if(pwd!=cpwd){
+        isvalid=false;
+        setError("password does't match");
+      }
+      if(isvalid){
+        const response = await UserService.verifypassword(emailll,verif,pwd);
+        window.location.href ='/signin';
+      }
+      
+    } catch (error) {
+      console.log(error.message)
+      if(error.message=="Request failed with status code 400"){
+        setError("code invalid");
+      }
+      
+     
+    } finally {
+      setIsLoading(false); // Reset loading state
+    }
+  };
+  const veriffyy = async (event) => {
+    event.preventDefault();
+    setError(null); // Clear any previous errors
+
+    try {
+      setIsLoading(true);
+     
+        const response = await UserService.verifyuser(email,veriff);
+        window.location.href ='/signin';
+      
+      
+    } catch (error) {
+      console.log(error.message)
+      if(error.message=="Request failed with status code 400"){
+        setError("code invalid");
+      }
+      
+     
+    } finally {
+      setIsLoading(false); // Reset loading state
+    }
+  };
     return (
       <>
+      
         {/* Section: Design Block */}
         
         <section className="background-radial-gradient overflow-hidden">
@@ -94,25 +176,15 @@ function Login() {
                       </form>
                       <p className="text-center">
                         <span>New on our platform?</span>
-                        <a href="javascript:;">
+                        <a >
                           <Link to="/register"> Create an account</Link>
                         </a>
                       </p>
                       {/* Register buttons */}
                       <div className="text-center">
-                        <p>or sign up with:</p>
-                        <button type="button" className="btn btn-link btn-floating mx-1">
-                          <i className="fab fa-facebook-f" />
-                        </button>
-                        <button type="button" className="btn btn-link btn-floating mx-1">
-                          <i className="fab fa-google" />
-                        </button>
-                        <button type="button" className="btn btn-link btn-floating mx-1">
-                          <i className="fab fa-twitter" />
-                        </button>
-                        <button type="button" className="btn btn-link btn-floating mx-1">
-                          <i className="fab fa-github" />
-                        </button>
+                      <button type="button" className="btn"  style={{ backgroundColor: 'transparent' }} data-toggle="modal" data-target="#exampleModal">
+                      Forgot password ?
+</button>
                       </div>
                       <div className="d-flex justify-content-center align-items-center">
                         <button onClick={handleClick} type="button" className="btn rounded-pill btn-icon btn-outline-primary">
@@ -128,6 +200,110 @@ function Login() {
             </div>
           </div>
         </section>
+      
+        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Please provide your email</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form onSubmit={forget}>
+        <div className="modal-body text-center">
+          <div className="form-outline mb-4">
+            <label className="form-label" htmlFor="form4Example4">Email address</label>
+            <input type="email" id="form4Example4" className="form-control" value={emailll} onChange={(event) => setEmailll(event.target.value)}/>
+          </div>
+        </div>
+        <div className="modal-footer text-center">
+          <button type="submit" className="btn btn-primary"> {isLoading ? "loading..." : "Ok"}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div className="modal fade" id="errorModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Sorry, something went wrong. Please verify your email account.</h5>
+        <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body text-center">
+      <i className="fas fa-exclamation-circle fa-3x text-danger animate__animated animate__shakeX"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div className="modal fade" id="ResetModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Reset password</h5>
+        <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form onSubmit={reset}>
+      <div className="modal-body text-center">
+      <div className="form-outline mb-4">
+        
+      <label className="form-label" htmlFor="form5Example5">Code Verification</label>
+                          <input type="text" id="form5Example5" className="form-control"  value={verif} onChange={(event) => setverif(event.target.value)} />
+      <label className="form-label" htmlFor="form5Example6">New Password</label>
+                          <input type="password" id="form5Example6" className="form-control"  value={pwd} onChange={(event) => setpwd(event.target.value)} />
+                         
+                        
+                        <label className="form-label" htmlFor="form5Example7">Confirm Password</label>
+                        
+                          <input type="password" id="form5Example7" className="form-control"  value={cpwd} onChange={(event) => setcpwd(event.target.value)} />
+                        
+                        
+                        <button type="submit" className="btn btn-primary"> {isLoading ? "loading..." : "Ok"}</button>
+                        <p className="text-center text-danger">
+                        <span>{error}</span>
+                       
+                      </p>
+      </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div className="modal fade" id="veriffModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Verification Code</h5>
+        <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form onSubmit={veriffyy}>
+      <div className="modal-body text-center">
+      <div className="form-outline mb-4">
+        
+      <label className="form-label" htmlFor="form5Example5">Code Verification</label>
+                          <input type="text" id="form5Example5" className="form-control"  value={veriff} onChange={(event) => setveriff(event.target.value)} />
+                        <button type="submit" className="btn btn-primary"> {isLoading ? "loading..." : "Ok"}</button>
+                        <p className="text-center text-danger">
+                        <span>{error}</span>
+                       
+                      </p>
+      </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
         {/* Section: Design Block */}
       </>
     )
