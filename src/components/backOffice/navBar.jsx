@@ -1,7 +1,13 @@
 import SideBar from './sideBar'
 import avatar from '../../assets/img/1.png'
+import { jwtDecode } from 'jwt-decode';
+import { useEffect } from 'react';
 
 const NavBar = () => {
+
+
+
+  
   return (
     <>
                 {/* Navbar */}

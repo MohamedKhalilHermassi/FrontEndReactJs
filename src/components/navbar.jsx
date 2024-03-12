@@ -1,15 +1,19 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UserService from '../service/userService';
+import { jwtDecode } from 'jwt-decode';
 
 export const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     if (token) {
       setIsLoggedIn(true);
+      const decodedToken = jwtDecode(token);
+      setUserRole(decodedToken.role);
     }
   }, []);
 
@@ -45,21 +49,13 @@ export const NavBar = () => {
             </div>
           </div>
           <ul className="navbar-nav mx-auto">
-            {isLoggedIn && (
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  My Profile
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link to="/profil" className="dropdown-item">My Profile</Link>
-                  <Link to="/myproducts" className="dropdown-item">My Products</Link>
-                </div>
-              </li>
+            {isLoggedIn && userRole === 'teacher' && ( // Check userRole here
+              <li className="nav-item"><a className="nav-link" ><Link to="/add-session">Add Session</Link></a></li>
             )}
             <li className="nav-item"><a className="nav-link" ><Link to="/">Home</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/courses">Courses</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/events">Events</Link></a></li>
-            <li className="nav-item"><a className="nav-link" ><Link to="/">Schedule</Link></a></li>
+            <li className="nav-item"><a className="nav-link" ><Link to="/schedule">Schedule</Link></a></li>
             <li className="nav-item"><a className="nav-link" href="javascript:;"><Link to="/marketplace">Marketplace</Link></a></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">

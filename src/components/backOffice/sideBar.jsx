@@ -1,4 +1,3 @@
-import React from 'react'
 import {Link} from 'react-router-dom'
 import kindyLogo from '../../assets/img/logo.png'
 const SideBar = () => {
@@ -89,6 +88,36 @@ const SideBar = () => {
 
           </ul>
         </li>
+        <li className="menu-item">
+          <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#sessions" aria-expanded="false" aria-controls="orders">
+            <i className="menu-icon fa-solid fa-cart-shopping" />
+            <div data-i18n="Layouts">Sessions</div>
+          </a>
+          <ul id="sessions" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li className="sidebar-item">
+            <Link className="sidebar-link menu-link" to="/admin/addsession"><i className="menu-icon fas fa-plus" />Create Session</Link>
+
+            </li>
+            <li className="sidebar-item">
+            <Link className="sidebar-link menu-link" to="/admin/listsession"><i className="menu-icon fas fa-plus" />Sessions</Link>
+
+            </li>
+            <li className="sidebar-item">
+            <Link className="sidebar-link menu-link" to="/admin/listsession2"><i className="menu-icon fas fa-plus" />Sessions</Link>
+
+            </li>
+            <li className="sidebar-item">
+            <Link className="sidebar-link menu-link" to="/admin/listS"><i className="menu-icon fas fa-plus" />ListS</Link>
+
+            </li>
+            <li className="sidebar-item">
+            <Link className="sidebar-link menu-link" to="/admin/ListDrag"><i className="menu-icon fas fa-plus" />ListDrag</Link>
+
+            </li>
+
+
+          </ul>
+        </li>
       </ul>
       {/* / Menu */}
     </>
@@ -96,3 +125,7 @@ const SideBar = () => {
 }
 
 export default SideBar
+
+
+
+
