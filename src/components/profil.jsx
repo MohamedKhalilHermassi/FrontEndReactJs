@@ -121,7 +121,7 @@ if(image!=''){
                   <div className="row">
                     <div className="col">
                       <p className="mb-1">Address:</p>
-                      <p className="text-muted">{userData.adress}</p>
+                      <p className="text-muted">{userData.address}</p>
                     </div>
                     <div className="col">
                       <p className="mb-1">Phone:</p>

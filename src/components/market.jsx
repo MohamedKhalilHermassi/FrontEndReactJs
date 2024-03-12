@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -8,7 +8,10 @@ function ProductList() {
   const [totalItems, setTotalItems] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [showCart, setShowCart] = useState(false); // State to manage cart dropdown visibility
+  const [showCart, setShowCart] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
+  const [priceRangeValue, setPriceRangeValue] = useState({ min: 0, max: 1000 }); // State to store current slider values
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -39,8 +42,7 @@ function ProductList() {
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
       setTotalPrice(totalPrice + product.productPrice);
-      setTotalItems(cartItems.reduce((total, item) => total + item.quantity, 0) + 1); // Update total items count
-
+      setTotalItems(cartItems.reduce((total, item) => total + item.quantity, 0) + 1);
     }
   };
 
@@ -48,38 +50,75 @@ function ProductList() {
     setShowCart(!showCart);
   };
 
-  const filteredProducts = products.filter(product => product.productAvailability === true && !product.archived);
-  
+  const filteredProducts = products.filter(product =>
+    product.productAvailability === true &&
+    !product.archived &&
+    product.productName.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    product.productPrice >= priceRange.min &&
+    product.productPrice <= priceRange.max
+  );
+
   const handleOrder = async () => {
     try {
-        const productsList = cartItems.flatMap(item => Array.from({ length: item.quantity }, () => item._id));
-        
-        const response = await axios.post('http://localhost:3000/orders/add-order', {
-            totalPrice: totalPrice,
-            user: localStorage.getItem('id'),
-            products: productsList,
-        });
-        console.log(response.data.message); 
-        alert('Your order has been placed successfully!');
-
+      const productsList = cartItems.flatMap(item => Array.from({ length: item.quantity }, () => item._id));
       
-        setCartItems([]);
-        setTotalPrice(0);
-        setShowCart(false); 
-    } catch (error) {
-        console.error('Error placing order:', error);
-    }
-};
+      const response = await axios.post('http://localhost:3000/orders/add-order', {
+          totalPrice: totalPrice,
+          user: localStorage.getItem('id'),
+          products: productsList,
+      });
+      console.log(response.data.message); 
+      alert('Your order has been placed successfully!');
 
+      setCartItems([]);
+      setTotalPrice(0);
+      setShowCart(false); 
+    } catch (error) {
+      console.error('Error placing order:', error);
+    }
+  };
 
   return (
-    <> <br />
-    <br />
-    <br />
-
+    <> 
       <div className="container py-4">
-      <button className='btn btn-success my-1 mx-5' onClick={handleClick}>Become a seller</button>
-
+        <button 
+          className='btn btn-secondary rounded-pill px-4 py-2 mx-auto d-block' 
+          onClick={handleClick}
+          style={{ maxWidth: '200px' }}
+        >
+          Become a Seller
+        </button>
+        <br />
+        <div className="input-group mb-3">
+          <span className="input-group-text"><i className="bi bi-search"></i></span>
+          <input 
+            type="text" 
+            className="form-control" 
+            placeholder="Search products..." 
+            value={searchTerm} 
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="priceRange" className="form-label">Price Range</label>
+          <input 
+            type="range" 
+            className="form-range" 
+            id="priceRange" 
+            min="0" 
+            max="1000" 
+            value={priceRangeValue.max} // Use priceRangeValue to display slider value
+            onChange={(e) => {
+              setPriceRangeValue({ ...priceRangeValue, max: parseInt(e.target.value) });
+              setPriceRange({ ...priceRange, max: parseInt(e.target.value) });
+            }}
+          />
+          <div className="d-flex justify-content-between">
+            <span>{priceRange.min} TND</span>
+            <span>{priceRangeValue.max} TND</span> {/* Display slider value */}
+            <span>1000 TND</span>
+          </div>
+        </div>
         <h2 className="mb-4">Featured Products</h2>
         <div className="row row-cols-1 row-cols-md-4 g-4">
           {filteredProducts.map(product => (
@@ -99,12 +138,10 @@ function ProductList() {
           ))}
         </div>
       </div>
-      {/* Floating cart icon */}
       <div style={floatingCartStyle} onClick={toggleCart}>
         <FaShoppingCart />
         <span style={cartCountStyle}>{cartItems.reduce((total, item) => total + item.quantity, 0)}</span>
       </div>
-      {/* Cart dropdown */}
       {showCart && (
         <div style={cartDropdownStyle}>
           <h4>Shopping Cart</h4>
@@ -121,8 +158,7 @@ function ProductList() {
             </ul>
           </div>
           <p>Total Price: {totalPrice} TND</p>
-          <button className="btn btn-primary" onClick={handleOrder}>Order</button> {/* Order button */}
-
+          <button className="btn btn-primary" onClick={handleOrder}>Order</button>
         </div>
       )}
     </>
@@ -131,7 +167,6 @@ function ProductList() {
 
 export default ProductList;
 
-// CSS styles
 const floatingCartStyle = {
   position: 'fixed',
   bottom: '20px',
@@ -165,11 +200,11 @@ const cartDropdownStyle = {
   border: '1px solid #ccc',
   borderRadius: '5px',
   padding: '10px',
-  maxHeight: '300px', // Set maximum height for cart dropdown
-  overflowY: 'auto', // Enable vertical scrolling
+  maxHeight: '300px',
+  overflowY: 'auto',
 };
 
 const cartListStyle = {
-  maxHeight: '240px', // Set maximum height for the list of products
-  overflowY: 'auto', // Enable vertical scrolling within the list
+  maxHeight: '240px',
+  overflowY: 'auto',
 };

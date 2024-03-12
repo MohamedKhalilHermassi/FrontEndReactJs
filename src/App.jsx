@@ -16,6 +16,7 @@ import OrdersList from './components/backOffice/orders'
 import CourseAdd from './components/backOffice/course/courseAdd'
 import CourseList from './components/backOffice/course/courseList'
 import { Toaster } from 'react-hot-toast'
+import MyProducts from './components/myproducts'
 
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
@@ -34,6 +35,7 @@ function App() {
         <Route path = "market" element={<AddProductForm/>}></Route>
         <Route path = "marketplace" element={<ProductList/>}></Route>
         <Route path = "Profil" element={<Profil/>}></Route>
+        <Route path = "myproducts" element={<MyProducts/>}></Route>
         </Route>
         <Route path="admin" element={<Dashboard/>}>
           <Route path='' element={<AdminLandingPage/>}/>
