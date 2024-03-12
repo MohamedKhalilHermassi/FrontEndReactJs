@@ -12,6 +12,7 @@ function register() {
     const [adress, setadress] = useState('');
     const [password, setPassword] = useState('');
     const [image, setimage] = useState('');
+    const [verif, setverif] = useState('');
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const validateName = (name) => {
@@ -103,8 +104,7 @@ function register() {
   formData.append('birthday', birthday);
   formData.append('image', image);
             const newuser = await UserService.register(formData);
-            console.log(newuser)
-              window.location.href = '/signin';
+            $('#veriffModal').modal('show');
          } catch (error) {
             if(error.message=="Request failed with status code 302"){
               setError("email exist");
@@ -118,9 +118,31 @@ function register() {
             setIsLoading(false); 
          }
       }
-
     
   };
+  const veriffyy = async (event) => {
+    event.preventDefault();
+    setError(null); // Clear any previous errors
+
+    try {
+      setIsLoading(true);
+     
+        const response = await UserService.verifyuser(email,verif);
+        window.location.href ='/signin';
+      
+      
+    } catch (error) {
+      console.log(error.message)
+      if(error.message=="Request failed with status code 400"){
+        setError("code invalid");
+      }
+      
+     
+    } finally {
+      setIsLoading(false); // Reset loading state
+    }
+  };
+
     return (
       <>
         {/* Section: Design Block */}
@@ -234,6 +256,32 @@ function register() {
             </div>
           </div>
         </section>
+        <div className="modal fade" id="veriffModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Verification Code</h5>
+        <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form onSubmit={veriffyy}>
+      <div className="modal-body text-center">
+      <div className="form-outline mb-4">
+        
+      <label className="form-label" htmlFor="form5Example5">Code Verification</label>
+                          <input type="text" id="form5Example5" className="form-control"  value={verif} onChange={(event) => setverif(event.target.value)} />
+                        <button type="submit" className="btn btn-primary"> {isLoading ? "loading..." : "Ok"}</button>
+                        <p className="text-center text-danger">
+                        <span>{error}</span>
+                       
+                      </p>
+      </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
         {/* Section: Design Block */}
       </>
     )

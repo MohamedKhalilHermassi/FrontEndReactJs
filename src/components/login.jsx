@@ -11,6 +11,7 @@ function Login() {
     navigate('/');
   };
   const [pwd, setpwd] = useState('');
+  const [veriff, setveriff] = useState('');
   const [cpwd, setcpwd] = useState('');
   const [verif, setverif] = useState('');
   const [emailll, setEmailll] = useState('');
@@ -38,7 +39,7 @@ function Login() {
         setError("Sorry you don't have access");
       }
       else if(error.message=="Request failed with status code 401"){
-        setError("Please verify your account");
+        $('#veriffModal').modal('show');
       }else{
         setError(error.message);
       }
@@ -99,7 +100,28 @@ function Login() {
       setIsLoading(false); // Reset loading state
     }
   };
-  
+  const veriffyy = async (event) => {
+    event.preventDefault();
+    setError(null); // Clear any previous errors
+
+    try {
+      setIsLoading(true);
+     
+        const response = await UserService.verifyuser(email,veriff);
+        window.location.href ='/signin';
+      
+      
+    } catch (error) {
+      console.log(error.message)
+      if(error.message=="Request failed with status code 400"){
+        setError("code invalid");
+      }
+      
+     
+    } finally {
+      setIsLoading(false); // Reset loading state
+    }
+  };
     return (
       <>
       
@@ -255,7 +277,32 @@ function Login() {
   </div>
 </div>
 
-
+<div className="modal fade" id="veriffModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Verification Code</h5>
+        <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form onSubmit={veriffyy}>
+      <div className="modal-body text-center">
+      <div className="form-outline mb-4">
+        
+      <label className="form-label" htmlFor="form5Example5">Code Verification</label>
+                          <input type="text" id="form5Example5" className="form-control"  value={veriff} onChange={(event) => setveriff(event.target.value)} />
+                        <button type="submit" className="btn btn-primary"> {isLoading ? "loading..." : "Ok"}</button>
+                        <p className="text-center text-danger">
+                        <span>{error}</span>
+                       
+                      </p>
+      </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
         {/* Section: Design Block */}
       </>

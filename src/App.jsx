@@ -21,6 +21,7 @@ const Courses = lazy(()=> import ("./components/courses"));
 function App() {
   const navigate = useNavigate();
   const excludedRoutes = ["/signin", "/register","/events","/courses","/market"];
+  const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin"];
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     if (!excludedRoutes.includes(window.location.pathname) && AuthService.isTokenExpired(token)) {
@@ -28,11 +29,14 @@ function App() {
       navigate('/');
     }
   }, [navigate]);
-
-  const hasPermission = (requiredRole) => {
+  useEffect(() => {
     const token = localStorage.getItem('userToken');
-    return AuthService.hasPermission(token, requiredRole);
-  };
+    if (adminRoutes.includes(window.location.pathname) && !AuthService.hasPermission(token,"admin")) {
+      navigate('/');
+    }
+  }, [navigate]);
+
+  
 
   return (
     <Routes>
@@ -46,14 +50,14 @@ function App() {
       </Route>
 
       {/* Section d'administration */}
-      {hasPermission('admin') ? (
+    
         <Route path="admin" element={<Dashboard />}>
           <Route path="" element={<AdminLandingPage />} />
           <Route path="products" element={<ProductListBack />} />
           <Route path="user" element={<Users />} />
           <Route path="editadmin" element={<Editadmin />} />
         </Route>
-      ) : null}
+    
 
       {/* Routes signin et register */}
       <Route path="signin" element={<Login />} />
