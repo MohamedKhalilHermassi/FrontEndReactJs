@@ -1,0 +1,37 @@
+/* customCalendar.css */
+
+/* Style the overall appearance of the calendar */
+.custom-calendar {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Style the header containing month and year */
+  .react-calendar__navigation {
+    background-color: #c28502; /* Change header background color */
+    color: white; /* Change header text color */
+  }
+  
+  /* Style the previous and next month buttons */
+  .react-calendar__navigation button {
+    color: white; /* Change button text color */
+  }
+  
+  /* Style the weekdays row */
+  .react-calendar__month-view__weekdays {
+    background-color: #ddd; /* Change weekdays background color */
+  }
+  
+  /* Style the individual days */
+  .react-calendar__month-view__days__day {
+    color: #333; /* Change day text color */
+  }
+  
+  /* Style the selected day */
+  .react-calendar__tile--active {
+    background-color: #c28502; /* Change selected day background color */
+    color: white; /* Change selected day text color */
+  }
+  

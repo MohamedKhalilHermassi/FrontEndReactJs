@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom';
 const SideBar = () => {
   return (
     <>
@@ -41,6 +41,13 @@ const SideBar = () => {
           </li>
           <li className="menu-header small text-uppercase">
             <span className="menu-header-text">Pages</span>
+          
+            <Link to="/admin/addsession" className="sidebar-link menu-link">Create Session</Link>
+            <Link to="/admin/listsession" className="sidebar-link menu-link">Sessions</Link>
+            <Link to="/admin/listsession2" className="sidebar-link menu-link">Sessions</Link>
+            <Link to="/admin/listS" className="sidebar-link menu-link">ListS</Link>
+            <Link to="/admin/ListDrag" className="sidebar-link menu-link">ListDrag</Link>
+                
           </li>
         </ul>
       {/* / Menu */}
