@@ -8,6 +8,7 @@ const CourseList = () => {
 
     useEffect(() => {
         fetchData();
+        console.log(courses);
     },[])
 
     const fetchData = async () => {
@@ -41,7 +42,7 @@ const CourseList = () => {
 <div className="row">
     {courses.map((course, index) =>(
   <div className="col-md-4 mt-3">
-    <div key={index} className="card p-3 mb-2">
+    <div key={index} className="card p-3 mb-2 w-100 h-100">
       <div className="d-flex justify-content-between">
 <div className="view view-cascade overlay">
   <img className="card-img-top" src={`http://localhost:3000/images/${course.image}`} alt="Card image cap" />

@@ -1,22 +1,38 @@
 import { useEffect, useState } from "react";
-import { fetchCourses } from "../service/courseService";
+import { enrollement, fetchCourses } from "../service/courseService";
+import { jwtDecode } from "jwt-decode";
 
 function Courses()
 {
   const [courses, setCourses] = useState([]);
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
       fetchData();
+      const token = localStorage.getItem('userToken');
+      const decodedToken = jwtDecode(token);
+      console.log(decodedToken.id);
+      setUserId(decodedToken.id);
   },[])
+
+  useEffect(() => {
+  }, [courses]);
 
   const fetchData = async () => {
     try {
         const coursesData = await fetchCourses();
         setCourses(coursesData);
+        console.log(courses[0].teacher.fullname);
     } catch (error) {
         console.error(error.message);
     }
 };
+
+  const enroll = async (courseId) =>{
+    const userId = jwtDecode(localStorage.getItem('userToken')).id;
+    await enrollement(courseId,userId);
+    fetchData();
+  }
 
     return (
         <>
@@ -39,8 +55,8 @@ function Courses()
             <div className="card-header">
               <div className="card-image">
                 <div className="dropdown">
-                  <button className="btn btn-link dropdown-toggle btn-icon-only" type="button" data-toggle="dropdown" aria-expanded="false"><i className="ni ni-settings-gear-65" /></button>
-                  <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end"><a className="dropdown-item" href="javascript:;">Edit Profile</a><a className="dropdown-item" href="javascript:;">Settings</a><a className="dropdown-item" href="javascript:;">Log out</a></div>
+                  <button className="btn btn-link dropdown-toggle btn-icon-only" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-chalkboard-user"></i></button>
+                  <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end"><a className="dropdown-item" href="javascript:;">Instructed by {course.teacher.fullname}</a></div>
                 </div>
                 <a href="javascript:;">
                   <img className="img rounded" src="https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg?cs=srgb&dl=pexels-north-1407322.jpg&fm=jpg" />
@@ -73,9 +89,17 @@ function Courses()
                       </div>
                     </div>
                   </li>
-                  <button type="button" class="btn btn-primary w-px-350 mt-4 ml-4">
-                    <span><i class="fa-solid fa-feather"></i></span> Enroll
-                  </button>
+                  {
+                    !course.students.includes(userId) ? (
+                      <button type="button" className="btn btn-primary w-px-350 mt-4 ml-4" onClick={() => enroll(course._id)}>
+                        <span><i className="fa-solid fa-feather"></i></span> Enroll
+                      </button>
+                    ) : (
+                      <button type="button" className="btn btn-primary w-px-350 mt-4 ml-4" disabled = {true}>
+                        <span><i className="fa-solid fa-feather"></i></span> Enrolled
+                      </button>
+                    )
+                  }
                 </ul>
               </div>
             </div>

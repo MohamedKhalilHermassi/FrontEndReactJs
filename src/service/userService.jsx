@@ -83,7 +83,15 @@ async banuser(email) {
       throw new Error('Failed to retrieve users.'); 
     }
   },
-
+  //get teachers
+  async getTeachers() {
+    try {
+      const response = await axios.get(`${BASE_URL}/teachers`);
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to retrieve users.'); 
+    }
+  },
   // Get one user by email
   async getUser(email) {
     try {

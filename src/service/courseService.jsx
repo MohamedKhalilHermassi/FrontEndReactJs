@@ -61,3 +61,21 @@ export async function addCourse(course){
         throw new Error(`Error adding course: ${error.message}`);
     }
 }
+
+export async function enrollement(courseId, studentId) {
+    try {
+        const response = await axios.put(`${endPoint}enroll/${courseId}/${studentId}`);
+        toast.success('Enrolled successfully!',
+        {
+          style:{
+            width:'500px',
+            height:'50px'
+          },
+          duration: 2000
+        }
+        )
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching courses: ${error.message}`);
+    }
+}

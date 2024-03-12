@@ -19,7 +19,6 @@ function CourseDetails(props) {
   const fetchCourse = async (id) => {
     try {
         const courseData = await fetchCourseById(id);
-        console.log(courseData);
         setCourse(courseData);
     } catch (error) {
         console.error(error.message);
