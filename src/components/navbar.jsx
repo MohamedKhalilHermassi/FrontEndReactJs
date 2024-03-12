@@ -49,6 +49,17 @@ export const NavBar = () => {
             </div>
           </div>
           <ul className="navbar-nav mx-auto">
+            {isLoggedIn && (
+                <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    My Profile
+                  </a>
+                  <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <Link to="/profil" className="dropdown-item">My Profile</Link>
+                    <Link to="/myproducts" className="dropdown-item">My Products</Link>
+                  </div>
+                </li>
+            )}
             {isLoggedIn && userRole === 'teacher' && ( // Check userRole here
               <li className="nav-item"><a className="nav-link" ><Link to="/add-session">Add Session</Link></a></li>
             )}
