@@ -1,11 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
 import { courseValidator } from '../../Validators/CourseValidator';
 import { addCourse } from '../../../service/courseService';
+import userService from '../../../service/userService';
 
 
 const CourseAdd = (props) => {
+  const [hidden, setHidden] = useState(true);
+  const [teachers, setTeachers] = useState([]);
+  useEffect(() => {
+    fetchTeachers();
+    console.log(teachers);
+    if(props.course){
+      if(props.course._id){
+    setHidden(false);
+      }
+    }
+  }, [])
+
+const fetchTeachers = async () => {
+  try {
+      const teachersData = await userService.getTeachers();
+      console.log(teachersData);
+      setTeachers(teachersData);
+  } catch (error) {
+      console.error(error.message);
+  }
+};
+
   const initialValues = {
     ...props.course
   
@@ -81,11 +104,37 @@ const CourseAdd = (props) => {
           </div>
           {errors.level && touched.level && <p className='alert alert-danger text-dark fw-bold'>{errors.level}</p>}
         </div>
+        {hidden &&
         <div className="mb-3">
         <label className="form-label" htmlFor="basic-icon-default-email">File</label>
         <input class="form-control form-control-lg" id="formFileLg" type="file" name='file' onBlur={handleBlur} onChange={(event) => setFieldValue('file', event.target.files[0])} ></input>
         {errors.file && <p className='alert alert-danger text-dark fw-bold'>{errors.file}</p>}
         </div>
+        }
+
+<div className="mb-3">
+  <label className="form-label" htmlFor="basic-icon-default-phone">Teacher</label>
+  <div className="input-group input-group-merge">
+    <span id="basic-icon-default-phone2" className="input-group-text"><i class="fa-solid fa-chalkboard-user"></i></span>
+    <select
+      id="select2Basic"
+      name='teacher'
+      value={values.teacher}
+      onBlur={handleBlur}
+      onChange={handleChange}
+      className={errors.teacher && touched.teacher ? "select2 form-select form-select-lg is-invalid" : "select2 form-select form-select-lg"}
+      data-allow-clear="true"
+    >
+      <option value="">Select a Teacher</option>
+      {teachers.map((teacher) => (
+        <option key={teacher._id} value={teacher._id}>{teacher.fullname}</option>
+      ))}
+    </select>
+  </div>
+  {errors.teacher && touched.teacher && <p className='alert alert-danger text-dark fw-bold'>{errors.teacher}</p>}
+</div>
+
+
         <div className="mb-3">
           <label className="form-label" htmlFor="basic-icon-default-message">Description</label>
           <div className="input-group input-group-merge">
