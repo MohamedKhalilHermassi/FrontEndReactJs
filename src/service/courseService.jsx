@@ -79,3 +79,21 @@ export async function enrollement(courseId, studentId) {
         throw new Error(`Error fetching courses: ${error.message}`);
     }
 }
+
+export async function fetchCourseByStudentId(studentId){
+    try {
+        const response = await axios.get(`${endPoint}/coursesByStudent/${studentId}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching courses: ${error.message}`);
+    }
+}
+
+export async function fetchCourseByTeacherId(teacherId){
+    try {
+        const response = await axios.get(`${endPoint}/coursesByTeacher/${teacherId}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error fetching courses: ${error.message}`);
+    }
+}

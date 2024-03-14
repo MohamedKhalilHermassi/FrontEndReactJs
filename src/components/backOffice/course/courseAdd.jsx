@@ -22,7 +22,6 @@ const CourseAdd = (props) => {
 const fetchTeachers = async () => {
   try {
       const teachersData = await userService.getTeachers();
-      console.log(teachersData);
       setTeachers(teachersData);
   } catch (error) {
       console.error(error.message);
@@ -72,7 +71,7 @@ const fetchTeachers = async () => {
           <label className="form-label" htmlFor="basic-icon-default-email">Hourly based price</label>
           <div className="input-group input-group-merge">
             <span className="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
-            <input type="text" name='hourly_based_price' value={values.hourly_based_price} onBlur={handleBlur} onChange={handleChange} id="basic-icon-default-email" className={errors.hourly_based_price && touched.hourly_based_price ? "form-control is-invalid" : "form-control"} placeholder="20 TND" />
+            <input type="number" name='hourly_based_price' min={1} value={values.hourly_based_price} onBlur={handleBlur} onChange={handleChange} id="basic-icon-default-email" className={errors.hourly_based_price && touched.hourly_based_price ? "form-control is-invalid" : "form-control"} placeholder="20 TND" />
           </div>
           {errors.hourly_based_price && touched.hourly_based_price && <p className='alert alert-danger text-dark fw-bold'>{errors.hourly_based_price}</p>}
           {/*<div className="form-text"> You can use letters, numbers &amp; periods </div>*/}
