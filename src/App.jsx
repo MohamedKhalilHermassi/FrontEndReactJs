@@ -26,7 +26,7 @@ import SessionEdit from './components/backOffice/Session/SessionEdit'
 import ListS from './components/backOffice/Session/ListS'
 import Schedul from './components/schedul'
 import SessionDrag from './components/backOffice/Session/SessionDrag'
-
+import Reclamtions from './components/Reclamtions'
 import Editadmin from './components/backOffice/editadmin'
 import AuthService from './service/AuthService';
 const Events = lazy(()=> import("./components/events"));
@@ -35,7 +35,7 @@ const Courses = lazy(()=> import ("./components/courses"));
 function App() {
   const navigate = useNavigate();
   const excludedRoutes = ["/signin", "/register","/events","/courses","/market"];
-  const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin"];
+  const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin","/admin/listS"];
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     if (!excludedRoutes.includes(window.location.pathname) && AuthService.isTokenExpired(token)) {
@@ -71,6 +71,7 @@ function App() {
         <Route path = "myproducts" element={<MyProducts/>}></Route>
         <Route path = "schedule" element={<Schedul/>}></Route>
         <Route path='add-session' element={<SessionAdd/>}></Route>
+        <Route path = "reclamation" element={<Reclamtions/>}></Route>
       </Route>
 
       {/* Section d'administration */}

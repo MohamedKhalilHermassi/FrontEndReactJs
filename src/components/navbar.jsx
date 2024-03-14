@@ -30,7 +30,7 @@ export const NavBar = () => {
     <nav className="navbar navbar-expand-lg bg-white navbar-absolute">
       <div className="container">
         <div className="navbar-translate">
-          <a className="navbar-brand" ><Link to="/"><img src="images/Untitled-1.png" alt="" width={100} /></Link></a>
+        <img src="images/Untitled-1.png" alt="Elkindy" width={150} />
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-header-2" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>
@@ -57,6 +57,7 @@ export const NavBar = () => {
                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                     <Link to="/profil" className="dropdown-item">My Profile</Link>
                     <Link to="/myproducts" className="dropdown-item">My Products</Link>
+                    <Link to="/reclamation" className="dropdown-item">My Reclamtions</Link>
                   </div>
                 </li>
             )}
