@@ -123,7 +123,7 @@ const AdminLandingPage = () => {
   formData.append('fullname', Firstname + ' ' + Lastname);
   formData.append('email', email);
   formData.append('password', password);
-  formData.append('adress', adress);
+  formData.append('address', adress);
   formData.append('phone', phone);
   formData.append('birthday', birthday);
   formData.append('image', image);

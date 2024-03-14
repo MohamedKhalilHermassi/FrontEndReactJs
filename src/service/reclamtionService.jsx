@@ -17,9 +17,10 @@ const reclamtionService ={
       async GetReclamationsForUser(email) {
         try {
           const token = localStorage.getItem('userToken'); 
-          await axios.get(`${BASE_URL}/Allreclamtions/${email}`, {
+          const response = await axios.get(`${BASE_URL}/Allreclamtions/${email}`, {
             headers: { Authorization: `Bearer ${token}` }, 
           });
+          return response.data;
         } catch (error) {
           throw new Error(error.message); 
         }
