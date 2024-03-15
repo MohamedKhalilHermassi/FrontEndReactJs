@@ -61,9 +61,7 @@ export const NavBar = () => {
                   </div>
                 </li>
             )}
-            {isLoggedIn && userRole === 'teacher' && ( // Check userRole here
-              <li className="nav-item"><a className="nav-link" ><Link to="/add-session">Add Session</Link></a></li>
-            )}
+          
             <li className="nav-item"><a className="nav-link" ><Link to="/">Home</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/courses">Courses</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/events">Events</Link></a></li>

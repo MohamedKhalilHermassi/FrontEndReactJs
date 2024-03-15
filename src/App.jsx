@@ -76,7 +76,8 @@ function App() {
         <Route path = "myproducts" element={<MyProducts/>}></Route>
         <Route path = "mycourses" element={<MyCourses/>}></Route>
         <Route path = "schedule" element={<Schedul/>}></Route>
-        <Route path='add-session' element={<SessionAdd/>}></Route>
+        <Route path='add-session/:id' element={<SessionAdd />} />
+
       </Route>
 
       {/* Section d'administration */}
