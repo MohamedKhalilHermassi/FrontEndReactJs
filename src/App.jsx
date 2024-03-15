@@ -28,6 +28,7 @@ import Schedul from './components/schedul'
 import SessionDrag from './components/backOffice/Session/SessionDrag'
 import Reclamtions from './components/Reclamtions'
 import Editadmin from './components/backOffice/editadmin'
+import Recla from './components/backOffice/reclamationadmin'
 import AuthService from './service/AuthService';
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
@@ -35,7 +36,7 @@ const Courses = lazy(()=> import ("./components/courses"));
 function App() {
   const navigate = useNavigate();
   const excludedRoutes = ["/signin", "/register","/events","/courses","/market"];
-  const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin","/admin/listS"];
+  const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin","/admin/listS","/admin/reclamaation"];
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     if (!excludedRoutes.includes(window.location.pathname) && AuthService.isTokenExpired(token)) {
@@ -82,6 +83,7 @@ function App() {
           <Route path="user" element={<Users />} />
           <Route path="editadmin" element={<Editadmin />} />
           <Route path="addsession" element={<SessionAdd/>} />
+          <Route path="reclamaation" element={<Recla/>} />
         <Route path="listsession" element={<SessionList/>} />
         <Route path="listsession2" element={<SessionListS/>} />
         <Route path="editSession/:id" element={<SessionEdit/>} />

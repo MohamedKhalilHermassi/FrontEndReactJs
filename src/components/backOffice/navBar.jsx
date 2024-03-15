@@ -2,9 +2,13 @@ import SideBar from './sideBar'
 import { Link, useNavigate } from 'react-router-dom';
 import UserService from '../../service/userService';
 import React, { useState,useEffect } from 'react';
+import socketIOClient from 'socket.io-client';
 const NavBar = () => {
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
+  const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const [notification, setNotification] = useState([]);
+  const [seen, setSeen] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem('userToken');
    
@@ -23,12 +27,37 @@ const NavBar = () => {
     };
 
     fetchData();
-  }, []);
+    const socket = socketIOClient('http://localhost:3000'); 
+    
+    socket.on('Reclamation', (reclamationData) => {
+      setUnreadNotifications(unreadNotifications + 1); 
+      setNotification([reclamationData]); 
+      console.log(notification)
+  });
+
+    
+  return () => {
+    socket.off('Reclamation');
+  };
+}, [unreadNotifications, notification]);
   const handleLogOutClick =  () => {
      UserService.logout();
      window.location.href = '/';
    
   };
+  const handleNotificationClick = () => {
+    if (seen) {
+      // Si les notifications sont déjà vues, réinitialiser les valeurs
+      setNotification(null);
+      setUnreadNotifications(0);
+      setSeen(false);
+    } else {
+      // Si les notifications ne sont pas vues, marquer comme vues
+      setSeen(true);
+    }
+  
+  };
+ 
   return (
     <>
                 {/* Navbar */}
@@ -38,7 +67,30 @@ const NavBar = () => {
               <i className="bx bx-menu bx-sm" />
             </a>
           </div>
-          
+          <div className="dropdown">
+      <button className="btn btn-link" onClick={handleNotificationClick} id="dropdownMenuButtonn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i className="fas fa-bell"></i>
+        { <span className="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">{unreadNotifications}</span>}
+      </button>
+      
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButtonn">
+           {notification ? (
+          <ul >
+         
+           
+              <li className='dropdown-item' >{notification}</li>
+            
+          </ul>
+             ) : (
+              <ul >
+              <li className='dropdown-item'>You have no Notification.</li>
+              </ul>
+                
+          )}
+        </div>
+    
+      
+    </div>
           <div className="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             {/* Search */}
            

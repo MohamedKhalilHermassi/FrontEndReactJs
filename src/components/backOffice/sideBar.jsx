@@ -118,7 +118,15 @@ const SideBar = () => {
 
           </ul>
         </li>
+        
+        <li className="menu-item">
+            <Link className="sidebar-link menu-link" to="/admin/reclamaation">
+            <i className="menu-icon bx bxs-message-square-error" />
+            <div data-i18n="Layouts">Reclamtions</div>
+            </Link>
+        </li>
       </ul>
+      
       {/* / Menu */}
     </>
   )
