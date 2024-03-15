@@ -64,6 +64,17 @@ export const NavBar = () => {
             {isLoggedIn && userRole === 'teacher' && ( // Check userRole here
               <li className="nav-item"><a className="nav-link" ><Link to="/add-session">Add Session</Link></a></li>
             )}
+   <li className="nav-item dropdown">
+      <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Profile
+      </a>
+      <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+      <Link className="dropdown-item" to="/Profil">My Profile</Link>
+
+        <Link className="dropdown-item" to="/myproducts">My Products</Link>
+
+      </div>
+    </li>
             <li className="nav-item"><a className="nav-link" ><Link to="/">Home</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/courses">Courses</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/events">Events</Link></a></li>
@@ -71,6 +82,10 @@ export const NavBar = () => {
             <li className="nav-item"><a className="nav-link" href="javascript:;"><Link to="/marketplace">Marketplace</Link></a></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
+       
+
+        &nbsp;
+        &nbsp;
             {!isLoggedIn && (
               <button type="button" className="btn btn-warning btn-sm rounded-pill" onClick={handleSignInClick}>
                 Sign In

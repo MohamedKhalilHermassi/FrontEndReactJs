@@ -25,8 +25,7 @@ import SessionListS from './components/backOffice/Session/SessionListS'
 import SessionEdit from './components/backOffice/Session/SessionEdit'
 import ListS from './components/backOffice/Session/ListS'
 import Schedul from './components/schedul'
-import SessionDrag from './components/backOffice/Session/SessionDrag'
-
+import SessionDrag from './components/backOffice/Session/SessionDrag';
 import Editadmin from './components/backOffice/editadmin'
 import AuthService from './service/AuthService';
 import MyCourses from './components/myCourses';
@@ -34,6 +33,7 @@ import ClassroomAdd from './components/backOffice/classroom/classroomAdd';
 import AddLocation from './components/backOffice/location/addLocation';
 import LocationList from './components/backOffice/location/locationList';
 import Map from './components/backOffice/location/map';
+  
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
 const Courses = lazy(()=> import ("./components/courses"));
@@ -100,6 +100,9 @@ function App() {
           <Route path='Archivedproducts' element={<ArchivedProductList/>}/>
           <Route path='ordersList' element={<OrdersList/>}/>
           <Route path='products' element={<ProductListBack></ProductListBack>}/>
+          <Route path = "user" element={<Users/>}></Route>
+
+      
         </Route>
     
 
