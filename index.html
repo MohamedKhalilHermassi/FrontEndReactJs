@@ -81,7 +81,6 @@
    <!-- Plugin for Headrom, full documentation here: https://wicky.nillia.ms/headroom.js/ -->
    <script src="js/plugins/headroom.min.js"></script>
    <!-- Control Center for Argon UI Kit: parallax effects, scripts for the example pages etc -->
-   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE" type="text/javascript"></script>
    <script src="js/argon-design-system.min.js?v=1.0.2" type="text/javascript"></script>
    <script>
    function argonScripts() {
@@ -105,11 +104,6 @@
                perTouch: 1,
                perView: 4
            }).mount();
-       }
-
-       if (document.querySelectorAll('.map').length) {
-           ArgonKit.initGoogleMaps();
-           ArgonKit.initGoogleMaps2();
        }
    }
    argonScripts();

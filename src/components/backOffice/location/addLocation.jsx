@@ -3,11 +3,17 @@ import React, { useState } from 'react'
 import data from '../../../assets/tunisiaData.json'
 import { locationValidator } from '../../Validators/LocationValidator';
 import { addLocation } from '../../../service/locationService';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { APIProvider,Map } from '@vis.gl/react-google-maps';
 
 function AddLocation() {
 
 
-    const etablissements=['menzah', 'ariana']
+      const position = { lat: 36.80094430431895, lng: 10.185366067228507 };
+      const mapStyles = {
+          height: "500px",
+          width: "100%"
+        };
 
     const initialValues = {
         state:'',
@@ -82,6 +88,13 @@ function AddLocation() {
             <input type="text" name='address' value={values.address} onBlur={handleBlur} onChange={handleChange} className={errors.address && touched.address ? "form-control is-invalid" : "form-control"} id="basic-icon-default-fullname" placeholder="17 rue habib bourguiba" />
           </div>
           {errors.address && touched.address && <p className='alert alert-danger text-dark fw-bold'>{errors.address}</p>}
+        </div>
+      <div className='my-4'>
+        <APIProvider apiKey="AIzaSyBPwx5ddyom316WcWwoFAH70kXsqmOSvhs">
+            <div style={mapStyles}>
+                <Map zoom={9} center={position}></Map>
+            </div>
+        </APIProvider>
         </div>
 
         <div className="mb-3">
