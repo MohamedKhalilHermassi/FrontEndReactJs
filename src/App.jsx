@@ -35,14 +35,14 @@ import ClassroomAdd from './components/backOffice/classroom/classroomAdd';
 import AddLocation from './components/backOffice/location/addLocation';
 import LocationList from './components/backOffice/location/locationList';
 import Map from './components/backOffice/location/map';
-  
+
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
 const Courses = lazy(()=> import ("./components/courses"));
 function App() {
   const navigate = useNavigate();
   const excludedRoutes = ["/signin", "/register","/events","/courses","/market"];
-  const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin","/admin/listS","/admin/reclamaation"];
+  const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin", "/admin/addsession","/admin/listsession", "/admin/listsession2", "/admin/editSession", "/admin/ListS", "/admin/ListDrag", "/admin/courses", "/admin/addcourse", "/admin/locations", "/admin/map", "/admin/addlocation", "/admin/addclassroom", "/admin/Archivedproducts", "/admin/ordersList", "/admin/products"];
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     if (!excludedRoutes.includes(window.location.pathname) && AuthService.isTokenExpired(token)) {
@@ -105,7 +105,7 @@ function App() {
           <Route path='products' element={<ProductListBack></ProductListBack>}/>
           <Route path = "user" element={<Users/>}></Route>
 
-      
+
         </Route>
     
 

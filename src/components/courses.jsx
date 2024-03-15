@@ -77,7 +77,7 @@ function Courses()
                   <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end"><a className="dropdown-item" href="javascript:;">Instructed by {course.teacher.fullname}</a></div>
                 </div>
                 <a href="javascript:;">
-                  <img className="img rounded" src="https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg?cs=srgb&dl=pexels-north-1407322.jpg&fm=jpg" />
+                  <img className="img rounded" src={`http://localhost:3000/images/${course.image}`} />
                 </a>
               </div>
             </div>
