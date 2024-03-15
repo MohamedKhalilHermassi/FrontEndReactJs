@@ -21,24 +21,6 @@ const SideBar = () => {
             <div data-i18n="Analytics">Dashboard</div></Link>
           </a>
         </li>
-        {/* Layouts */}
-        <li className="menu-item">
-          <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#pages" aria-expanded="false" aria-controls="pages">
-            <i className="menu-icon fas fa-spinner fa-flip" />
-            <div data-i18n="Layouts">Layouts</div>
-          </a>
-          <ul id="pages" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-            <li className="sidebar-item">
-              <a href="#" className="sidebar-link menu-link">Analytics</a>
-            </li>
-            <li className="sidebar-item">
-              <a href="#" className="sidebar-link menu-link">Ecommerce</a>
-            </li>
-            <li className="sidebar-item">
-              <a href="#" className="sidebar-link menu-link">Crypto</a>
-            </li>
-          </ul>
-        </li>
         <li className="menu-header small text-uppercase">
           <span className="menu-header-text">Features</span>
         </li>
@@ -57,13 +39,27 @@ const SideBar = () => {
           </ul>
         </li>
         <li className="menu-item">
+          <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#classrooms" aria-expanded="false" aria-controls="classrooms">
+          <i class="menu-icon fa-solid fa-chalkboard-user"></i>
+            <div data-i18n="Layouts">Classrooms</div>
+          </a>
+          <ul id="classrooms" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li className="sidebar-item">
+              <Link className="sidebar-link menu-link" to="/admin/addlocation"><i className="menu-icon fas fa-plus" />Add Location</Link>
+            </li>
+            <li className="sidebar-item">
+              <Link class="sidebar-link menu-link" to="/admin/locations"><i className="menu-icon fas fa-grip" />List of locations</Link>
+            </li>
+          </ul>
+        </li>
+        <li className="menu-item">
           <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#products" aria-expanded="false" aria-controls="products">
             <i className="menu-icon fa-solid fa-store" />
             <div data-i18n="Layouts">Products</div>
           </a>
           <ul id="products" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
             <li className="sidebar-item">
-              <Link className="sidebar-link menu-link" to="/admin/products"><i className="menu-icon fas fa-plus" />Add</Link>
+              <Link className="sidebar-link menu-link" to="/admin/addBook"><i className="menu-icon fas fa-plus" />Add</Link>
             </li>
             <li className="sidebar-item">
               <Link class="sidebar-link menu-link" to="/admin/products"><i className="menu-icon fas fa-grip" />List of products</Link>

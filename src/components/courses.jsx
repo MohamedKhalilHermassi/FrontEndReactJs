@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import { enrollement, fetchCourses } from "../service/courseService";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Courses()
 {
   const [courses, setCourses] = useState([]);
   const [userId, setUserId] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
       fetchData();
       const token = localStorage.getItem('userToken');
+      if(token){
       const decodedToken = jwtDecode(token);
       console.log(decodedToken.id);
       setUserId(decodedToken.id);
+      }
   },[])
 
   useEffect(() => {
@@ -29,7 +34,20 @@ function Courses()
 };
 
   const enroll = async (courseId) =>{
-    const userId = jwtDecode(localStorage.getItem('userToken')).id;
+    if(!userId){
+      navigate('/signin');
+      toast('Please Sign In to enroll !', {
+        style: {
+          border: '1px solid #713200',
+          padding: '16px',
+          color: '#713200',
+        },
+        iconTheme: {
+          primary: '#713200',
+          secondary: '#FFFAEE',
+        },
+      });
+    }
     await enrollement(courseId,userId);
     fetchData();
   }
@@ -75,7 +93,7 @@ function Courses()
                         <div className="badge badge-circle badge-info mr-3"><i class="fa-solid fa-ranking-star"></i></div>
                       </div>
                       <div>
-                        <h6 className="mb-1">{course.level}</h6>
+                        <h6 className="mb-1"><span class="badge bg-label-primary">{course.level}</span></h6>
                       </div>
                     </div>
                   </li>
@@ -85,7 +103,7 @@ function Courses()
                         <div className="badge badge-circle badge-success mr-3"><i class="fa-solid fa-money-bill-wave"></i></div>
                       </div>
                       <div>
-                        <h6 className="mb-1">{course.hourly_based_price} TND</h6>
+                        <h6 className="mb-1"><span class="badge bg-label-primary">{course.hourly_based_price} TND</span></h6>
                       </div>
                     </div>
                   </li>

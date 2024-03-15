@@ -2,6 +2,10 @@ import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { RiCloseCircleLine } from 'react-icons/ri';
+
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -35,15 +39,20 @@ function ProductList() {
     const existingItemIndex = cartItems.findIndex(item => item._id === product._id);
 
     if (existingItemIndex !== -1) {
-      const updatedCart = [...cartItems];
-      updatedCart[existingItemIndex].quantity += 1;
-      setCartItems(updatedCart);
-      setTotalPrice(totalPrice + product.productPrice);
+      // Product already exists in cart, do nothing
+      return;
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
       setTotalPrice(totalPrice + product.productPrice);
-      setTotalItems(cartItems.reduce((total, item) => total + item.quantity, 0) + 1);
+      setTotalItems(totalItems + 1);
     }
+  };
+  const removeFromCart = (productId) => {
+    const updatedCart = cartItems.filter(item => item._id !== productId);
+    const removedItem = cartItems.find(item => item._id === productId);
+    setCartItems(updatedCart);
+    setTotalPrice(totalPrice - removedItem.productPrice * removedItem.quantity);
+    setTotalItems(totalItems - removedItem.quantity);
   };
 
   const toggleCart = () => {
@@ -58,6 +67,7 @@ function ProductList() {
     product.productPrice <= priceRange.max
   );
 
+  
   const handleOrder = async () => {
     try {
       const productsList = cartItems.flatMap(item => Array.from({ length: item.quantity }, () => item._id));
@@ -68,13 +78,13 @@ function ProductList() {
           products: productsList,
       });
       console.log(response.data.message); 
-      alert('Your order has been placed successfully!');
-
+      toast.success('Your order has been placed successfully!');
       setCartItems([]);
       setTotalPrice(0);
       setShowCart(false); 
     } catch (error) {
       console.error('Error placing order:', error);
+      toast.error('Failed to place order. Please try again later.');
     }
   };
 
@@ -122,47 +132,59 @@ function ProductList() {
           </div>
         </div>
         <h2 className="mb-4">Featured Products</h2>
+    
         <div className="row row-cols-1 row-cols-md-4 g-4">
-          {filteredProducts.map(product => (
-            <div key={product._id} className="col">
-              <div className="card h-100">
-                <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
-                  <img src={`http://localhost:3000/uploads/${product.filename}`} className="card-img-top" alt={product.productName} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
-                </div>
-                <div className="card-body">
-                  <h5 className="card-title">{product.productName}</h5>
-                  <p className="card-text">{product.productDescription}</p>
-                  <h6>{product.productPrice} TND</h6>
-                  <button className="btn btn-primary" onClick={() => addToCart(product)}>Add to Cart</button>
-                </div>
+        {filteredProducts.map(product => (
+          <div key={product._id} className="col">
+            <div className="card h-100">
+              <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
+                <img src={`http://localhost:3000/uploads/${product.filename}`} className="card-img-top" alt={product.productName} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+              </div>
+              <div className="card-body">
+                <h5 className="card-title">{product.productName}</h5>
+                <p className="card-text">{product.productDescription}</p>
+                <h6>{product.productPrice} TND</h6>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={() => addToCart(product)} 
+                  disabled={cartItems.some(item => item._id === product._id)}
+                >
+                  {cartItems.some(item => item._id === product._id) ? "Added to Cart" : "Add to Cart"}
+                </button>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
       </div>
       <div style={floatingCartStyle} onClick={toggleCart}>
         <FaShoppingCart />
         <span style={cartCountStyle}>{cartItems.reduce((total, item) => total + item.quantity, 0)}</span>
       </div>
       {showCart && (
-        <div style={cartDropdownStyle}>
-          <h4>Shopping Cart</h4>
-          <div style={cartListStyle}>
-            <ul>
-              {cartItems.map(item => (
-                <li key={item._id}>
-                  <div>
-                    <img src={`http://localhost:3000/uploads/${item.filename}`} alt={item.productName} style={{ width: '50px', height: '50px', marginRight: '10px' }} />
-                    <span>{item.productName} - {item.productPrice} TND - Quantity: {item.quantity}</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <p>Total Price: {totalPrice} TND</p>
-          <button className="btn btn-primary" onClick={handleOrder}>Order</button>
-        </div>
+       <div style={cartDropdownStyle}>
+       <h4>Shopping Cart</h4>
+       <div style={cartListStyle}>
+         <ul>
+           {cartItems.map(item => (
+             <li key={item._id}>
+               <div>
+                 <img src={`http://localhost:3000/uploads/${item.filename}`} alt={item.productName} style={{ width: '50px', height: '50px', marginRight: '10px' }} />
+                 <span>{item.productName} - {item.productPrice} TND - Quantity: {item.quantity}</span>
+                 <RiCloseCircleLine className="text-danger" style={{ cursor: 'pointer' }} onClick={() => removeFromCart(item._id)} />
+
+               </div>
+             </li>
+           ))}
+         </ul>
+       </div>
+       <p>Total Price: {totalPrice} TND</p>
+       <button className="btn btn-primary" onClick={handleOrder}>Order</button>
+     </div>
       )}
+                  <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+
+
     </>
   );
 }

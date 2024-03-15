@@ -30,6 +30,12 @@ import Reclamtions from './components/Reclamtions'
 import Editadmin from './components/backOffice/editadmin'
 import Recla from './components/backOffice/reclamationadmin'
 import AuthService from './service/AuthService';
+import MyCourses from './components/myCourses';
+import ClassroomAdd from './components/backOffice/classroom/classroomAdd';
+import AddLocation from './components/backOffice/location/addLocation';
+import LocationList from './components/backOffice/location/locationList';
+import Map from './components/backOffice/location/map';
+  
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
 const Courses = lazy(()=> import ("./components/courses"));
@@ -70,6 +76,7 @@ function App() {
         <Route path="marketplace" element={<ProductList />} />
         <Route path="Profil" element={<Profil />} />
         <Route path = "myproducts" element={<MyProducts/>}></Route>
+        <Route path = "mycourses" element={<MyCourses/>}></Route>
         <Route path = "schedule" element={<Schedul/>}></Route>
         <Route path='add-session' element={<SessionAdd/>}></Route>
         <Route path = "reclamation" element={<Reclamtions/>}></Route>
@@ -79,21 +86,26 @@ function App() {
     
         <Route path="admin" element={<Dashboard />}>
           <Route path="" element={<AdminLandingPage />} />
-          
           <Route path="user" element={<Users />} />
           <Route path="editadmin" element={<Editadmin />} />
           <Route path="addsession" element={<SessionAdd/>} />
-          <Route path="reclamaation" element={<Recla/>} />
-        <Route path="listsession" element={<SessionList/>} />
-        <Route path="listsession2" element={<SessionListS/>} />
-        <Route path="editSession/:id" element={<SessionEdit/>} />
-        <Route path="ListS" element={<ListS/>} />
-        <Route path="ListDrag" element={<SessionDrag/>} />
-            <Route path="courses" element={<CourseList/>} />
-            <Route path="addcourse" element={<CourseAdd/>} />
+          <Route path="listsession" element={<SessionList/>} />
+          <Route path="listsession2" element={<SessionListS/>} />
+          <Route path="editSession/:id" element={<SessionEdit/>} />
+          <Route path="ListS" element={<ListS/>} />
+          <Route path="ListDrag" element={<SessionDrag/>} />
+          <Route path="courses" element={<CourseList/>} />
+          <Route path="addcourse" element={<CourseAdd/>} />
+          <Route path="locations" element={<LocationList/>} />
+          <Route path="map" element={<Map/>} />
+          <Route path="addlocation" element={<AddLocation/>} />
+          <Route path="addclassroom" element={<ClassroomAdd/>} />
           <Route path='Archivedproducts' element={<ArchivedProductList/>}/>
           <Route path='ordersList' element={<OrdersList/>}/>
           <Route path='products' element={<ProductListBack></ProductListBack>}/>
+          <Route path = "user" element={<Users/>}></Route>
+
+      
         </Route>
     
 
