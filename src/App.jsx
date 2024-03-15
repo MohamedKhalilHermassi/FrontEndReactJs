@@ -88,6 +88,8 @@ function App() {
           <Route path="" element={<AdminLandingPage />} />
           <Route path="user" element={<Users />} />
           <Route path="editadmin" element={<Editadmin />} />
+          <Route path="reclamaation" element={<Recla />} />
+          
           <Route path="addsession" element={<SessionAdd/>} />
           <Route path="listsession" element={<SessionList/>} />
           <Route path="listsession2" element={<SessionListS/>} />

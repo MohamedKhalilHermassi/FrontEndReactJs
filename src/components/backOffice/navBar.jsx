@@ -1,6 +1,7 @@
 import SideBar from './sideBar'
 import { Link, useNavigate } from 'react-router-dom';
 import UserService from '../../service/userService';
+import socketIOClient from 'socket.io-client';
 import  { useState,useEffect } from 'react';
 const NavBar = () => {
   const [userData, setUserData] = useState(null);

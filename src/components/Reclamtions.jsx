@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import ReclamtionService from '../service/reclamtionService';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Reclamtions()
 {
