@@ -24,7 +24,7 @@ import SessionEdit from './components/backOffice/Session/SessionEdit'
 import ListS from './components/backOffice/Session/ListS'
 import Schedul from './components/schedul'
 import SessionDrag from './components/backOffice/Session/SessionDrag'
-
+  
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
 const Courses = lazy(()=> import ("./components/courses"));
@@ -66,7 +66,7 @@ function App() {
           <Route path='ordersList' element={<OrdersList/>}/>
           <Route path='products' element={<ProductListBack></ProductListBack>}/>
           <Route path = "user" element={<Users/>}></Route>
-      
+
       
         </Route>
    
