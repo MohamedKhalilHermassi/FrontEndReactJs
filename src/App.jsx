@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react'
+import { lazy} from 'react'
 //import './App.css'
 import LandingPage from './components/landingPage'
 import {  Routes, Route } from 'react-router-dom'
@@ -6,16 +6,19 @@ import Dashboard from './components/backOffice/Dashboard'
 import AdminLandingPage from './components/backOffice/adminLandingPage'
 import Acceuil from './components/acceuil'
 import Login from './components/login'
-import { NavBar } from './components/navbar'
+import Register from './components/register'
+import Users from './components/backOffice/users'
 import EventList from './components/backOffice/event/eventList.jsx'
 import AddEvent from './components/backOffice/event/addEvent.jsx'
 import EditEvent from './components/backOffice/event/editEvent.jsx'
 import EventsCalendar from './components/backOffice/event/eventsCalendar.jsx'
-import { BrowserRouter } from 'react-router-dom';
+import EventRegister from './components/eventRegister'
+
+
 const Events = lazy(()=> import("./components/events"));
+const Profil = lazy(()=> import("./components/profil"));
 const Courses = lazy(()=> import ("./components/courses"));
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -26,7 +29,8 @@ function App() {
         <Route path = "" element={<Acceuil/>}></Route>
         <Route path = "events" element={<Events/>}></Route>
         <Route path = "courses" element={<Courses/>}></Route>
-      
+        <Route path = "Profil" element={<Profil/>}></Route>
+        <Route path = "eventRegister" element={<EventRegister/>}></Route>
         </Route>
         <Route path="admin" element={<Dashboard/>}>
           <Route path='' element={<AdminLandingPage/>}/>
@@ -34,8 +38,14 @@ function App() {
           <Route path="addevent" element={<AddEvent/>}/>
           <Route path="edit-event/:id" element={<EditEvent/>} />
           <Route path="eventscalendar" element={<EventsCalendar/>} />
+          <Route path = "user" element={<Users/>}></Route>
         </Route>
-        <Route path="signin" element={<Login/>}/>
+        <Route path="signin" element={<Login/>}>
+         
+         </Route>
+         <Route path="register" element={<Register/>}>
+
+         </Route>
       </Routes>    
       </>
   )

@@ -18,6 +18,8 @@ const EditEvent = () => {
       endTime: '',
       location: '',
       capacity: 0,
+      ticketPrice: 0,
+      category: '',
       status: '',
       image: null,
     });
@@ -89,6 +91,9 @@ const EditEvent = () => {
                 break;
             case 'capacity':
                 error = value > 0 ? '' : 'Capacity must be a positive number';
+                break;
+            case 'ticketPrice':
+                error = value > 0 ? '' : 'Ticket price must be a positive number';
                 break;
             default:
                 break;
@@ -197,6 +202,19 @@ const EditEvent = () => {
                             <Form.Label>Capacity:</Form.Label>
                             <Form.Control type="number" name="capacity" value={formData.capacity} onChange={handleChange} isInvalid={!!errors.capacity} />
                             <Form.Control.Feedback type="invalid">{errors.capacity}</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Ticket Price:</Form.Label>
+                            <Form.Control type="number" name="ticketPrice" value={formData.ticketPrice} onChange={handleChange} isInvalid={!!errors.ticketPrice} />
+                            <Form.Control.Feedback type="invalid">{errors.ticketPrice}</Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Category:</Form.Label>
+                            <Form.Select name="category" value={formData.category} onChange={handleChange}>
+                                <option value="Concert">concert</option>
+                                <option value="Charity">charity</option>
+                                <option value="Audition">audition</option>
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Status:</Form.Label>

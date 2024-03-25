@@ -7,13 +7,14 @@ import Badge from 'react-bootstrap/Badge';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { useNavigate } from 'react-router-dom';
 import Pagination from 'react-bootstrap/Pagination';
-
+import EventDetails from './eventDetails'; 
 
 const EventList = () => {
     const [events, setEvents] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [eventsPerPage] = useState(10);
     const navigate = useNavigate();
+    const [selectedEvent, setSelectedEvent] = useState(null);
   
     useEffect(() => {
       axios.get('http://localhost:3000/events')
@@ -35,6 +36,10 @@ const EventList = () => {
         });
     }
 
+    const handleView = (event) => {
+      setSelectedEvent(event); 
+    };
+
     // Get current events
     const indexOfLastEvent = currentPage * eventsPerPage;
     const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
@@ -43,7 +48,9 @@ const EventList = () => {
     // Change page
     const paginate = pageNumber => setCurrentPage(pageNumber);
   
-    return (
+    return selectedEvent ? (
+      <EventDetails event={selectedEvent} onBack={() => setSelectedEvent(null)} />
+    ) : (
       <div className="container mt-5">     
         <h1 className="mb-4">Event List</h1>
         <div className="row">
@@ -60,6 +67,8 @@ const EventList = () => {
                     <ListGroup.Item><strong>End Time:</strong> {new Date(event.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</ListGroup.Item>
                     <ListGroup.Item><strong>Location:</strong> {event.location}</ListGroup.Item>
                     <ListGroup.Item><strong>Capacity:</strong> {event.capacity}</ListGroup.Item>
+                    <ListGroup.Item><strong>Ticket Price:</strong> {event.ticketPrice}</ListGroup.Item>
+                    <ListGroup.Item><strong>Category:</strong> {event.category}</ListGroup.Item>
                   </ListGroup>
                 </Card.Body>
                 <Card.Footer className="pt-2">
@@ -72,7 +81,7 @@ const EventList = () => {
                     {event.status}
                   </Badge>
                   <ButtonGroup className="mt-3 d-flex justify-content-end">
-                    <Button variant="primary">View</Button>
+                    <Button variant="primary" onClick={() => handleView(event)}>View</Button>
                     <Button variant="secondary" onClick={() => navigate(`/admin/edit-event/${event._id}`)}>Edit</Button>
                     <Button variant="danger" onClick={() => handleDelete(event._id)} style={{ backgroundColor: '#dc3545', borderColor: '#dc3545', boxShadow: '0 0 10px rgba(0,0,0,0.5)' }}>Delete</Button>
                   </ButtonGroup>
@@ -91,7 +100,5 @@ const EventList = () => {
       </div>
     );
 };
-
-
 
 export default EventList;

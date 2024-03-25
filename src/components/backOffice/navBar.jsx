@@ -1,4 +1,3 @@
-import React from 'react'
 import SideBar from './sideBar'
 
 const NavBar = () => {
@@ -84,7 +83,7 @@ const NavBar = () => {
             </ul>
           </div>
         </nav>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <SideBar/>
   </div>
         

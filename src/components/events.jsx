@@ -1,102 +1,166 @@
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Badge from 'react-bootstrap/Badge';
+import Pagination from 'react-bootstrap/Pagination';
+import Spinner from 'react-bootstrap/Spinner';
+import Alert from 'react-bootstrap/Alert';
+import { useNavigate } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
+import EventDetails from './backOffice/event/eventDetails'; 
+import Form from 'react-bootstrap/Form';
+import ReactSelect from 'react-select';
+import EventsGallery from './eventsGallery';
 
-function Events()
-{
+const categories = [
+  { value: 'All', label: 'All' },
+  { value: 'Concert', label: 'Concert' },
+  { value: 'Charity', label: 'Charity' },
+  { value: 'Audition', label: 'Audition' },
+];
+
+function Events({userId}) {
+    const [events, setEvents] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [eventsPerPage] = useState(10);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [currentEvent, setCurrentEvent] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
+    //const [registerError, setRegisterError] = useState(null);
+    //const [ticketCount, setTicketCount] = useState(1);
+    //const [showRegisterModal, setShowRegisterModal] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState('All');
+    
+    const handleCategoryChange = (selectedOption) => {
+      setSelectedCategory(selectedOption.value);
+    };
+
+    const fetchEvents = () => {
+        setLoading(true);
+        setError(null);
+        axios.get('http://localhost:3000/events')
+          .then(response => {
+            let filteredEvents = response.data;
+            if (selectedCategory !== 'All') {
+              filteredEvents = filteredEvents.filter(event => event.category === selectedCategory);
+            }
+            setEvents(filteredEvents);
+            setLoading(false);
+          })
+            .catch(error => {
+                console.error('Error fetching events:', error);
+                setError('Error fetching events.');
+                setLoading(false);
+            });
+    };
+
+    useEffect(() => {
+        fetchEvents();
+    }, [selectedCategory]);
+
+  
+
+    const indexOfLastEvent = currentPage * eventsPerPage;
+    const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+    const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
+    const viewDetails = (eventId) => {
+      const event = events.find(e => e._id === eventId);
+      setCurrentEvent(event);
+      setShowModal(true);
+    };
+
+    const handleClose = () => setShowModal(false);
+
+    if (loading) {
+        return <Spinner animation="border" />;
+    }
+
+    if (error) {
+        return (
+            <Alert variant="danger">
+                {error} <Button onClick={fetchEvents}>Try Again</Button>
+            </Alert>
+        );
+    }
+
     return (
-        <>
-             <section className="section blogs-1">
-    <div className="container">
-      <div className="row mb-5">
-        <div className="col-md-8">
-          <br />
-          <h3 className="display-3">Upcoming Musical Events</h3>
-          <p className="lead mt-1">The time is now for it to be okay to be great. People in this world shun people for being great.</p>
-        </div>
-      </div>
-      <div className="row align-items-center">
-        <div className="col-lg-3">
-          <div className="card card-blog card-background" data-animation="zooming">
-            <div className="full-background" style={{backgroundImage: 'url("https://img.jakpost.net/c/2019/06/12/2019_06_12_74202_1560308728._large.jpg")'}} />
-            <a href="javascript:;">
-              <div className="card-body">
-                <div className="content-bottom">
-                  <h6 className="card-category text-white opacity-8">Musical Event</h6>
-                  <h5 className="card-title">20 Mars 2024</h5>
-                </div>
+      <>
+        <Modal show={showModal} onHide={handleClose}>
+          <Modal.Body>
+          {currentEvent && <EventDetails event={currentEvent} onBack={handleClose} showButtons={false} />}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="success" onClick={() => navigate('/eventRegister', { state: { eventId: currentEvent._id } })}>
+              Register
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        
+        <div className="container mt-7">
+          <h1 className="mb-6">Event List</h1>
+          <EventsGallery />
+          <Form.Group controlId="categorySelect" style={{ marginBottom: '20px' }}>
+          <Form.Label>Category</Form.Label>
+          <ReactSelect 
+            options={categories} 
+            value={categories.find(category => category.value === selectedCategory)} 
+            onChange={handleCategoryChange} 
+          />
+        </Form.Group>
+          <div className="row">
+            {currentEvents.map(event => (
+              <div key={event._id} className="col-md-12 mb-4">
+                <Card className="h-100 shadow flex-md-row">
+                  <Card.Img variant="left" src={`http://localhost:3000${event.image}`} style={{ width: '30%', objectFit: 'cover' }} />
+                  <Card.Body className="d-flex flex-column">
+                    <Card.Header as="h5">{event.title}</Card.Header>
+                    <Card.Text>{event.description}</Card.Text>
+                    <ListGroup variant="flush">
+                      <ListGroup.Item><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</ListGroup.Item>
+                      <ListGroup.Item><strong>Start Time:</strong> {new Date(event.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</ListGroup.Item>
+                      <ListGroup.Item><strong>End Time:</strong> {new Date(event.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</ListGroup.Item>
+                      <ListGroup.Item><strong>Location:</strong> {event.location}</ListGroup.Item>
+                      <ListGroup.Item><strong>Capacity:</strong> {event.capacity}</ListGroup.Item>
+                      <ListGroup.Item><strong>Ticket Price:</strong> {event.ticketPrice}</ListGroup.Item>
+                      <div className="mt-2">
+                        <strong>Status:</strong>
+                        <Badge variant={
+                          event.status === 'Incoming' ? 'primary' :
+                          event.status === 'Finished' ? 'success' :
+                          'danger'
+                        }>
+                          {event.status}
+                        </Badge>
+                      </div>
+                    </ListGroup>
+                    <Card.Footer className="mt-auto pt-2 d-flex justify-content-between align-items-center">
+                      <Button variant="primary" onClick={() => viewDetails(event._id)}>View Details</Button>
+                    </Card.Footer>
+                  </Card.Body>
+                </Card>
               </div>
-            </a>
+            ))}
           </div>
+          <Pagination>
+            {[...Array(Math.ceil(events.length / eventsPerPage)).keys()].map(number => (
+              <Pagination.Item key={number + 1} active={number + 1 === currentPage} onClick={() => paginate(number + 1)}>
+                {number + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
         </div>
-        <div className="col-lg-3">
-          <div className="card card-blog card-background" data-animation="zooming">
-            <div className="full-background" style={{backgroundImage: 'url("https://guitarspace.org/wp-content/uploads/2022/09/what-is-a-concert-guitar.webp")'}} />
-            <a href="javascript:;">
-              <div className="card-body">
-                <div className="content-bottom">
-                  <h6 className="card-category text-white opacity-8">Mothers Day Event</h6>
-                  <h5 className="card-title">26 mai 2024</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div className="col-lg-6">
-          <div className="card card-blog card-background" data-animation="zooming">
-            <div className="full-background" style={{backgroundImage: 'url("https://www.thepiano.sg/sites/thepiano.sg/files/thepiano_images/read/2019/02/23/15/41/shawn-lee-performing-pianovers-recital-2018.jpg")'}} />
-            <a href="javascript:;">
-              <div className="card-body">
-                <div className="content-bottom">
-                  <h6 className="card-category text-white opacity-8">Piano Event</h6>
-                  <h5 className="card-title">29 avril 2024</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className="row align-items-center">
-        <div className="col-lg-6">
-          <div className="card card-blog card-background" data-animation="zooming">
-            <div className="full-background" style={{backgroundImage: 'url("https://www.liberty.edu/news/wp-content/uploads/sites/137/2022/12/Image-23_edited-scaled.jpg")'}} />
-            <a href="javascript:;">
-              <div className="card-body">
-                <div className="content-bottom">
-                  <h6 className="card-category text-white opacity-8">Singing Choir</h6>
-                  <h5 className="card-title">15 avril 2024</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div className="col-lg-3">
-          <div className="card card-blog card-background" data-animation="zooming">
-            <div className="full-background" style={{backgroundImage: 'url("images/Hallelujah-Chorus-for-The-Lantern.jpg")'}} />
-            <a href="javascript:;">
-              <div className="card-body">
-                <div className="content-bottom">
-                  <h6 className="card-category text-white opacity-8">Concert</h6>
-                  <h5 className="card-title">06 juin 2024</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div className="col-lg-3">
-          <div className="card card-blog card-background" data-animation="zooming">
-            <div className="full-background" style={{backgroundImage: 'url("https://pxl-catawbaedu.terminalfour.net/fit-in/980x552/prod01/channel_2/media/catawba-college/site-assets/images/music-students-singer.jpg")'}} />
-            <a href="javascript:;">
-              <div className="card-body">
-                <div className="content-bottom">
-                  <h6 className="card-category text-white opacity-8">Event ElKindy</h6>
-                  <h5 className="card-title">20 Juin 2024</h5>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-     
-    </div>
-  </section>
-        </>
-    )
-} export default Events;
+      </>
+    );
+};
+
+export default Events;
