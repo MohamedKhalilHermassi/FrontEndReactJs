@@ -34,7 +34,7 @@ import MyCourses from './components/myCourses';
 import ClassroomAdd from './components/backOffice/classroom/classroomAdd';
 import AddLocation from './components/backOffice/location/addLocation';
 import LocationList from './components/backOffice/location/locationList';
-import Map from './components/backOffice/location/map';
+import Location from './components/backOffice/location/location';
 
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
@@ -98,8 +98,8 @@ function App() {
           <Route path="ListDrag" element={<SessionDrag/>} />
           <Route path="courses" element={<CourseList/>} />
           <Route path="addcourse" element={<CourseAdd/>} />
+          <Route path='location' element={<Location/>}/>
           <Route path="locations" element={<LocationList/>} />
-          <Route path="map" element={<Map/>} />
           <Route path="addlocation" element={<AddLocation/>} />
           <Route path="addclassroom" element={<ClassroomAdd/>} />
           <Route path='Archivedproducts' element={<ArchivedProductList/>}/>

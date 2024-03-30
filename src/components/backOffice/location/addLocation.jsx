@@ -1,33 +1,40 @@
 import { useFormik } from 'formik';
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import data from '../../../assets/tunisiaData.json'
 import { locationValidator } from '../../Validators/LocationValidator';
 import { addLocation } from '../../../service/locationService';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-import { APIProvider,Map } from '@vis.gl/react-google-maps';
+import LocationMap from './locationMap';
+import { useNavigate } from 'react-router-dom';
 
 function AddLocation() {
 
+  const [coordinates, setCoordinates] = useState();
 
-      const position = { lat: 36.80094430431895, lng: 10.185366067228507 };
-      const mapStyles = {
-          height: "500px",
-          width: "100%"
-        };
+  const navigate = useNavigate();
 
-    const initialValues = {
+  const getlocation = (data) => {
+    setCoordinates(data);
+  }
+
+  const initialValues = {
         state:'',
         city:'',
         address:'',
+        lat:0,
+        lng:0,
         numberOfFloors:1,
       
       }
 
-      const {values, handleBlur, handleChange, handleSubmit, errors, touched, isValid, setFieldValue} = useFormik({
+  const {values, handleBlur, handleChange, handleSubmit, errors, touched, isValid, setFieldValue} = useFormik({
         initialValues : initialValues, 
         validationSchema: locationValidator,
         onSubmit: async (values) => {
-            await addLocation(values);
+            values.lat = coordinates.lat;
+            values.lng = coordinates.lng;
+            console.log(values);
+            //await addLocation(values);
+            //navigate('/admin/locations');
         }
       })
 
@@ -90,11 +97,8 @@ function AddLocation() {
           {errors.address && touched.address && <p className='alert alert-danger text-dark fw-bold'>{errors.address}</p>}
         </div>
       <div className='my-4'>
-        <APIProvider apiKey="AIzaSyBPwx5ddyom316WcWwoFAH70kXsqmOSvhs">
-            <div style={mapStyles}>
-                <Map zoom={9} center={position}></Map>
-            </div>
-        </APIProvider>
+        <LocationMap getlocation = {getlocation}>
+        </LocationMap>
         </div>
 
         <div className="mb-3">
