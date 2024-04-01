@@ -9,10 +9,14 @@ import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-
 const PDFDocument = ({ ticketId, eventTitle, ticketPrice }) => (
     <Document>
         <Page style={styles.body}>
-            <Text style={styles.title}>E-Ticket</Text>
-            <Text><Text style={styles.bold}>Ticket ID:</Text> {ticketId}</Text>
-            <Text><Text style={styles.bold}>Event:</Text> {eventTitle}</Text>
-            <Text><Text style={styles.bold}>Ticket Price:</Text> {ticketPrice}</Text>
+            <View style={styles.ticket}>
+                <Text style={styles.title}>E-Ticket</Text>
+                <View style={styles.section}>
+                    <Text><Text style={styles.bold}>Ticket ID:</Text> {ticketId}</Text>
+                    <Text><Text style={styles.bold}>Event:</Text> {eventTitle}</Text>
+                    <Text><Text style={styles.bold}>Ticket Price:</Text> {ticketPrice}</Text>
+                </View>
+            </View>
         </Page>
     </Document>
 );
@@ -22,9 +26,15 @@ const styles = StyleSheet.create({
         paddingTop: 35,
         paddingBottom: 65,
         paddingHorizontal: 35,
+    },
+    ticket: {
         backgroundColor: '#f9f9f9',
         color: '#333',
         fontFamily: 'Helvetica',
+        border: '1 solid #333',
+        borderRadius: 10,
+        padding: 10,
+        marginBottom: 20,
     },
     section: {
         margin: 10,

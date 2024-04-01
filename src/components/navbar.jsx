@@ -32,7 +32,6 @@ export const NavBar = () => {
         <div className="navbar-collapse-header">
           <div className="row">
             <div className="col-6 collapse-brand">
-             
             </div>
             <div className="col-6 collapse-close text-right">
               <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-header-2" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,13 +42,22 @@ export const NavBar = () => {
           </div>
         </div>
         <ul className="navbar-nav mx-auto">
+        {isLoggedIn && (
+                <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    My Profile
+                  </a>
+                  <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <Link to="/myevents" className="dropdown-item">My Events</Link>
+                  </div>
+                </li>
+              )}
           {isLoggedIn && (<li className="nav-item"><a className="nav-link" ><Link to="/Profil">Profil</Link></a></li>)}
           <li className="nav-item"><a className="nav-link" ><Link to="/">Home</Link></a></li>
           <li className="nav-item"><a className="nav-link" ><Link to="/courses">Courses</Link></a></li>
           <li className="nav-item"><a className="nav-link" ><Link to="/events">Events</Link></a></li>
           <li className="nav-item"><a className="nav-link" ><Link to="/">Schedule</Link></a></li>
           <li className="nav-item"><a className="nav-link" href="javascript:;"><Link to="/marketplace">Marketplace</Link></a></li>
-          
         </ul>
         <ul className="nav navbar-nav navbar-right">
         {!isLoggedIn && (

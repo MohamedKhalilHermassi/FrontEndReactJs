@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -21,8 +21,9 @@ const categories = [
   { value: 'Audition', label: 'Audition' },
 ];
 
-function Events({userId}) {
+function Events() {
     const [events, setEvents] = useState([]);
+    const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [eventsPerPage] = useState(10);
     const [loading, setLoading] = useState(false);
@@ -30,38 +31,53 @@ function Events({userId}) {
     const [currentEvent, setCurrentEvent] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
-    //const [registerError, setRegisterError] = useState(null);
-    //const [ticketCount, setTicketCount] = useState(1);
-    //const [showRegisterModal, setShowRegisterModal] = useState(false);
+    const [showCapacityAlert, setShowCapacityAlert] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const userId = localStorage.getItem('id');
     
     const handleCategoryChange = (selectedOption) => {
       setSelectedCategory(selectedOption.value);
     };
 
-    const fetchEvents = () => {
-        setLoading(true);
-        setError(null);
-        axios.get('http://localhost:3000/events')
-          .then(response => {
-            let filteredEvents = response.data;
-            if (selectedCategory !== 'All') {
-              filteredEvents = filteredEvents.filter(event => event.category === selectedCategory);
-            }
-            setEvents(filteredEvents);
-            setLoading(false);
-          })
-            .catch(error => {
-                console.error('Error fetching events:', error);
-                setError('Error fetching events.');
-                setLoading(false);
-            });
+    const registerForEvent = (eventId) => {
+      const event = events.find(e => e._id === eventId);
+      
+      // Check if the user is already registered
+      if (event.users.includes(userId)) {
+        alert('You are already registered for this event.');
+        return false;
+      }
+      // Check if the event's capacity has been reached
+      if (event.users.length >= event.capacity) {
+        alert('This event has reached its capacity. You cannot register for this event.');
+        return false;
+      }
+
+      return true;
+
     };
 
-    useEffect(() => {
-        fetchEvents();
-    }, [selectedCategory]);
+    const fetchEvents = useCallback(async ()  => {
+      setLoading(true);
+      setError(null);
+      try {
+          const response = await axios.get('http://localhost:3000/events');
+          let filteredEvents = response.data;
+          if (selectedCategory !== 'All') {
+            filteredEvents = filteredEvents.filter(event => event.category === selectedCategory);
+          }
+          setEvents(filteredEvents);
+      } catch (error) {
+          console.error('Error fetching events:', error);
+          setError('Error fetching events.');
+      } finally {
+          setLoading(false);
+      }
+  }, [selectedCategory]);
 
+    useEffect(() => {
+      fetchEvents();
+  }, [fetchEvents]);
   
 
     const indexOfLastEvent = currentPage * eventsPerPage;
@@ -100,14 +116,18 @@ function Events({userId}) {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="success" onClick={() => navigate('/eventRegister', { state: { eventId: currentEvent._id } })}>
+            <Button variant="success" onClick={() =>{
+                        if (registerForEvent(currentEvent._id)) {
+                            navigate('/eventRegister', { state: { eventId: currentEvent._id } });
+                        }
+                      }}>
               Register
             </Button>
           </Modal.Footer>
         </Modal>
         
         <div className="container mt-7">
-          <h1 className="mb-6">Event List</h1>
+          <h1 className="mb-6">Upcoming events</h1>
           <EventsGallery />
           <Form.Group controlId="categorySelect" style={{ marginBottom: '20px' }}>
           <Form.Label>Category</Form.Label>
@@ -117,10 +137,10 @@ function Events({userId}) {
             onChange={handleCategoryChange} 
           />
         </Form.Group>
-          <div className="row">
-            {currentEvents.map(event => (
-              <div key={event._id} className="col-md-12 mb-4">
-                <Card className="h-100 shadow flex-md-row">
+        <div className="row">
+      {events.filter(event => event.status !== 'Finished' && event.status !== 'Canceled').map(event => (
+        <div key={event._id} className="col-md-12 mb-4">
+          <Card className="h-100 shadow flex-md-row">
                   <Card.Img variant="left" src={`http://localhost:3000${event.image}`} style={{ width: '30%', objectFit: 'cover' }} />
                   <Card.Body className="d-flex flex-column">
                     <Card.Header as="h5">{event.title}</Card.Header>

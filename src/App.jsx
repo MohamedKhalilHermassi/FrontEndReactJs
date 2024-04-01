@@ -1,7 +1,8 @@
 import { lazy} from 'react'
+import React, { useEffect } from 'react';
 //import './App.css'
 import LandingPage from './components/landingPage'
-import {  Routes, Route } from 'react-router-dom'
+import {  Routes, Route,useNavigate } from 'react-router-dom'
 import Dashboard from './components/backOffice/Dashboard'
 import AdminLandingPage from './components/backOffice/adminLandingPage'
 import Acceuil from './components/acceuil'
@@ -13,6 +14,7 @@ import AddEvent from './components/backOffice/event/addEvent.jsx'
 import EditEvent from './components/backOffice/event/editEvent.jsx'
 import EventsCalendar from './components/backOffice/event/eventsCalendar.jsx'
 import EventRegister from './components/eventRegister'
+import MyEvents from './components/myevents'
 
 
 const Events = lazy(()=> import("./components/events"));
@@ -22,7 +24,10 @@ function App() {
 
   return (
     <>
-      
+     
+    
+    
+ 
       <Routes>
       
         <Route path = "" element={<LandingPage/>}>
@@ -31,6 +36,7 @@ function App() {
         <Route path = "courses" element={<Courses/>}></Route>
         <Route path = "Profil" element={<Profil/>}></Route>
         <Route path = "eventRegister" element={<EventRegister/>}></Route>
+        <Route path = "myevents" element={<MyEvents/>}></Route>
         </Route>
         <Route path="admin" element={<Dashboard/>}>
           <Route path='' element={<AdminLandingPage/>}/>
@@ -46,7 +52,8 @@ function App() {
          <Route path="register" element={<Register/>}>
 
          </Route>
-      </Routes>    
+      </Routes> 
+      
       </>
   )
 }
