@@ -91,7 +91,6 @@ if(image!=''){
 
 
           const newuser = await UserService.updateUser(localStorage.getItem('email'),formData);
-          console.log(newuser)
             window.location.href = '/Profil';
        } catch (error) {
           if(error.message=="Request failed with status code 302"){

@@ -98,10 +98,10 @@ function App() {
           <Route path="ListDrag" element={<SessionDrag/>} />
           <Route path="courses" element={<CourseList/>} />
           <Route path="addcourse" element={<CourseAdd/>} />
-          <Route path='location' element={<Location/>}/>
+          <Route path='location/:locationId' element={<Location/>}/>
           <Route path="locations" element={<LocationList/>} />
           <Route path="addlocation" element={<AddLocation/>} />
-          <Route path="addclassroom" element={<ClassroomAdd/>} />
+          <Route path="addclassroom/:locationId" element={<ClassroomAdd/>} />
           <Route path='Archivedproducts' element={<ArchivedProductList/>}/>
           <Route path='ordersList' element={<OrdersList/>}/>
           <Route path='products' element={<ProductListBack></ProductListBack>}/>

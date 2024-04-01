@@ -71,7 +71,6 @@ class SessionAdd extends Component {
         body: JSON.stringify(this.state)
       });
       const data = await response.json();
-      console.log(data);
       toast.success('Course added successfully!',
         {
           style:{
@@ -81,10 +80,7 @@ class SessionAdd extends Component {
           duration: 2000
         }
       )
-      // Handle success response
     } catch (error) {
-      console.error('Error:', error);
-      console.log('Toast should be displayed'); // Add console log
       toast.error('An error occurred while adding the session.',
         {
           style:{
@@ -93,7 +89,7 @@ class SessionAdd extends Component {
           },
           duration: 2000
         }
-      ); // Call toast.error() to display the toast notification
+      );
     }
   }
 

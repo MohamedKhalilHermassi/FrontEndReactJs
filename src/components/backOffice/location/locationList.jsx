@@ -12,14 +12,10 @@ function LocationList() {
   useEffect(() => {
       fetchData();
   },[])
-  useEffect(() => {
-  }, [locations]);
 
   const fetchData = async () => {
       try {
           const locationsData = await fetchLocations();
-          //console.log(locationsData);
-
           setLocations(locationsData);
           setLoading(false);
       } catch (error) {

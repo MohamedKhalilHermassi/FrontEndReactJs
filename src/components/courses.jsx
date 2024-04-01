@@ -15,7 +15,6 @@ function Courses()
       const token = localStorage.getItem('userToken');
       if(token){
       const decodedToken = jwtDecode(token);
-      console.log(decodedToken.id);
       setUserId(decodedToken.id);
       }
   },[])
@@ -27,7 +26,6 @@ function Courses()
     try {
         const coursesData = await fetchCourses();
         setCourses(coursesData);
-        console.log(courses[0].teacher.fullname);
     } catch (error) {
         console.error(error.message);
     }

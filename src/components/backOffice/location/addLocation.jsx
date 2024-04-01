@@ -32,9 +32,8 @@ function AddLocation() {
         onSubmit: async (values) => {
             values.lat = coordinates.lat;
             values.lng = coordinates.lng;
-            console.log(values);
-            //await addLocation(values);
-            //navigate('/admin/locations');
+            await addLocation(values);
+            navigate('/admin/locations');
         }
       })
 
@@ -42,7 +41,7 @@ function AddLocation() {
 <div className="ml-4 mt-2 col-11">
   <div className="card mb-4">
     <div className="card-header d-flex justify-content-between align-items-center">
-      <h5 className="mb-0"><i class="menu-icon fa-solid fa-chalkboard-user"></i>Classroom</h5>
+      <h5 className="mb-0"><i class="menu-icon fa-solid fa-map-location-dot"></i>Location</h5>
     </div>
     <div className="card-body">
       <form onSubmit={handleSubmit}>

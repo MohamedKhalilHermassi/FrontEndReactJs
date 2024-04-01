@@ -8,7 +8,6 @@ const CourseList = () => {
 
     useEffect(() => {
         fetchData();
-        console.log(courses);
     },[])
 
     const fetchData = async () => {

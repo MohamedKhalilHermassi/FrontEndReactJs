@@ -11,7 +11,6 @@ const CourseAdd = (props) => {
   const [teachers, setTeachers] = useState([]);
   useEffect(() => {
     fetchTeachers();
-    console.log(teachers);
     if(props.course){
       if(props.course._id){
     setHidden(false);

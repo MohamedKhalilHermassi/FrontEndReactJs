@@ -10,7 +10,6 @@ function LocationMap(props) {
     const navigate = useNavigate();
 
     useEffect(()=>{
-      console.log(Object.keys(props));
       if(Object.keys(props) == 'getlocation'){
         props.getlocation(location);
       }else {
@@ -46,7 +45,6 @@ function LocationMap(props) {
         setMap(null)
       }, [])
 
-            // Handle map click event
     const onMapClick = useCallback((event) => {
         setLocation({lat: event.latLng.lat(), lng: event.latLng.lng()})
     }, []);
@@ -65,8 +63,7 @@ function LocationMap(props) {
           key={location._id}
           position={{ lat: location.lat, lng: location.lng }}
           title={location.address}
-          onClick={() => {console.log(location.city);
-          navigate('/admin/location');}}
+          onClick={() => {navigate(`/admin/location/${location._id}`);}}
         />
       ))}
           </GoogleMap>
