@@ -19,7 +19,7 @@ function AddProductForm() {
 
   const [formData, setFormData] = useState({
     user: localStorage.getItem('id'),
-    type: '',
+    type: 'instrument',
     name: '',
     description: '',
     archived: false,
@@ -161,14 +161,7 @@ function AddProductForm() {
               <input type="file" name="image" className="form-control" onChange={handleFileChange} />
               {errors.image && <div className="text-danger">{errors.image}</div>}
             </div>
-            <div className="col-md-4">
-              <select name="type" className="form-control" value={formData.type} onChange={handleChange}>
-                {Object.entries(productType).map(([key, value]) => (
-                  <option key={key} value={key}>{value}</option>
-                ))}
-              </select>
-              {errors.condition && <div className="text-danger">{errors.type}</div>}
-            </div>
+          
             <div className="col-12">
               <button type="submit" className="btn btn-primary position-relative w-auto" disabled={loading}>
                 {loading && (

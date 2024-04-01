@@ -9,7 +9,7 @@ function register() {
     const [Lastname, setLastname] = useState('');
     const [phone, setphone] = useState('');
     const [birthday, setbirthday] = useState('');
-    const [adress, setadress] = useState('');
+    const [address, setadress] = useState('');
     const [password, setPassword] = useState('');
     const [image, setimage] = useState('');
     const [verif, setverif] = useState('');
@@ -39,7 +39,7 @@ function register() {
           Lastname &&
           phone &&
           birthday &&
-          adress &&
+          address &&
           password &&
           image
         );
@@ -99,7 +99,7 @@ function register() {
   formData.append('fullname', Firstname + ' ' + Lastname);
   formData.append('email', email);
   formData.append('password', password);
-  formData.append('address', adress);
+  formData.append('address', address);
   formData.append('phone', phone);
   formData.append('birthday', birthday);
   formData.append('image', image);
@@ -201,7 +201,7 @@ function register() {
                       </div>
                       {/* adress input */}
                       <div className="form-outline mb-4">
-                        <input type="text" id="Address" className="form-control" value={adress} onChange={(event) => setadress(event.target.value)}/>
+                        <input type="text" id="Address" className="form-control" value={address} onChange={(event) => setadress(event.target.value)}/>
                         <label className="form-label" htmlFor="form3Example3">Address</label>
                       </div>
                       {/* Email input */}
