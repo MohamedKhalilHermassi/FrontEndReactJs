@@ -35,6 +35,13 @@ import ClassroomAdd from './components/backOffice/classroom/classroomAdd';
 import AddLocation from './components/backOffice/location/addLocation';
 import LocationList from './components/backOffice/location/locationList';
 import Map from './components/backOffice/location/map';
+import EventList from './components/backOffice/event/eventList.jsx'
+import AddEvent from './components/backOffice/event/addEvent.jsx'
+import EditEvent from './components/backOffice/event/editEvent.jsx'
+import EventsCalendar from './components/backOffice/event/eventsCalendar.jsx'
+import EventRegister from './components/eventRegister'
+import MyEvents from './components/myevents'
+
 
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
@@ -80,6 +87,8 @@ function App() {
         <Route path = "schedule" element={<Schedul/>}></Route>
         <Route path='add-session' element={<SessionAdd/>}></Route>
         <Route path = "reclamation" element={<Reclamtions/>}></Route>
+        <Route path = "eventRegister" element={<EventRegister/>}></Route>
+        <Route path = "myevents" element={<MyEvents/>}></Route>
       </Route>
 
       {/* Section d'administration */}
@@ -105,6 +114,10 @@ function App() {
           <Route path='Archivedproducts' element={<ArchivedProductList/>}/>
           <Route path='ordersList' element={<OrdersList/>}/>
           <Route path='products' element={<ProductListBack></ProductListBack>}/>
+          <Route path="events" element={<EventList/>}/>
+          <Route path="addevent" element={<AddEvent/>}/>
+          <Route path="edit-event/:id" element={<EditEvent/>} />
+          <Route path="eventscalendar" element={<EventsCalendar/>} />
           <Route path = "user" element={<Users/>}></Route>
 
 
@@ -116,6 +129,9 @@ function App() {
       <Route path="register" element={<Register />} />
     </Routes>
     </div>
+    
+    
+      
       </>
   );
 

@@ -58,6 +58,7 @@ export const NavBar = () => {
                     <Link to="/profil" className="dropdown-item">My Profile</Link>
                     <Link to="/myproducts" className="dropdown-item">My Products</Link>
                     <Link to="/mycourses" className="dropdown-item">My Courses</Link><Link to="/reclamation" className="dropdown-item">My Reclamtions</Link>
+                    <Link to="/myevents" className="dropdown-item">My Events</Link>
                   </div>
                 </li>
             )}
