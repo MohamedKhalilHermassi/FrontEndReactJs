@@ -104,11 +104,14 @@ const Schedule = () => {
   };
 
   const handleEventClick = async (event) => {
-    const selectedCourse = courses.find(course => course.name === event.title);
-  
+    const { _id } = event;
+    console.log(_id) ;
+    console.log(event) ;
+    const selectedCourse = courses.find(course => course._id === event.course);
+     console.log(selectedCourse)
     if (selectedCourse) {
       try {
-        const response = await fetch(`http://localhost:3000/sessions/bycourse/${selectedCourse._id}`);
+        const response = await fetch(`http://localhost:3000/sessions/${_id}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch session data');
@@ -118,13 +121,11 @@ const Schedule = () => {
         console.log('Session Data:', sessionData); // Log session data
   
         // Ensure sessionData is an array and contains at least one session
-        if (!Array.isArray(sessionData) || sessionData.length === 0) {
-          throw new Error('No session data found');
-        }
+       
   
         // Select the first session and extract its _id
-        const { _id: sessionId, users: enrolledUserIds } = sessionData[0];
-  
+        const { _id: sessionId, users: enrolledUserIds } = sessionData;
+           console.log(sessionData)
         console.log('Enrolled User IDs:', enrolledUserIds); // Log enrolled user IDs
   
         // Retrieve user data for each enrolled user
