@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css'; // Import calendar CSS
 import moment from 'moment';
@@ -8,45 +8,39 @@ import guitarImage from '../../public/images/guitar.png';
 import pianoImage from '../../public/images/piano.png'; // Import the image for the Piano course
 import closeIcon from '../../public/images/close.png'; // Import the close button image
 
-export class Schedule extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sessions: [],
-      selectedDate: new Date(),
-      courses: [], // Added courses state to store courses data
-      courseImages: {
-        Guitar: guitarImage, // Map course name to image URL
-        Piano: pianoImage // Add mapping for Piano course
-      },
-      showModal: false, // State to control modal visibility
-      courseDescription: '', // State to store course description
-      courseType: '', // State to store course type
-      courseLevel: '', // State to store course level
-      selectedCourse: '', // State to store the selected course
-      userRole : '' , 
-      enrolledUsers: [] ,
-      sessionId : '',
-      userId : localStorage.getItem('id')
-     
-    };
-  }
+const Schedule = () => {
+  const [sessions, setSessions] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [courses, setCourses] = useState([]); // Added courses state to store courses data
+  const [courseImages, setCourseImages] = useState({
+    Guitar: guitarImage, // Map course name to image URL
+    Piano: pianoImage // Add mapping for Piano course
+  });
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [courseDescription, setCourseDescription] = useState(''); // State to store course description
+  const [courseType, setCourseType] = useState(''); // State to store course type
+  const [courseLevel, setCourseLevel] = useState(''); // State to store course level
+  const [selectedCourse, setSelectedCourse] = useState(''); // State to store the selected course
+  const [userRole, setUserRole] = useState(''); // State to store user role
+  const [enrolledUsers, setEnrolledUsers] = useState([]);
+  const [sessionId, setSessionId] = useState('');
+  const userId = localStorage.getItem('id');
 
-  componentDidMount() {
-    this.fetchSessions();
-    this.fetchCourses(); // Fetch courses data
-    this.fetchUserRole(); // Fetch user role
-  }
+  useEffect(() => {
+    fetchSessions();
+    fetchCourses(); // Fetch courses data
+    fetchUserRole(); // Fetch user role
+  }, []);
 
-  fetchUserRole = () => {
+  const fetchUserRole = () => {
     const token = localStorage.getItem('userToken');
     if (token) {
       const decodedToken = jwtDecode(token);
-      this.setState({ userRole: decodedToken.role });
+      setUserRole(decodedToken.role);
     }
-  }
+  };
 
-  handleEventDrop = async (event) => {
+  const handleEventDrop = async (event) => {
     try {
       const { _id, start, end } = event;
       const response = await fetch(`http://localhost:3000/sessions/${_id}`, {
@@ -66,9 +60,9 @@ export class Schedule extends Component {
     } catch (error) {
       console.error('Error updating session:', error);
     }
-  }
+  };
 
-  fetchSessions = async () => {
+  const fetchSessions = async () => {
     try {
       const response = await fetch('http://localhost:3000/sessions');
       const sessionsData = await response.json();
@@ -89,87 +83,90 @@ export class Schedule extends Component {
         };
       });
 
-      this.setState({ sessions: sessionsWithCourse });
+      setSessions(sessionsWithCourse);
     } catch (error) {
       console.error('Error fetching sessions:', error);
     }
-  }
+  };
 
-  fetchCourses = async () => {
+  const fetchCourses = async () => {
     try {
       const response = await fetch('http://localhost:3000/courses');
       const data = await response.json();
-      this.setState({ courses: data });
+      setCourses(data);
     } catch (error) {
       console.error('Error fetching courses:', error);
     }
-  }
+  };
 
-  handleDateChange = (date) => {
-    this.setState({ selectedDate: date });
-  }
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
-  handleEventClick = async (event) => {
-    const { courses } = this.state;
+  const handleEventClick = async (event) => {
     const selectedCourse = courses.find(course => course.name === event.title);
+  
     if (selectedCourse) {
       try {
         const response = await fetch(`http://localhost:3000/sessions/bycourse/${selectedCourse._id}`);
+        
         if (!response.ok) {
           throw new Error('Failed to fetch session data');
         }
-        const sessionData = await response.json();
         
+        const sessionData = await response.json();
+        console.log('Session Data:', sessionData); // Log session data
+  
         // Ensure sessionData is an array and contains at least one session
         if (!Array.isArray(sessionData) || sessionData.length === 0) {
           throw new Error('No session data found');
         }
-        
+  
         // Select the first session and extract its _id
-        const sessionId = sessionData[0]._id;
-        
-        // Retrieve enrolled user data
-        const enrolledUserIds = sessionData[0].users || [];
+        const { _id: sessionId, users: enrolledUserIds } = sessionData[0];
+  
+        console.log('Enrolled User IDs:', enrolledUserIds); // Log enrolled user IDs
+  
+        // Retrieve user data for each enrolled user
         const userPromises = enrolledUserIds.map(async userId => {
           const userResponse = await fetch(`http://localhost:3000/users/user/${userId}`);
+          
           if (!userResponse.ok) {
             throw new Error(`Failed to fetch user data for user ID: ${userId}`);
           }
+          
           return userResponse.json();
         });
+  
         const userDataArray = await Promise.all(userPromises);
-        const userNames = userDataArray.map(userData => userData.name);
+        console.log('User Data Array:', userDataArray); // Log user data array
+  
+        // Extract user names from user data array
+        const userNames = userDataArray.map(userData => userData.fullname);
+        console.log('User Names:', userNames); // Log user names
   
         // Set modal state with session and user data
-        this.setState({ 
-          showModal: true, 
-          courseDescription: selectedCourse.description,
-          courseType: selectedCourse.courseType,
-          courseLevel: selectedCourse.level,
-          selectedCourse: event.title,
-          enrolledUsers: userNames,
-          sessionId: sessionId
-        });
+        setShowModal(true);
+        setCourseDescription(selectedCourse.description);
+        setCourseType(selectedCourse.courseType);
+        setCourseLevel(selectedCourse.level);
+        setSelectedCourse(event.title);
+        setEnrolledUsers(userNames);
+        setSessionId(sessionId);
       } catch (error) {
         console.error('Error fetching session data:', error);
         // Optionally handle error here
       }
     }
-  }
-  
-  
-  
-  
-  
-  
+  };
   
 
-  handleCloseModal = () => {
+  const handleCloseModal = () => {
     // Close modal when modal is clicked
-    this.setState({ showModal: false });
-  }
+    setShowModal(false);
+  };
 
-  handleJoindreClick = async (sessionId) => { // Accept sessionId as a parameter
+  const handleJoindreClick = async (sessionId) => { // Accept sessionId as a parameter
     try {
       const studentId = localStorage.getItem('id'); // Assuming the user ID is stored in localStorage
       const response = await fetch(`http://localhost:3000/users/user/${studentId}`);
@@ -203,122 +200,128 @@ export class Schedule extends Component {
       console.error('Error joining session:', error);
       // Optionally, you can show an error message here
     }
-  }
+  };
 
-  render() {
-    const localizer = momentLocalizer(moment);
-    const { selectedCourse, courseDescription, courseType, courseLevel, showModal, courseImages, userRole, sessions } = this.state;
-    console.log(this.state);
+  const localizer = momentLocalizer(moment);
 
-    return (
-      <div style={{ maxWidth: '90vw', margin: 'auto', background: 'linear-gradient(to bottom, #283593, #673AB7)', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
-        <h2 style={{ color: '#fff' }}>Session List</h2>
-        <Calendar
-          localizer={localizer}
-          events={this.state.sessions}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 500, borderRadius: '10px', overflow: 'hidden', color: '#fff' }} // Adjust the height as needed
-          onSelectDate={this.handleDateChange} // Call handleDateChange when a date is selected
-          eventPropGetter={(event) => ({
-            style: {
-              backgroundImage: `url(${this.state.courseImages[event.title]})`,
-              backgroundSize: 'cover',
-              backgroundPositionX: '2px',
-              backgroundPositionY: '24px',
-              borderRadius: '5px'
+  return (
+    <div style={{ maxWidth: '90vw', margin: 'auto', background: 'linear-gradient(to bottom, #283593, #673AB7)', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
+      <h2 style={{ color: '#fff' }}>Session List</h2>
+      <Calendar
+        localizer={localizer}
+        events={sessions}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500, borderRadius: '10px', overflow: 'hidden', color: '#fff' }} // Adjust the height as needed
+        onSelectDate={handleDateChange} // Call handleDateChange when a date is selected
+        eventPropGetter={(event) => ({
+          style: {
+            backgroundImage: `url(${courseImages[event.title]})`,
+            backgroundSize: 'cover',
+            backgroundPositionX: '2px',
+            backgroundPositionY: '24px',
+            borderRadius: '5px'
+          }
+        })}
+        onSelectEvent={handleEventClick} // Call handleEventClick when an event is clicked
+        dayPropGetter={(date) => ({
+          style: {
+            backgroundColor: 'transparent', // Set transparent background for days
+          }
+        })}
+        defaultView="week" // Set the default view to 'week'
+        components={{
+          month: {
+            dateHeader: ({ label }) => {
+              return <span style={{ color: '#fff' }}>{label}</span>; // Set white color for day labels
             }
-          })}
-          onSelectEvent={this.handleEventClick} // Call handleEventClick when an event is clicked
-          dayPropGetter={(date) => ({
-            style: {
-              backgroundColor: 'transparent', // Set transparent background for days
+          },
+          toolbar: (props) => {
+              return (
+                <div className="rbc-toolbar">
+                  <span className="rbc-btn-group">
+                    <button type="button" onClick={() => props.onNavigate('TODAY')} className="rbc-btn" style={{ color: '#fff' }}>
+                      Today
+                    </button>
+                    <button type="button" onClick={() => props.onNavigate('PREV')} className="rbc-btn" style={{ color: '#fff' }}>
+                      Back
+                    </button>
+                    <button type="button" onClick={() => props.onNavigate('NEXT')} className="rbc-btn" style={{ color: '#fff' }}>
+                      Next
+                    </button>
+                  </span>
+                  <span className="rbc-toolbar-label" style={{ color: '#fff' }}>{props.label}</span>
+                  <span className="rbc-btn-group">
+                    <button type="button" onClick={() => props.onView('month')} className="rbc-btn" style={{ color: '#fff' }}>
+                      Month
+                    </button>
+                    <button type="button" onClick={() => props.onView('week')} className="rbc-btn" style={{ color: '#fff' }}>
+                      Week
+                    </button>
+                    <button type="button" onClick={() => props.onView('day')} className="rbc-btn" style={{ color: '#fff' }}>
+                      Day
+                    </button>
+                    <button type="button" onClick={() => props.onView('agenda')} className="rbc-btn" style={{ color: '#fff' }}>
+                      Agenda
+                    </button>
+                  </span>
+                </div>
+              );
             }
-          })}
-          defaultView="week" // Set the default view to 'week'
-          components={{
-            month: {
-              dateHeader: ({ label }) => {
-                return <span style={{ color: '#fff' }}>{label}</span>; // Set white color for day labels
-              }
-            },
-            toolbar: (props) => {
-                return (
-                  <div className="rbc-toolbar">
-                    <span className="rbc-btn-group">
-                      <button type="button" onClick={() => props.onNavigate('TODAY')} className="rbc-btn" style={{ color: '#fff' }}>
-                        Today
-                      </button>
-                      <button type="button" onClick={() => props.onNavigate('PREV')} className="rbc-btn" style={{ color: '#fff' }}>
-                        Back
-                      </button>
-                      <button type="button" onClick={() => props.onNavigate('NEXT')} className="rbc-btn" style={{ color: '#fff' }}>
-                        Next
-                      </button>
-                    </span>
-                    <span className="rbc-toolbar-label" style={{ color: '#fff' }}>{props.label}</span>
-                    <span className="rbc-btn-group">
-                      <button type="button" onClick={() => props.onView('month')} className="rbc-btn" style={{ color: '#fff' }}>
-                        Month
-                      </button>
-                      <button type="button" onClick={() => props.onView('week')} className="rbc-btn" style={{ color: '#fff' }}>
-                        Week
-                      </button>
-                      <button type="button" onClick={() => props.onView('day')} className="rbc-btn" style={{ color: '#fff' }}>
-                        Day
-                      </button>
-                      <button type="button" onClick={() => props.onView('agenda')} className="rbc-btn" style={{ color: '#fff' }}>
-                        Agenda
-                      </button>
-                    </span>
-                  </div>
-                );
-              }
-          }}
-        />
-        {/* Modal */}
-        <Modal
-          isOpen={showModal}
-          onRequestClose={this.handleCloseModal}
-          contentLabel="Course Picture Modal"
-          style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              zIndex: 999 // Ensure the modal is displayed on top
-            },
-            content: {
-              width: '50%',
-              height: '50%',
-              margin: 'auto',
-              border: 'none',
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)'
-            }
-          }}
-        >
-          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-            {selectedCourse && (
-              <>
-                <img src={courseImages[selectedCourse]} alt={selectedCourse} style={{ width: '70%', height: '100%' }} />
-                <p style={{ color: '#000', marginTop: '10px' }}>Description: {courseDescription}</p>
-                <p style={{ color: '#000' }}>Type: {courseType}</p>
-                <p style={{ color: '#000' }}>Level: {courseLevel}</p>
-              </>
-            )}
-            {/* Close button */}
-            <img src={closeIcon} alt="Close" style={{ position: 'absolute', top: '5px', right: '5px', cursor: 'pointer', width: '20px', height: '20px' }} onClick={this.handleCloseModal} />
-            {/* Joindre button */}
-            {userRole === 'Student' && (
-  <button class="btn btn-success" style={{ color: 'green' }} onClick={() => this.handleJoindreClick(this.state.sessionId)}>Joindre</button>
-)}
-
-          </div>
-        </Modal>
-      </div>
-    );
-  }
-}
+        }}
+      />
+      {/* Modal */}
+      <Modal
+        isOpen={showModal}
+        onRequestClose={handleCloseModal}
+        contentLabel="Course Picture Modal"
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 999 // Ensure the modal is displayed on top
+          },
+          content: {
+            width: '50%',
+            height: '50%',
+            margin: 'auto',
+            border: 'none',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)'
+          }
+        }}
+      >
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          {selectedCourse && (
+            <>
+              <img src={courseImages[selectedCourse]} alt={selectedCourse} style={{ width: '70%', height: '100%' }} />
+              <p style={{ color: '#000', marginTop: '10px' }}>Description: {courseDescription}</p>
+              <p style={{ color: '#000' }}>Type: {courseType}</p>
+              <p style={{ color: '#000' }}>Level: {courseLevel}</p>
+              {enrolledUsers && enrolledUsers.length > 0 && (
+                <div>
+                  <p style={{ color: '#000' }}>Enrolled Users:</p>
+                  <ul>
+                    <li key={0}>Teacher is: {enrolledUsers[0]}</li>
+                    {enrolledUsers.slice(1).map((userName, index) => (
+                      <li key={index + 1}>{userName}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </>
+          )}
+          {/* Close button */}
+          <img src={closeIcon} alt="Close" style={{ position: 'absolute', top: '5px', right: '5px', cursor: 'pointer', width: '20px', height: '20px' }} onClick={handleCloseModal} />
+          {/* Joindre button */}
+          {userRole === 'Student' && (
+            <button className="btn btn-success" style={{ color: 'green' }} onClick={() => handleJoindreClick(sessionId)}>Joindre</button>
+          )}
+        </div>
+      </Modal>
+    </div>
+  );
+};
 
 export default Schedule;
