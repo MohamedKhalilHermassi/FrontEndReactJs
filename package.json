@@ -12,6 +12,7 @@
   "dependencies": {
     "@aldabil/react-scheduler": "^2.8.2",
     "@emotion/styled": "^11.11.5",
+    "@ant-design/icons": "^5.3.6",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/interaction": "^6.1.11",
@@ -25,6 +26,7 @@
     "@syncfusion/ej2-base": "^24.2.7",
     "@syncfusion/ej2-react-schedule": "^24.2.8",
     "@vis.gl/react-google-maps": "^0.7.1",
+    "antd": "^5.16.0",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.2",
     "chart.js": "^4.4.2",

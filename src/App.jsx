@@ -41,6 +41,7 @@ import EditEvent from './components/backOffice/event/editEvent.jsx'
 import EventsCalendar from './components/backOffice/event/eventsCalendar.jsx'
 import EventRegister from './components/eventRegister'
 import MyEvents from './components/myevents'
+import RegisteredUsers from './components/backOffice/event/registeredUsers.jsx';
 
 
 const Events = lazy(()=> import("./components/events"));
@@ -49,7 +50,7 @@ const Courses = lazy(()=> import ("./components/courses"));
 function App() {
   const navigate = useNavigate();
   const excludedRoutes = ["/signin", "/register","/events","/courses","/market"];
-  const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin", "/admin/addsession","/admin/listsession", "/admin/listsession2", "/admin/editSession", "/admin/ListS", "/admin/ListDrag", "/admin/courses", "/admin/addcourse", "/admin/locations", "/admin/map", "/admin/addlocation", "/admin/addclassroom", "/admin/Archivedproducts", "/admin/ordersList", "/admin/products"];
+  const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin", "/admin/addsession","/admin/listsession", "/admin/listsession2", "/admin/editSession", "/admin/ListS", "/admin/ListDrag", "/admin/courses", "/admin/addcourse", "/admin/locations", "/admin/map", "/admin/addlocation", "/admin/addclassroom", "/admin/Archivedproducts", "/admin/ordersList", "/admin/products", "/admin/events", "/admin/addevent", "/admin/edit-event", "/admin/eventscalendar", "/admin/registeredusers"];
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     if (!excludedRoutes.includes(window.location.pathname) && AuthService.isTokenExpired(token)) {
@@ -118,6 +119,7 @@ function App() {
           <Route path="addevent" element={<AddEvent/>}/>
           <Route path="edit-event/:id" element={<EditEvent/>} />
           <Route path="eventscalendar" element={<EventsCalendar/>} />
+          <Route path="registeredusers" element={<RegisteredUsers/>} />
           <Route path = "user" element={<Users/>}></Route>
 
 

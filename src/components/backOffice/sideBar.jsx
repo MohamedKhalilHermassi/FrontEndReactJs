@@ -121,8 +121,6 @@ const SideBar = () => {
             <div data-i18n="Layouts">Reclamtions</div>
             </Link>
         </li>
-    
-  
         <li className="menu-item">
           <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#events" aria-expanded="false" aria-controls="events">
             <i className="menu-icon fa-solid fa-calendar-days" />
@@ -138,9 +136,12 @@ const SideBar = () => {
             <li className="sidebar-item">
               <Link className="sidebar-link menu-link" to="/admin/eventscalendar"><i className="menu-icon fas fa-grip" />Events Calendar</Link>
             </li>
+            <li className="sidebar-item">
+              <Link class="sidebar-link menu-link" to="/admin/registeredusers"><i className="menu-icon fas fa-grip" />Registered Users</Link>
+            </li>
           </ul>
         </li>
-        </ul>
+      </ul>
       {/* / Menu */}
     </>
   );
