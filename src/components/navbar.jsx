@@ -80,12 +80,12 @@ export const NavBar = () => {
             <li className="nav-item"><a className="nav-link" ><Link to="/events">Events</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/schedule">Schedule</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/marketplace">Marketplace</Link></a></li>
-            <li className="nav-item"><a className="nav-link" href="javascript:;"><Link to="/bookstore">Book Store</Link></a></li>
+            <li className="nav-item"><a className="nav-link" ><Link to="/bookstore">Book Store</Link></a></li>
 
           </ul>
           <ul className="nav navbar-nav navbar-right">
        
-
+                  
         &nbsp;
         &nbsp;
             {!isLoggedIn && (

@@ -106,7 +106,7 @@ function EventRegister() {
         <div className="container mt-7">
             <h1>Register for Event</h1>
             {error && <Alert variant="danger">{error}</Alert>}
-            {success && <Alert variant="success">{success}</Alert>}
+            {success && <Alert color='black' variant="success">{success}</Alert>}
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="name">
                     <Form.Label>Name</Form.Label>
