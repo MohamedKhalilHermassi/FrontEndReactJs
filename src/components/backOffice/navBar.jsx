@@ -31,7 +31,7 @@ const NavBar = () => {
     
     socket.on('Reclamation', (reclamationData) => {
       setUnreadNotifications(unreadNotifications + 1); 
-      setNotification([reclamationData]); 
+      setNotification((prevNotifications) => [...prevNotifications, reclamationData]);
       console.log(notification)
   });
 
@@ -75,7 +75,7 @@ const NavBar = () => {
       
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButtonn">
            {notification ? (
-          <ul >
+          <ul className='row'>
          
            
               <li className='dropdown-item' >{notification}</li>
@@ -98,7 +98,7 @@ const NavBar = () => {
             <ul className="navbar-nav flex-row align-items-center ms-auto">
               {/* User */}
               <li className="nav-item navbar-dropdown dropdown-user dropdown">
-                <a className="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                <a className="nav-link dropdown-toggle hide-arrow"  data-bs-toggle="dropdown">
                   <div className="avatar avatar-online">
                   {userData ? (
                     <img src={`http://localhost:3000/${userData.image}`} alt="" className="w-px-40 h-auto rounded-circle" />
@@ -160,7 +160,7 @@ const NavBar = () => {
             </ul>
           </div>
         </nav>
-        <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <SideBar/>
   </div>
         

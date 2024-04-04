@@ -69,7 +69,7 @@ export const NavBar = () => {
             <li className="nav-item"><a className="nav-link" ><Link to="/courses">Courses</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/events">Events</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/schedule">Schedule</Link></a></li>
-            <li className="nav-item"><a className="nav-link" href="javascript:;"><Link to="/marketplace">Marketplace</Link></a></li>
+            <li className="nav-item"><a className="nav-link" ><Link to="/marketplace">Marketplace</Link></a></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
        
@@ -86,9 +86,9 @@ export const NavBar = () => {
                 Log Out
               </button>
             )}
-            <li className="nav-item"><a className="nav-link" href="https://twitter.com/CreativeTim"><i className="fab fa-twitter" /></a></li>
-            <li className="nav-item"><a className="nav-link" href="https://www.facebook.com/ConservatoireElkindy/?locale=fr_FR"><i className="fab fa-facebook-square" /></a></li>
-            <li className="nav-item"><a className="nav-link" href="https://www.instagram.com/CreativeTimOfficial"><i className="fab fa-instagram" /></a></li>
+            <li className="nav-item"><a className="nav-link" ><Link to="https://twitter.com/CreativeTim"><i className="fab fa-twitter" /></Link></a></li>
+            <li className="nav-item"><a className="nav-link" ><Link to="https://www.facebook.com/ConservatoireElkindy/?locale=fr_FR"><i className="fab fa-facebook-square" /></Link></a></li>
+            <li className="nav-item"><a className="nav-link" ><Link to="https://www.instagram.com/CreativeTimOfficial"><i className="fab fa-instagram" /></Link></a></li>
           </ul>
         </div>
       </div>

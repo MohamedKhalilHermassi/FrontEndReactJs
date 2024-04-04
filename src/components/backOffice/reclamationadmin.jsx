@@ -1,21 +1,50 @@
 import { useState, useEffect } from 'react';
 import ReclamtionService from '../../service/reclamtionService';
+import { PieChart } from '@mui/x-charts/PieChart';
 function reclamationadmin()
 {
     const [ReclamtionData, setReclamtionData] = useState(null);
+    const [percentages, setPercentages] = useState([0, 0, 0, 0]);
     useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const recla = await ReclamtionService.getAllReclamations();
-            setReclamtionData(recla);
-         
-          } catch (err) {
-            console.error('Error fetching data:', err);
-          }
+      const fetchData = async () => {
+        try {
+          const recla = await ReclamtionService.getAllReclamations();
+          setReclamtionData(recla);
+        } catch (err) {
+          console.error('Error fetching data:', err);
+        }
+      };
+    
+      fetchData();
+    }, []);
+    
+    useEffect(() => {
+      if (ReclamtionData) {
+        const totalCount = ReclamtionData.length;
+        const typeCounts = {
+          techniques: 0,
+          administrative: 0,
+          Communication: 0,
+          other: 0
         };
     
-        fetchData();
-      }, []);
+        ReclamtionData.forEach(reclamation => {
+          typeCounts[reclamation.typereclamtion]++;
+        });
+    
+        const newPercentages = [
+          typeCounts.techniques / totalCount,
+          typeCounts.administrative / totalCount,
+          typeCounts.Communication / totalCount,
+          typeCounts.other / totalCount
+        ];
+    
+        setPercentages(newPercentages);
+        console.log(percentages)
+      }
+    }, [ReclamtionData]);
+  
+     
       const formatDateOfBirth = (dateString) => {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -39,8 +68,25 @@ function reclamationadmin()
 
             <div className="container-xxl flex-grow-1 container-p-y">
               <h4 className="fw-bold py-3 mb-4"><span className="text-muted fw-light">Reclamtions /</span> </h4>
+              
+                    <div className="pie-chart">
+                    <PieChart
+  series={[
+    {
+      data: [
+        { id: 0, value: percentages[0] * 100, label: 'techniques' },
+        { id: 1, value: percentages[1] * 100, label: 'administrative' },
+        { id: 2, value: percentages[2] * 100, label: 'communication' },
+        { id: 3, value: percentages[3] * 100, label: 'other' },
+      ],
+    },
+  ]}
+  width={400}
+  height={200}
+/>
 
-             
+                    </div>
+                
               <div className="card">
                 <h5 className="card-header">Table Reclamtions</h5>
                 <div className="table-responsive text-nowrap">
