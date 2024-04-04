@@ -50,6 +50,9 @@ import Guitar from './components/skills';
 import MyOrders from './components/myOrders';
 import MyBooks from './components/myBooks';
 import SoldProducts from './components/backOffice/soldProducts';
+import TeacherCourses from './components/teacherCourses.jsx';
+import StudentsList from './components/studentsList.jsx';
+import UserNotes from './components/userNores.jsx';
 
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
@@ -96,6 +99,8 @@ function App() {
         <Route path = "myproducts" element={<MyProducts/>}></Route>
         <Route path = "myorders" element={<MyOrders/>}></Route>
         <Route path = "mybooks" element={<MyBooks/>}></Route>
+        <Route path = "teachercourses" element={<TeacherCourses/>}></Route>
+        <Route path = "/studentsList/:courseId" element={<StudentsList/>}></Route>
 
         <Route path = "mycourses" element={<MyCourses/>}></Route>
         <Route path = "schedule" element={<Schedul/>}></Route>
@@ -103,6 +108,8 @@ function App() {
         <Route path = "reclamation" element={<Reclamtions/>}></Route>
         <Route path = "eventRegister" element={<EventRegister/>}></Route>
         <Route path = "myevents" element={<MyEvents/>}></Route>
+        <Route path = "mymarks" element={<UserNotes/>}></Route>
+
       </Route>
 
       {/* Section d'administration */}
