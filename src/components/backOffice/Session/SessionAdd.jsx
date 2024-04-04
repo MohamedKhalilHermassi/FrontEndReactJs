@@ -8,15 +8,17 @@ const SessionAdd = () => {
   const [duree, setDuree] = useState('');
   const [usersId] = useState(localStorage.getItem('id'));
   const [courseId, setCourseId] = useState('');
+  const [classroomId, setClassroomId] = useState('');
   const [courses, setCourses] = useState([]);
+  const [classrooms, setClassrooms] = useState([]); // Added state for classrooms
   const [startDateError, setStartDateError] = useState('');
   const [dureeError, setDureeError] = useState('');
   const [formValid, setFormValid] = useState(false);
 
-  const params = useParams() ;
+  const params = useParams();
   useEffect(() => {
-     const id = params.id ; 
-     setCourseId(id) ;
+    const id = params.id;
+    setCourseId(id);
     const fetchCourses = async () => {
       try {
         const response = await fetch('http://localhost:3000/courses');
@@ -26,37 +28,51 @@ const SessionAdd = () => {
         console.error('Error fetching courses:', error);
       }
     };
+    const fetchClassrooms = async () => { // Modified function name from fetchClasrooms to fetchClassrooms
+      try {
+        const response = await fetch('http://localhost:3000/classrooms'); // Fetch classrooms endpoint
+        const data = await response.json();
+        setClassrooms(data); // Set classrooms state with fetched data
+      } catch (error) {
+        console.error('Error fetching classrooms:', error);
+      }
+    };
     fetchCourses();
+    fetchClassrooms(); // Call fetchClassrooms function
   }, []);
 
   const validateForm = () => {
     return !startDateError && !dureeError;
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'startDate') {
-      const selectedDate = new Date(value);
-      const currentDate = new Date();
-      const error = selectedDate < currentDate ? 'Start date cannot be before current date' : '';
-      setStartDateError(error);
-      setFormValid(error === '' && dureeError === '');
-    } else if (name === 'duree') {
-      const dureeValue = parseInt(value, 10);
-      const error = isNaN(dureeValue) || dureeValue <= 0 ? 'Duration must be a non-negative number or equal 0' : '';
-      setDureeError(error);
-      setFormValid(startDateError === '' && error === '');
-    }
-    if (name === 'courseId') {
-      setCourseId(value);
-    }
-    if (name === 'startDate') {
-      setStartDate(value);
-    }
-    if (name === 'duree') {
-      setDuree(value);
-    }
-  };
+ const handleChange = (e) => {
+  const { name, value } = e.target;
+  if (name === 'startDate') {
+    const selectedDate = new Date(value);
+    const currentDate = new Date();
+    const error = selectedDate < currentDate ? 'Start date cannot be before current date' : '';
+    setStartDateError(error);
+    setFormValid(error === '' && dureeError === '');
+  } else if (name === 'duree') {
+    const dureeValue = parseInt(value, 10);
+    const error = isNaN(dureeValue) || dureeValue <= 0 ? 'Duration must be a non-negative number or equal 0' : '';
+    setDureeError(error);
+    setFormValid(startDateError === '' && error === '');
+  }
+  else if (name === 'courseId') {
+    setCourseId(value);
+  }
+  else if (name === 'classroomId') { // Update the classroomId state when selecting a classroom
+    setClassroomId(value);
+  }
+  if (name === 'startDate') {
+    setStartDate(value);
+  }
+  if (name === 'duree') {
+    setDuree(value);
+  }
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,7 +86,7 @@ const SessionAdd = () => {
       const response = await fetch('http://localhost:3000/sessions/add', {
         method: 'POST',
         headers: headers,
-        body: JSON.stringify({ startDate, duree, usersId, courseId }),
+        body: JSON.stringify({ startDate, duree, usersId, courseId , classroomId}),
       });
       const data = await response.json();
       console.log(data);
@@ -141,6 +157,21 @@ const SessionAdd = () => {
               <option value="">Select Course</option>
               {courses.map(course => (
                 <option key={course._id} value={course._id}>{course.name}</option>
+              ))}
+            </select>
+          </label>
+          <br />
+          <label>
+            Classroom: {/* Add selector for classrooms */}
+            <select
+              name="classroomId"
+              value={classroomId}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Classroom</option>
+              {classrooms.map(classroom => (
+                <option key={classroom._id} value={classroom._id}>{classroom.location}</option>
               ))}
             </select>
           </label>

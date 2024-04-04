@@ -206,7 +206,7 @@ const Schedule = () => {
   const localizer = momentLocalizer(moment);
 
   return (
-    <div style={{ maxWidth: '90vw', margin: 'auto', background: 'linear-gradient(to bottom, #283593, #673AB7)', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
+    <div style={{ maxWidth: '90vw', margin: 'auto', background: 'linear-gradient(to bottom, #283593, #ffab00)', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
       <h2 style={{ color: '#fff' }}>Session List</h2>
       <Calendar
         localizer={localizer}
