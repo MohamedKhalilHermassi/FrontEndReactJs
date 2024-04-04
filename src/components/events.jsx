@@ -13,6 +13,7 @@ import EventDetails from './backOffice/event/eventDetails';
 import Form from 'react-bootstrap/Form';
 import ReactSelect from 'react-select';
 import EventsGallery from './eventsGallery';
+import './Events.css';
 
 const categories = [
   { value: 'All', label: 'All' },
@@ -20,7 +21,6 @@ const categories = [
   { value: 'Charity', label: 'Charity' },
   { value: 'Audition', label: 'Audition' },
 ];
-
 function Events() {
     const [events, setEvents] = useState([]);
     const [users, setUsers] = useState([]);
@@ -108,7 +108,7 @@ function Events() {
 
     return (
       <>
-        <Modal show={showModal} onHide={handleClose}>
+        <Modal show={showModal} onHide={handleClose} className="modal-front">
           <Modal.Body>
           {currentEvent && <EventDetails event={currentEvent} onBack={handleClose} showButtons={false} />}
           </Modal.Body>
@@ -126,17 +126,20 @@ function Events() {
           </Modal.Footer>
         </Modal>
         
-        <div className="container mt-7">
-          <h1 className="mb-6">Upcoming events</h1>
+        <div className="container mt-8">
+          <h1 className="mb-6 title">Upcoming events</h1>
           <EventsGallery />
-          <Form.Group controlId="categorySelect" style={{ marginBottom: '20px' }}>
-          <Form.Label>Category</Form.Label>
-          <ReactSelect 
-            options={categories} 
-            value={categories.find(category => category.value === selectedCategory)} 
-            onChange={handleCategoryChange} 
-          />
-        </Form.Group>
+          <br/>
+          <div className="category-select-container">
+  <Form.Group controlId="categorySelect" style={{ marginBottom: '20px' }}>
+    <Form.Label>Category</Form.Label>
+    <ReactSelect 
+      options={categories} 
+      value={categories.find(category => category.value === selectedCategory)} 
+      onChange={handleCategoryChange} 
+    />
+  </Form.Group>
+</div>
         <div className="row">
       {events.filter(event => event.status !== 'Finished' && event.status !== 'Canceled').map(event => (
         <div key={event._id} className="col-md-12 mb-4">
@@ -147,13 +150,9 @@ function Events() {
                     <Card.Text>{event.description}</Card.Text>
                     <ListGroup variant="flush">
                       <ListGroup.Item><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</ListGroup.Item>
-                      <ListGroup.Item><strong>Start Time:</strong> {new Date(event.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</ListGroup.Item>
-                      <ListGroup.Item><strong>End Time:</strong> {new Date(event.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</ListGroup.Item>
                       <ListGroup.Item><strong>Location:</strong> {event.location}</ListGroup.Item>
-                      <ListGroup.Item><strong>Capacity:</strong> {event.capacity}</ListGroup.Item>
                       <ListGroup.Item><strong>Ticket Price:</strong> {event.ticketPrice}</ListGroup.Item>
                       <div className="mt-2">
-                        <strong>Status:</strong>
                         <Badge variant={
                           event.status === 'Incoming' ? 'primary' :
                           event.status === 'Finished' ? 'success' :
