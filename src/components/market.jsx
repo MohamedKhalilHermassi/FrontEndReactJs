@@ -21,6 +21,9 @@ function ProductList() {
   const handleClick = () => {
     navigate('/market');
   };
+  const handleClickTest = ()=>{
+    navigate('/skills');
+  }
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -64,7 +67,9 @@ function ProductList() {
     !product.archived &&
     product.productName.toLowerCase().includes(searchTerm.toLowerCase()) &&
     product.productPrice >= priceRange.min &&
-    product.productPrice <= priceRange.max
+    product.productPrice <= priceRange.max &&
+    !product.sold
+
   );
 
   
@@ -100,6 +105,7 @@ function ProductList() {
         >
           Become a Seller
         </button>
+       <button className='btn btn-info rounded-pill mx-auto d-block mt-1' onClick={handleClickTest}>Test your skills</button>
         <br />
         <div className="input-group mb-3">
           <span className="input-group-text"><i className="bi bi-search"></i></span>

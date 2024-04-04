@@ -57,6 +57,9 @@ export const NavBar = () => {
                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                     <Link to="/profil" className="dropdown-item">My Profile</Link>
                     <Link to="/myproducts" className="dropdown-item">My Products</Link>
+                    <Link to="/myorders" className="dropdown-item">My Orders</Link>
+                    <Link to="/mybooks" className="dropdown-item">My Books</Link>
+
                     <Link to="/mycourses" className="dropdown-item">My Courses</Link><Link to="/reclamation" className="dropdown-item">My Reclamtions</Link>
                   </div>
                 </li>
@@ -69,6 +72,8 @@ export const NavBar = () => {
             <li className="nav-item"><a className="nav-link" ><Link to="/events">Events</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/schedule">Schedule</Link></a></li>
             <li className="nav-item"><a className="nav-link" href="javascript:;"><Link to="/marketplace">Marketplace</Link></a></li>
+            <li className="nav-item"><a className="nav-link" href="javascript:;"><Link to="/bookstore">Book Store</Link></a></li>
+
           </ul>
           <ul className="nav navbar-nav navbar-right">
        

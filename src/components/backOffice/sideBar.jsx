@@ -59,10 +59,16 @@ const SideBar = () => {
           </a>
           <ul id="products" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
             <li className="sidebar-item">
-              <Link className="sidebar-link menu-link" to="/admin/addBook"><i className="menu-icon fas fa-plus" />Add</Link>
+              <Link className="sidebar-link menu-link" to="/admin/addBook"><i className="menu-icon fas fa-plus" />Add Book</Link>
+            </li>
+            <li className="sidebar-item">
+              <Link className="sidebar-link menu-link" to="/admin/books"><i className="menu-icon fas fa-list" />Books List</Link>
             </li>
             <li className="sidebar-item">
               <Link class="sidebar-link menu-link" to="/admin/products"><i className="menu-icon fas fa-grip" />List of products</Link>
+            </li>
+            <li className="sidebar-item">
+              <Link class="sidebar-link menu-link" to="/admin/soldproducts"><i className="menu-icon fas fa-circle-xmark" />Sold products</Link>
             </li>
             <li className="sidebar-item">
               <Link class="sidebar-link menu-link" to="/admin/Archivedproducts"><i className="menu-icon fas fa-circle-xmark" />Archived products</Link>

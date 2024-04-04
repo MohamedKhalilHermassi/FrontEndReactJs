@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 
 //import './App.css'
 import LandingPage from './components/landingPage'
@@ -35,6 +35,13 @@ import ClassroomAdd from './components/backOffice/classroom/classroomAdd';
 import AddLocation from './components/backOffice/location/addLocation';
 import LocationList from './components/backOffice/location/locationList';
 import Map from './components/backOffice/location/map';
+import AddBook from './components/backOffice/addBook';
+import BookList from './components/backOffice/booklist';
+import BookStore from './components/bookStore';
+import Guitar from './components/skills';
+import MyOrders from './components/myOrders';
+import MyBooks from './components/myBooks';
+import SoldProducts from './components/backOffice/soldProducts';
 
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
@@ -71,11 +78,17 @@ function App() {
       <Route path="" element={<LandingPage />}>
         <Route path="" element={<Acceuil />} />
         <Route path="events" element={<Events />} />
+        <Route path="bookstore" element={<BookStore />} />
+        <Route path="skills" element={<Guitar />} />
+
         <Route path="courses" element={<Courses />} />
         <Route path="market" element={<AddProductForm />} />
         <Route path="marketplace" element={<ProductList />} />
         <Route path="Profil" element={<Profil />} />
         <Route path = "myproducts" element={<MyProducts/>}></Route>
+        <Route path = "myorders" element={<MyOrders/>}></Route>
+        <Route path = "mybooks" element={<MyBooks/>}></Route>
+
         <Route path = "mycourses" element={<MyCourses/>}></Route>
         <Route path = "schedule" element={<Schedul/>}></Route>
         <Route path='add-session' element={<SessionAdd/>}></Route>
@@ -87,6 +100,10 @@ function App() {
         <Route path="admin" element={<Dashboard />}>
           <Route path="" element={<AdminLandingPage />} />
           <Route path="user" element={<Users />} />
+          <Route path="addBook" element={<AddBook />} />
+          <Route path="books" element={<BookList />} />
+          <Route path="soldproducts" element={<SoldProducts />} />
+
           <Route path="editadmin" element={<Editadmin />} />
           <Route path="reclamaation" element={<Recla />} />
           
