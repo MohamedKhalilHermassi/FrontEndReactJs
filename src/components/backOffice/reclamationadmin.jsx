@@ -69,8 +69,8 @@ function reclamationadmin()
             <div className="container-xxl flex-grow-1 container-p-y">
               <h4 className="fw-bold py-3 mb-4"><span className="text-muted fw-light">Reclamtions /</span> </h4>
               
-                    <div className="pie-chart">
-                    <PieChart
+                    <div className="pie-chart" style={{ paddingLeft:'30%', paddingBottom:'2%' }}>
+                    <PieChart 
   series={[
     {
       data: [
@@ -83,6 +83,9 @@ function reclamationadmin()
   ]}
   width={400}
   height={200}
+  radialLabelsLinkOffset={8} // Espacement entre le pie chart et les libellés radiaux
+  slicesLabelsRadiusOffset={5}
+  margin={{ left: -60}}
 />
 
                     </div>
@@ -94,6 +97,7 @@ function reclamationadmin()
                     <thead>
                       <tr>
                         <th>Reclamtion</th>
+                        <th>Type</th>
                         <th>Date</th>
                         <th>Status</th>
                         <th>Actions</th>
@@ -104,6 +108,7 @@ function reclamationadmin()
                     {ReclamtionData.map(reclamation => (
                       <tr key={reclamation._id}>
                         <td> <strong>{reclamation.message}</strong></td>
+                        <td>{reclamation.typereclamtion}</td>
                         <td>{formatDateOfBirth(reclamation.date)}</td>
                        
                         <td> {reclamation.status !== 'pending' && ( <span className="badge bg-label-success me-1">{reclamation.status}</span>)}
