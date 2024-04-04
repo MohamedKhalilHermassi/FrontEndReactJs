@@ -43,8 +43,8 @@ function Users() {
                               <i className="bx bx-dots-vertical-rounded" />
                             </button>
                             <div className="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                              <a className="dropdown-item" href="javascript:void(0);">View More</a>
-                              <a className="dropdown-item" href="javascript:void(0);">Delete</a>
+                              <a className="dropdown-item">View More</a>
+                              <a className="dropdown-item" >Delete</a>
                             </div>
                           </div>
                         </div>
@@ -66,8 +66,8 @@ function Users() {
                               <i className="bx bx-dots-vertical-rounded" />
                             </button>
                             <div className="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                              <a className="dropdown-item" href="javascript:void(0);">View More</a>
-                              <a className="dropdown-item" href="javascript:void(0);">Delete</a>
+                              <a className="dropdown-item" >View More</a>
+                              <a className="dropdown-item" >Delete</a>
                             </div>
                           </div>
                         </div>
@@ -95,9 +95,9 @@ function Users() {
                               2022
                             </button>
                             <div className="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                              <a className="dropdown-item" href="javascript:void(0);">2021</a>
-                              <a className="dropdown-item" href="javascript:void(0);">2020</a>
-                              <a className="dropdown-item" href="javascript:void(0);">2019</a>
+                              <a className="dropdown-item" >2021</a>
+                              <a className="dropdown-item" >2020</a>
+                              <a className="dropdown-item" >2019</a>
                             </div>
                           </div>
                         </div>
@@ -143,8 +143,8 @@ function Users() {
                               <i className="bx bx-dots-vertical-rounded" />
                             </button>
                             <div className="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                              <a className="dropdown-item" href="javascript:void(0);">View More</a>
-                              <a className="dropdown-item" href="javascript:void(0);">Delete</a>
+                              <a className="dropdown-item" >View More</a>
+                              <a className="dropdown-item" >Delete</a>
                             </div>
                           </div>
                         </div>
@@ -166,8 +166,8 @@ function Users() {
                               <i className="bx bx-dots-vertical-rounded" />
                             </button>
                             <div className="dropdown-menu" aria-labelledby="cardOpt1">
-                              <a className="dropdown-item" href="javascript:void(0);">View More</a>
-                              <a className="dropdown-item" href="javascript:void(0);">Delete</a>
+                              <a className="dropdown-item" >View More</a>
+                              <a className="dropdown-item" >Delete</a>
                             </div>
                           </div>
                         </div>
@@ -215,9 +215,9 @@ function Users() {
                         <i className="bx bx-dots-vertical-rounded" />
                       </button>
                       <div className="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
-                        <a className="dropdown-item" href="javascript:void(0);">Select All</a>
-                        <a className="dropdown-item" href="javascript:void(0);">Refresh</a>
-                        <a className="dropdown-item" href="javascript:void(0);">Share</a>
+                        <a className="dropdown-item" >Select All</a>
+                        <a className="dropdown-item" >Refresh</a>
+                        <a className="dropdown-item" >Share</a>
                       </div>
                     </div>
                   </div>
@@ -353,9 +353,9 @@ function Users() {
                         <i className="bx bx-dots-vertical-rounded" />
                       </button>
                       <div className="dropdown-menu dropdown-menu-end" aria-labelledby="transactionID">
-                        <a className="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                        <a className="dropdown-item" href="javascript:void(0);">Last Month</a>
-                        <a className="dropdown-item" href="javascript:void(0);">Last Year</a>
+                        <a className="dropdown-item" >Last 28 Days</a>
+                        <a className="dropdown-item">Last Month</a>
+                        <a className="dropdown-item" >Last Year</a>
                       </div>
                     </div>
                   </div>
