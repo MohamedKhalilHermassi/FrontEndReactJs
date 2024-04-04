@@ -121,11 +121,32 @@ const SideBar = () => {
           </ul>
         </li>
         
+        
         <li className="menu-item">
             <Link className="sidebar-link menu-link" to="/admin/reclamaation">
             <i className="menu-icon bx bxs-message-square-error" />
             <div data-i18n="Layouts">Reclamtions</div>
             </Link>
+        </li>
+        <li className="menu-item">
+          <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#events" aria-expanded="false" aria-controls="events">
+            <i className="menu-icon fa-solid fa-calendar-days" />
+            <div data-i18n="Layouts">Events</div>
+          </a>
+          <ul id="events" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li className="sidebar-item">
+              <Link className="sidebar-link menu-link" to="/admin/addevent"><i className="menu-icon fas fa-plus" />Add Event</Link>
+            </li>
+            <li className="sidebar-item">
+              <Link className="sidebar-link menu-link" to="/admin/events"><i className="menu-icon fas fa-grip" />List of events</Link>
+            </li>
+            <li className="sidebar-item">
+              <Link className="sidebar-link menu-link" to="/admin/eventscalendar"><i className="menu-icon fas fa-grip" />Events Calendar</Link>
+            </li>
+            <li className="sidebar-item">
+              <Link class="sidebar-link menu-link" to="/admin/registeredusers"><i className="menu-icon fas fa-grip" />Registered Users</Link>
+            </li>
+          </ul>
         </li>
       </ul>
       
