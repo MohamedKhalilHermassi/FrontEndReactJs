@@ -104,6 +104,8 @@ function App() {
 
         <Route path = "mycourses" element={<MyCourses/>}></Route>
         <Route path = "schedule" element={<Schedul/>}></Route>
+        <Route path='add-session/:id' element={<SessionAdd />} />
+
         <Route path='add-session' element={<SessionAdd/>}></Route>
         <Route path = "reclamation" element={<Reclamtions/>}></Route>
         <Route path = "eventRegister" element={<EventRegister/>}></Route>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchCourseByStudentId, fetchCourseByTeacherId } from '../service/courseService';
 import { jwtDecode } from 'jwt-decode';
+import { Link, useNavigate } from 'react-router-dom';
 
 function MyCourses() {
 
@@ -49,7 +50,18 @@ function MyCourses() {
         <span class="badge bg-label-primary">{course.level}</span>
         </td>
         <td>
-            <button type="button" class="btn-sm btn-primary">Schedule a session</button>
+        {role === 'teacher' && (
+        <Link to={`/add-session/${course._id}`}>   
+  <button type="button" class="btn-sm btn-primary">Schedule a session</button>
+</Link>
+        )}
+        </td>
+        <td>
+        {role === 'Student' && (
+        <Link to={`/schedule`}>   
+  <button type="button" class="btn-sm btn-primary">Choose  the session</button>
+</Link>
+        )}
         </td>
       </tr>
     )}

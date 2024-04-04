@@ -74,6 +74,7 @@ export const NavBar = () => {
 
               </>
             )}
+          
             <li className="nav-item"><a className="nav-link" ><Link to="/">Home</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/courses">Courses</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/events">Events</Link></a></li>
