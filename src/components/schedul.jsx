@@ -66,29 +66,35 @@ const Schedule = () => {
     try {
       const response = await fetch('http://localhost:3000/sessions');
       const sessionsData = await response.json();
-
+  
       // Fetch courses separately
       const coursesResponse = await fetch('http://localhost:3000/courses');
       const coursesData = await coursesResponse.json();
-
-      // Map sessions and include course information
-      const sessionsWithCourse = sessionsData.map(session => {
+  
+      // Fetch classrooms separately
+      const classroomsResponse = await fetch('http://localhost:3000/classrooms');
+      const classroomsData = await classroomsResponse.json();
+  
+      // Map sessions and include course and classroom information
+      const sessionsWithCourseAndClassroom = sessionsData.map(session => {
         const course = coursesData.find(course => course._id === session.course);
+        const classroom = classroomsData.find(classroom => classroom._id === session.classroom);
         const courseName = course ? course.name : '';
         return {
           ...session,
           title: courseName,
           start: new Date(session.startDate),
-          end: moment(session.startDate).add(session.duree, 'minutes').toDate()
+          end: moment(session.startDate).add(session.duree, 'minutes').toDate(),
+          classroom: classroom // Add classroom information to session
         };
       });
-
-      setSessions(sessionsWithCourse);
+  
+      setSessions(sessionsWithCourseAndClassroom);
     } catch (error) {
       console.error('Error fetching sessions:', error);
     }
   };
-
+  
   const fetchCourses = async () => {
     try {
       const response = await fetch('http://localhost:3000/courses');
@@ -300,6 +306,16 @@ const Schedule = () => {
               <p style={{ color: '#000', marginTop: '10px' }}>Description: {courseDescription}</p>
               <p style={{ color: '#000' }}>Type: {courseType}</p>
               <p style={{ color: '#000' }}>Level: {courseLevel}</p>
+
+              {sessionId && (
+                  <>
+                 <p style={{ color: '#000' }}>Location: {
+                 sessions.find(session => session._id === sessionId)?.classroom?.location || 'N/A'
+                 }</p>
+                  </>
+                    )}
+
+
               {enrolledUsers && enrolledUsers.length > 0 && (
                 <div>
                   <p style={{ color: '#000' }}>Enrolled Users:</p>

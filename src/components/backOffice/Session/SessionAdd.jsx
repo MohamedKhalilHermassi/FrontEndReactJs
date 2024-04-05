@@ -81,13 +81,24 @@ const SessionAdd = () => {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
-
     try {
       const response = await fetch('http://localhost:3000/sessions/add', {
         method: 'POST',
         headers: headers,
-        body: JSON.stringify({ startDate, duree, usersId, courseId , classroomId}),
+        body: JSON.stringify({ startDate, duree, usersId, courseId, classroomId }),
       });
+    
+      if (!response.ok) {
+        // Check if response status is 400 and display the error message
+        if (response.status === 400) {
+          const responseData = await response.json();
+          throw new Error(responseData.message);
+        } else {
+          // Handle other non-400 errors
+          throw new Error(`Failed to add session: ${response.statusText}`);
+        }
+      }
+    
       const data = await response.json();
       console.log(data);
       toast.success('Course added successfully!', {
@@ -100,7 +111,7 @@ const SessionAdd = () => {
     } catch (error) {
       console.error('Error:', error);
       console.log('Toast should be displayed');
-      toast.error('An error occurred while adding the session.', {
+      toast.error(error.message || 'An error occurred while adding the session.', {
         style: {
           width: '500px',
           height: '50px',
