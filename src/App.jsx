@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import  { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 //import './App.css'
 import LandingPage from './components/landingPage'
@@ -34,7 +34,6 @@ import MyCourses from './components/myCourses';
 import ClassroomAdd from './components/backOffice/classroom/classroomAdd';
 import AddLocation from './components/backOffice/location/addLocation';
 import LocationList from './components/backOffice/location/locationList';
-import Map from './components/backOffice/location/map';
 import EventList from './components/backOffice/event/eventList.jsx'
 import AddEvent from './components/backOffice/event/addEvent.jsx'
 import EditEvent from './components/backOffice/event/editEvent.jsx'
@@ -53,6 +52,7 @@ import SoldProducts from './components/backOffice/soldProducts';
 import TeacherCourses from './components/teacherCourses.jsx';
 import StudentsList from './components/studentsList.jsx';
 import UserNotes from './components/userNores.jsx';
+import Location from './components/backOffice/location/location';
 
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
@@ -134,10 +134,10 @@ function App() {
           <Route path="ListDrag" element={<SessionDrag/>} />
           <Route path="courses" element={<CourseList/>} />
           <Route path="addcourse" element={<CourseAdd/>} />
+          <Route path='location/:locationId' element={<Location/>}/>
           <Route path="locations" element={<LocationList/>} />
-          <Route path="map" element={<Map/>} />
           <Route path="addlocation" element={<AddLocation/>} />
-          <Route path="addclassroom" element={<ClassroomAdd/>} />
+          <Route path="addclassroom/:locationId" element={<ClassroomAdd/>} />
           <Route path='Archivedproducts' element={<ArchivedProductList/>}/>
           <Route path='ordersList' element={<OrdersList/>}/>
           <Route path='products' element={<ProductListBack></ProductListBack>}/>
@@ -157,9 +157,6 @@ function App() {
       <Route path="register" element={<Register />} />
     </Routes>
     </div>
-    
-    
-      
       </>
   );
 

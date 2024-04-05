@@ -1,13 +1,19 @@
 import { useFormik } from 'formik';
 import React from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+import { addClassroom } from '../../../service/classroomService';
 
 function ClassroomAdd() {
-    const etablissements=['menzah', 'ariana']
+  const classroomTypes = ['Instrument', 'Solfege'];
+    const {locationId} = useParams();
+    const navigate = useNavigate();
 
     const initialValues = {
-        name:'',
-        etage:0,
+        number:0,
+        floor:0,
         location:'',
+        status: '',
+        type:''
       
       }
 
@@ -15,7 +21,11 @@ function ClassroomAdd() {
         initialValues : initialValues, 
         //validationSchema: courseValidator,
         onSubmit: async (values) => {
+            values.location = locationId;
+            values.status = 'available'
             console.log(values);
+            await addClassroom(values);
+            navigate('/admin/locations');
         }
       })
 
@@ -27,43 +37,37 @@ function ClassroomAdd() {
     </div>
     <div className="card-body">
       <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label" htmlFor="basic-icon-default-fullname">Name</label>
-          <div className="input-group input-group-merge">
-            <input type="text" name='name' value={values.name} onBlur={handleBlur} onChange={handleChange} className={errors.name && touched.name ? "form-control is-invalid" : "form-control"} id="basic-icon-default-fullname" placeholder="Guitar" />
-          </div>
-          {errors.name && touched.name && <p className='alert alert-danger text-dark fw-bold'>{errors.name}</p>}
-        </div>
-        <div className="mb-3">
-          <label className="form-label" htmlFor="basic-icon-default-email">etage</label>
+      <div className="mb-3">
+          <label className="form-label" htmlFor="basic-icon-default-email">Number</label>
           <div className="input-group input-group-merge">
             <span className="input-group-text"></span>
-            <input type="number" name='etage' min={0} value={values.etage} onBlur={handleBlur} onChange={handleChange} id="basic-icon-default-email" className={errors.etage && touched.etage ? "form-control is-invalid" : "form-control"} placeholder="20 TND" />
+            <input type="number" name='number' min={0} value={values.number} onBlur={handleBlur} onChange={handleChange} id="basic-icon-default-email" className={errors.number && touched.number ? "form-control is-invalid" : "form-control"} />
           </div>
-          {errors.etage && touched.etage && <p className='alert alert-danger text-dark fw-bold'>{errors.etage}</p>}
+          {errors.floor && touched.floor && <p className='alert alert-danger text-dark fw-bold'>{errors.floor}</p>}
           {/*<div className="form-text"> You can use letters, numbers &amp; periods </div>*/}
 
         </div>
-
         <div className="mb-3">
-        <label className="form-label" htmlFor="basic-icon-default-phone">Location</label>
-        <div className="input-group input-group-merge">
-            <select
-            id="select2Basic"
-            name='teacher'
-            value={values.teacher}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            className={errors.teacher && touched.teacher ? "select2 form-select form-select-lg is-invalid" : "select2 form-select form-select-lg"}
-            data-allow-clear="true"
-            >
-            <option value="">Select a Location</option>
-            {etablissements.map((etablissement, index) => (
-                <option key={index} value={etablissement}>{etablissement}</option>
+          <label className="form-label" htmlFor="basic-icon-default-email">Floor</label>
+          <div className="input-group input-group-merge">
+            <span className="input-group-text"></span>
+            <input type="number" name='floor' min={0} value={values.floor} onBlur={handleBlur} onChange={handleChange} id="basic-icon-default-email" className={errors.floor && touched.floor ? "form-control is-invalid" : "form-control"} />
+          </div>
+          {errors.floor && touched.floor && <p className='alert alert-danger text-dark fw-bold'>{errors.floor}</p>}
+          {/*<div className="form-text"> You can use letters, numbers &amp; periods </div>*/}
+
+        </div>
+        <div className="mb-3">
+          <label className="form-label" htmlFor="basic-icon-default-phone">Type</label>
+          <div className="input-group input-group-merge">
+            <select id="select2Basic" name='type' value={values.type} onBlur={handleBlur} onChange={handleChange} className={errors.type && touched.type  ? "select2 form-select form-select-lg is-invalid" : "select2 form-select form-select-lg"} data-allow-clear="true">
+            <option value="">Select a classroom type</option>
+            {classroomTypes.map((item, index) => (
+                <option key={index} value={item}>{item}</option>
             ))}
             </select>
-        </div>
-        {errors.teacher && touched.teacher && <p className='alert alert-danger text-dark fw-bold'>{errors.teacher}</p>}
+          </div>
+          {errors.type && touched.type && <p className='alert alert-danger text-dark fw-bold'>{errors.type}</p>}
         </div>
 
         <button type="submit" className="btn btn-primary" disabled={!isValid}>Save</button>

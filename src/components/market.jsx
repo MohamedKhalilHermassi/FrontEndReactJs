@@ -82,7 +82,6 @@ function ProductList() {
           user: localStorage.getItem('id'),
           products: productsList,
       });
-      console.log(response.data.message); 
       toast.success('Your order has been placed successfully!');
       setCartItems([]);
       setTotalPrice(0);

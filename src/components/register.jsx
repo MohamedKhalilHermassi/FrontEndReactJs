@@ -132,7 +132,6 @@ function register() {
       
       
     } catch (error) {
-      console.log(error.message)
       if(error.message=="Request failed with status code 400"){
         setError("code invalid");
       }
