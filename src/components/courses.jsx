@@ -8,7 +8,12 @@ function Courses()
 {
   const [courses, setCourses] = useState([]);
   const [userId, setUserId] = useState('');
+  const [levelFilter, setLevelFilter] = useState('');
+  const [type, setType] = useState('');
   const navigate = useNavigate();
+
+  const levels = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6', 'Level 7'];
+  const courseTypes = ['Instrument', 'Solfege'];
 
   useEffect(() => {
       fetchData();
@@ -59,13 +64,50 @@ function Courses()
         <div className="col-md-8 mx-auto text-center mb-5">
             <br />
 
-          <h3 className="display-3 text-orange">Our Available Courses</h3>
+          <h3 className="display-3 text-orange mt-3">Our Available Courses</h3>
           {/*<h4 className="lead">This is the paragraph where you can write more details about your team. Keep you user engaged by providing meaningful information.</h4>*/}
 
         </div>
       </div>
       <div className="row">
-      {courses.map((course, index) =>(
+      <div className='row'>
+<div className="my-3 ml-5 w-25">
+          <label for="defaultFormControlInput" className="form-label" >Level</label>
+          <div className="input-group input-group-merge">
+            <select id="select2Basic" name='level' className="select2 form-select form-select-lg" data-allow-clear="true" onChange={(e) =>setLevelFilter(e.target.value)}>
+            <option value="">Select a level</option>
+            {levels.map((item, index) => (
+                <option key={index} value={item}>{item}</option>
+            ))}
+            </select>
+          </div>
+        </div>
+<div className="my-3 ml-5 w-50">
+          <label for="defaultFormControlInput" className="form-label" >Type</label>
+          <div className="input-group input-group-merge">
+            <select id="select2Basic" name='courseType' className="select2 form-select form-select-lg" data-allow-clear="true" onChange={(e) =>setType(e.target.value)}>
+            <option value="">Select a course type</option>
+            {courseTypes.map((item, index) => (
+                <option key={index} value={item}>{item}</option>
+            ))}
+            </select>
+          </div>
+        </div>
+        </div>
+      {courses.filter((course) => {
+        if(type === '' && levelFilter === ''){
+        return course
+      }
+      if(type != ''){
+        return course.courseType == type;
+      }
+      if(levelFilter != ''){
+        return course.level == levelFilter;
+      }
+      if(type != '' && levelFilter != ''){
+        return (course.courseType == type) || (course.level == levelFilter);
+      }    
+      }).map((course, index) =>(
         <div className="col-lg-4 col-md-6">
           <div key={index} className="card card-profile" data-image="profile-image">
             <div className="card-header">

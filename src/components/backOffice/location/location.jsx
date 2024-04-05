@@ -10,6 +10,9 @@ function Location() {
     const {locationId} = useParams();
     const [location, setLocation] = useState({});
     const [classrooms, setClassrooms] = useState([]);
+    const [search, setSearch] = useState('');
+    const [type, setType] = useState('');
+    const courseTypes = ['Instrument', 'Solfege'];
 
     useEffect(() => {
       fetchLocation(locationId);
@@ -36,9 +39,11 @@ function Location() {
 
     const setAvailable = async (id) => {
       await available(id);
+      getClassrooms(locationId);
     }
     const setUnderMaintenance = async (id) => {
       await maintenance(id);
+      getClassrooms(locationId);
     }
 
   
@@ -46,8 +51,38 @@ function Location() {
         <>
         {/*<Link to={`/admin/addclassroom/${locationId}`} className='btn'>add Classroom</Link>*/}
 <div className="container">
+  <div className='row'>
+<div className="my-3 w-25">
+  <label for="defaultFormControlInput" className="form-label">Class Number</label>
+  <input type="text" className="form-control" id="defaultFormControlInput" placeholder="Class N°" aria-describedby="defaultFormControlHelp" onChange={(e) => setSearch(e.target.value)} />
+</div>
+<div className="my-3 w-25">
+          <label for="defaultFormControlInput" className="form-label" >Type</label>
+          <div className="input-group input-group-merge">
+            <select id="select2Basic" name='courseType' className="select2 form-select form-select-lg" data-allow-clear="true" onChange={(e) =>setType(e.target.value)}>
+            <option value="">Select a course type</option>
+            {courseTypes.map((item, index) => (
+                <option key={index} value={item}>{item}</option>
+            ))}
+            </select>
+          </div>
+        </div>
+        </div>
   <div className="row">
-      {classrooms.map((classroom, index) =>(   
+      {classrooms.filter((classroom) => {
+        if(search === '' && type === ''){
+        return classroom;
+        }
+        if(search != ''){
+          return classroom.number == search;
+        }
+        if(type != ''){
+          return classroom.type == type;
+        }
+        if(search != '' && type != ''){
+          return classroom.number == search && classroom.type == type;
+        }
+      }).map((classroom, index) =>(   
       <div className="col-md-4"key={index} > 
       <div className="card m-4" >
       {classroom.type === 'Instrument' ?
@@ -62,10 +97,22 @@ function Location() {
           }</h5>
           <p className="card-text">this class is located in the <span class="badge bg-label-primary">floor N°{classroom.floor}</span> of the establishement located in {location.address} {location.city}
           , <span class="badge bg-label-primary">{location.state}</span> and it's available for <span class="badge bg-label-primary">{classroom.type}</span> courses</p>
-          {classroom.status === 'maintenance' ?
-          (<a href="#" className="btn btn-success" onClick={setAvailable(classroom._id)}>Available</a>):(
-          <a href="#" className="btn btn-warning" onClick={setUnderMaintenance(classroom._id)}>Under Maintenance</a>)
-          }
+          {classroom.status === 'maintenance' ? (
+            <button
+              className="btn btn-success"
+              onClick={() => setAvailable(classroom._id)}
+            >
+              Available
+            </button>
+          ) : (
+            <button
+              className="btn btn-warning"
+              onClick={() => setUnderMaintenance(classroom._id)}
+            >
+              Under Maintenance
+            </button>
+          )}
+
         </div>
       </div>
       </div>

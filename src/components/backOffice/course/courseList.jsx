@@ -5,6 +5,9 @@ import toast from 'react-hot-toast';
 
 const CourseList = () => {
     const [courses, setCourses] = useState([]);
+    const [search, setSearch] = useState('');
+    const [type, setType] = useState('');
+    const courseTypes = ['Instrument', 'Solfege'];
 
     useEffect(() => {
         fetchData();
@@ -39,7 +42,24 @@ const CourseList = () => {
   return (
     <>
 <div className="row">
-    {courses.map((course, index) =>(
+<div className='row'>
+<div className="my-3 ml-5 w-50">
+          <label for="defaultFormControlInput" className="form-label" >Type</label>
+          <div className="input-group input-group-merge">
+            <select id="select2Basic" name='courseType' className="select2 form-select form-select-lg" data-allow-clear="true" onChange={(e) =>setType(e.target.value)}>
+            <option value="">Select a course type</option>
+            {courseTypes.map((item, index) => (
+                <option key={index} value={item}>{item}</option>
+            ))}
+            </select>
+          </div>
+        </div>
+        </div>
+    {courses.filter((course) => {
+        return (type === '')
+          ? course
+          :(course.courseType == type)
+      }).map((course, index) =>(
   <div className="col-md-4 mt-3">
     <div key={index} className="card p-3 mb-2 w-100 h-100">
       <div className="d-flex justify-content-between">
@@ -54,10 +74,8 @@ const CourseList = () => {
       <div className="mt-5">
         <h3 className="heading">{course.name}</h3>
         <div className="mt-5">
-          <div className="progress">
-            <div className="progress-bar" role="progressbar" style={{width: '50%'}} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100} />
-          </div>
-          <div className="mt-3"> <span className="text1">32 Applied <span className="text2">of 50 capacity</span></span> </div>
+        <span><i class="fa-solid fa-graduation-cap"> </i></span> you have {course.students.length} students enrolled in this course
+        
         </div>
         <CourseDetails course = {course}/>
         <button className='btn btn-danger mt-3 ml-auto' onClick={(e) => handleDelete(course._id)}>delete</button>
