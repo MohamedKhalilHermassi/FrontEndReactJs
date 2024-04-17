@@ -10,6 +10,7 @@ function register() {
     const [phone, setphone] = useState('');
     const [birthday, setbirthday] = useState('');
     const [address, setadress] = useState('');
+    const [level,setlevel] = useState('');
     const [password, setPassword] = useState('');
     const [image, setimage] = useState('');
     const [verif, setverif] = useState('');
@@ -32,12 +33,17 @@ function register() {
         const regex = /^\d{8}$/;
         return regex.test(phone);
       };
+      const validateLevel = (level) => {
+        const regex = /[1-7]/;
+        return regex.test(level);
+      };
       const areAllFieldsFilled = () => {
         return (
           email &&
           Firstname &&
           Lastname &&
           phone &&
+          level &&
           birthday &&
           address &&
           password &&
@@ -102,6 +108,7 @@ function register() {
   formData.append('address', address);
   formData.append('phone', phone);
   formData.append('birthday', birthday);
+  formData.append('level',level);
   formData.append('image', image);
             const newuser = await UserService.register(formData);
             $('#veriffModal').modal('show');
@@ -185,6 +192,12 @@ function register() {
                           <div className="form-outline">
                             <input type="text" id="Last name" className="form-control" value={Lastname} onChange={(event) => setLastname(event.target.value)}/>
                             <label className="form-label" htmlFor="form3Example2">Last name  { !validateName(Lastname) && <span className="text-danger"> (Last name can only contain letters and spaces (max 15 characters))</span> }</label>
+                          </div>
+                        </div>
+                        <div className="col-md-6 mb-4">
+                          <div className="form-outline">
+                            <input type="number" id="level" className="form-control" value={level} onChange={(event) => setlevel(event.target.value)}/>
+                            <label className="form-label" htmlFor="form3Example2">Level { !validateLevel(level) && <span className="text-danger"> (Level must be between 1 and 7)</span> }</label>
                           </div>
                         </div>
                       </div>

@@ -64,6 +64,9 @@ class ListS extends React.Component {
               <th>Start Date</th>
               <th>Duration</th>
               <th>Course</th>
+              <th>Classroom</th>
+              <th>Floor</th>
+              <th>Address</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -73,7 +76,19 @@ class ListS extends React.Component {
                   <td>{format(new Date(session.startDate), 'MMMM dd, yyyy HH:mm:ss')}</td>
                 <td>{session.duree}</td>
                 {/* Display course name instead of ID */}
-                <td>{this.state.courses[session.course]?.name}</td>
+                <td>{session.course.name} {session.course.level} </td>
+
+                <td>
+              number°  {session.classroom.number}
+                </td>
+                <td>
+                {session.classroom.floor}
+
+                </td>
+                <td>
+              {session.classroom.location.address}, {session.classroom.location.city}
+
+                </td>
                 <td>
                   <button onClick={() => this.handleEdit(session._id)}>Edit</button>
                   <button onClick={() => this.handleDelete(session._id)}>Delete</button>

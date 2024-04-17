@@ -1,155 +1,146 @@
 import React, { useState, useEffect } from 'react';
-import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
-const SessionAdd = () => {
-  const [startDate, setStartDate] = useState('');
-  const [duree, setDuree] = useState('');
-  const [usersId] = useState(localStorage.getItem('id'));
-  const [courseId, setCourseId] = useState('');
+function SessionAdd() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    startDate: '',
+    duree: '',
+    level: '',
+    course: '',
+    teacher: '',
+    classroom: ''
+  });
+
   const [courses, setCourses] = useState([]);
-  const [startDateError, setStartDateError] = useState('');
-  const [dureeError, setDureeError] = useState('');
-  const [formValid, setFormValid] = useState(false);
+  const [teachers, setTeachers] = useState([]);
+  const [classrooms, setClassrooms] = useState([]);
 
-  const params = useParams() ;
   useEffect(() => {
-     const id = params.id ; 
-     setCourseId(id) ;
-    const fetchCourses = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/courses');
-        const data = await response.json();
-        setCourses(data);
-      } catch (error) {
-        console.error('Error fetching courses:', error);
-      }
-    };
     fetchCourses();
+    fetchTeachers();
+    fetchClassrooms();
   }, []);
 
-  const validateForm = () => {
-    return !startDateError && !dureeError;
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/courses');
+      const data = await response.json();
+      setCourses(data);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
+  };
+
+  const fetchTeachers = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/users/teachers');
+      const data = await response.json();
+      setTeachers(data);
+    } catch (error) {
+      console.error('Error fetching teachers:', error);
+    }
+  };
+
+  const fetchClassrooms = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/classrooms');
+      const data = await response.json();
+      setClassrooms(data);
+    } catch (error) {
+      console.error('Error fetching classrooms:', error);
+    }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'startDate') {
-      const selectedDate = new Date(value);
-      const currentDate = new Date();
-      const error = selectedDate < currentDate ? 'Start date cannot be before current date' : '';
-      setStartDateError(error);
-      setFormValid(error === '' && dureeError === '');
-    } else if (name === 'duree') {
-      const dureeValue = parseInt(value, 10);
-      const error = isNaN(dureeValue) || dureeValue <= 0 ? 'Duration must be a non-negative number or equal 0' : '';
-      setDureeError(error);
-      setFormValid(startDateError === '' && error === '');
-    }
-    if (name === 'courseId') {
-      setCourseId(value);
-    }
-    if (name === 'startDate') {
-      setStartDate(value);
-    }
-    if (name === 'duree') {
-      setDuree(value);
-    }
+    setFormData({
+      ...formData,
+      [name]: value
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('userToken');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    };
-
+    
     try {
       const response = await fetch('http://localhost:3000/sessions/add', {
         method: 'POST',
-        headers: headers,
-        body: JSON.stringify({ startDate, duree, usersId, courseId }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData),
+       
+
       });
       const data = await response.json();
-      console.log(data);
-      toast.success('Course added successfully!', {
-        style: {
-          width: '500px',
-          height: '50px',
-        },
-        duration: 2000,
+      console.log(data); 
+
+     
+      setFormData({
+        startDate: '',
+        duree: '',
+        level: '',
+        course: '',
+        teacher: '',
+        classroom: ''
       });
+      navigate('/admin/listS');
+
     } catch (error) {
-      console.error('Error:', error);
-      console.log('Toast should be displayed');
-      toast.error('An error occurred while adding the session.', {
-        style: {
-          width: '500px',
-          height: '50px',
-        },
-        duration: 2000,
-      });
+      console.error('Error adding session:', error);
     }
   };
-    
+
   return (
-    <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <div className="session-add-container">
-        <h2>Add Session</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Start Date and Time:
-            <input
-              type="datetime-local"
-              name="startDate"
-              value={startDate}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          {startDateError && <p className="error-message" style={{ color: 'red' }}>{startDateError}</p>}
-          <br />
-          <label>
-            Duration (minutes):
-            <input
-              type="number"
-              name="duree"
-              value={duree}
-              onChange={handleChange}
-              required
-              step="30"
-              min="0"
-            />
-          </label>
-          {dureeError && <p className="error-message" style={{ color: 'red' }}>{dureeError}</p>}
-          <br />
-          <label>
-            Course:
-            <select
-              name="courseId"
-              value={courseId}
-              onChange={handleChange}
-              required
-              disabled
-            >
-              <option value="">Select Course</option>
-              {courses.map(course => (
-                <option key={course._id} value={course._id}>{course.name}</option>
-              ))}
-            </select>
-          </label>
-          <br />
-          <button type="submit" disabled={!formValid}>Add Session</button>
-        </form>
+    <form onSubmit={handleSubmit} className="p-4 border rounded bg-light">
+      <div className="mb-3">
+        <label className="form-label">Start Date:</label>
+        <input type="datetime-local" className="form-control" name="startDate" value={formData.startDate} onChange={handleChange} required />
       </div>
-    </>
+      <div className="mb-3">
+        <label className="form-label">Duration (in minutes):</label>
+        <input type="number" className="form-control" name="duree" value={formData.duree} onChange={handleChange} step="30" min="30" required />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Level:</label>
+        <select className="form-select" name="level" value={formData.level} onChange={handleChange} required>
+          <option value="">Select a level</option>
+          {[...Array(7).keys()].map(level => (
+            <option key={level + 1} value={level + 1}>{level + 1}</option>
+          ))}
+        </select>
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Course:</label>
+        <select className="form-select" name="course" value={formData.course} onChange={handleChange} required>
+          <option value="">Select a course</option>
+          {courses.map(course => (
+            <option key={course._id} value={course._id}>{course.name}</option>
+          ))}
+        </select>
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Teacher:</label>
+        <select className="form-select" name="teacher" value={formData.teacher} onChange={handleChange} required>
+          <option value="">Select a teacher</option>
+          {teachers.map(teacher => (
+            <option key={teacher._id} value={teacher._id}>{teacher.fullname}</option>
+          ))}
+        </select>
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Classroom:</label>
+        <select className="form-select" name="classroom" value={formData.classroom} onChange={handleChange} required>
+          <option value="">Select a classroom</option>
+          {classrooms.map(classroom => (
+            <option key={classroom._id} value={classroom._id}>{classroom.number}</option>
+          ))}
+        </select>
+      </div>
+      <button type="submit" className="btn btn-primary">Add Session</button>
+    </form>
   );
-};
+}
 
 export default SessionAdd;
