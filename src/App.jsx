@@ -1,7 +1,7 @@
 import { lazy } from 'react'
 import React, { useEffect } from 'react';
 
-//import './App.css'
+import './App.css'
 import LandingPage from './components/landingPage'
 import {  Routes, Route ,useNavigate } from 'react-router-dom'
 import Dashboard from './components/backOffice/Dashboard'

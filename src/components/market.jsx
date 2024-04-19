@@ -1,14 +1,18 @@
 import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaStar } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RiCloseCircleLine } from 'react-icons/ri';
+import { addNoteProduct, fetchNotes, updateNote } from '../service/noteService';
+import { jwtDecode } from 'jwt-decode';
 
 
 function ProductList() {
   const [products, setProducts] = useState([]);
+  const [userId, setUserId] = useState('');
+  const [notes, setNotes] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -16,6 +20,8 @@ function ProductList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
   const [priceRangeValue, setPriceRangeValue] = useState({ min: 0, max: 1000 }); // State to store current slider values
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState({});
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -24,6 +30,12 @@ function ProductList() {
   const handleClickTest = ()=>{
     navigate('/skills');
   }
+
+  const getNotes = async () => {
+    const notesData = await fetchNotes();
+    console.log(notesData);
+    setNotes(notesData);
+}
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -35,8 +47,24 @@ function ProductList() {
       }
     };
 
+    const token = localStorage.getItem('userToken');
+    if(token){
+    const decodedToken = jwtDecode(token);
+    setUserId(decodedToken.id);
+    }
+
+    getNotes();
     fetchProducts();
   }, []);
+
+  const handleMouseEnter = (productId, rating) => {
+    setHover(prev => ({ ...prev, [productId]: rating }));
+  };
+
+  // Function to handle mouse leaving a star
+  const handleMouseLeave = (productId) => {
+    setHover(prev => ({ ...prev, [productId]: null }));
+  };
 
   const addToCart = (product) => {
     const existingItemIndex = cartItems.findIndex(item => item._id === product._id);
@@ -156,6 +184,26 @@ function ProductList() {
                 >
                   {cartItems.some(item => item._id === product._id) ? "Added to Cart" : "Add to Cart"}
                 </button>
+                <br />
+                {[...Array(5)].map((star, index) =>{
+                  const currentRating = index+1;
+                  return (<label>
+                    <input 
+                    type="radio" 
+                    name="rating"
+                    value={currentRating}
+                    onClick={async()=> {
+                      const rate = {userid: userId, productid: product._id, note: currentRating};
+                      console.log(rate);
+                      if(notes.some((n)=> n.userid === userId && n.productid === product._id)){
+                        await updateNote(rate,notes.filter((n)=> n.userid == userId && n.productid == product._id)[0]._id);
+                      }
+                      await addNoteProduct(rate);
+                      getNotes();
+                      }} />
+                    <FaStar className='star mt-3' size={35} color={currentRating <= (hover[product._id] || notes.filter((n)=> n.userid == userId && n.productid == product._id)[0]?.note) ? "#ffc107" : "#e4e5e9"} onMouseEnter={() => handleMouseEnter(product._id, currentRating)} onMouseLeave={() => handleMouseLeave(product._id)}/>
+                  </label>);
+                })}
               </div>
             </div>
           </div>

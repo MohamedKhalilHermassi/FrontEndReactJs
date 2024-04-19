@@ -1,7 +1,15 @@
-.card{
+/*.card{
     transition: all 0.3s;
+}*/
+
+/*.card:hover{
+    transform: scale(1.15);
+}*/
+
+input[type=radio]{
+    display: none;
 }
 
-.card:hover{
-    transform: scale(1.15);
+.star{
+cursor: pointer;
 }
