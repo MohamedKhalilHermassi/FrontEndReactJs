@@ -1,6 +1,7 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function StudentsList() {
     const { courseId } = useParams();
@@ -8,6 +9,7 @@ function StudentsList() {
     const [mark, setMark] = useState('');
     const [course, setCourse] = useState(null);
     const [courseName, setCourseName] = useState('');
+    const navigate = useNavigate(); // Initialize useNavigate
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -63,6 +65,10 @@ function StudentsList() {
         }
     };
 
+    const handleChat = () => {
+        navigate(`/chat`); // Navigate to chat component with studentId as parameter
+    };
+
     return (
         <div className="container mt-4">
             <h2 className="mb-4">Students List</h2>
@@ -95,6 +101,7 @@ function StudentsList() {
                                 {!hasNoteForCourse(student) && (
                                     <button onClick={() => handleAddNote(student._id)} className="btn btn-primary">Add Note</button>
                                 )}
+                                <button onClick={() => handleChat()} className="btn btn-secondary">Chat</button> 
                             </td>
                         </tr>
                     ))}

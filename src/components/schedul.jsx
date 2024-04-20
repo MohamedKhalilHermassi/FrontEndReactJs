@@ -7,7 +7,9 @@ import { jwtDecode } from 'jwt-decode';
 import guitarImage from '../../public/images/guitar.png'; 
 import pianoImage from '../../public/images/piano.png'; // Import the image for the Piano course
 import closeIcon from '../../public/images/close.png'; // Import the close button image
-
+import { toast } from 'react-toastify'; // Import react-toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import react-toastify css
+import NotPaid from './subscription/NotPaid';
 const Schedule = () => {
   const [sessions, setSessions] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -25,6 +27,7 @@ const Schedule = () => {
   const [enrolledUsers, setEnrolledUsers] = useState([]);
   const [sessionId, setSessionId] = useState('');
   const userId = localStorage.getItem('id');
+  const [decodedToken,setDecodedToken] = useState('');
 
   useEffect(() => {
     fetchSessions();
@@ -36,8 +39,11 @@ const Schedule = () => {
     const token = localStorage.getItem('userToken');
     if (token) {
       const decodedToken = jwtDecode(token);
+      setDecodedToken(decodedToken);
       setUserRole(decodedToken.role);
     }
+    
+
   };
 
   const handleEventDrop = async (event) => {
@@ -66,29 +72,35 @@ const Schedule = () => {
     try {
       const response = await fetch('http://localhost:3000/sessions');
       const sessionsData = await response.json();
-
+  
       // Fetch courses separately
       const coursesResponse = await fetch('http://localhost:3000/courses');
       const coursesData = await coursesResponse.json();
-
-      // Map sessions and include course information
-      const sessionsWithCourse = sessionsData.map(session => {
+  
+      // Fetch classrooms separately
+      const classroomsResponse = await fetch('http://localhost:3000/classrooms');
+      const classroomsData = await classroomsResponse.json();
+  
+      // Map sessions and include course and classroom information
+      const sessionsWithCourseAndClassroom = sessionsData.map(session => {
         const course = coursesData.find(course => course._id === session.course);
+        const classroom = classroomsData.find(classroom => classroom._id === session.classroom);
         const courseName = course ? course.name : '';
         return {
           ...session,
           title: courseName,
           start: new Date(session.startDate),
-          end: moment(session.startDate).add(session.duree, 'minutes').toDate()
+          end: moment(session.startDate).add(session.duree, 'minutes').toDate(),
+          classroom: classroom // Add classroom information to session
         };
       });
-
-      setSessions(sessionsWithCourse);
+  
+      setSessions(sessionsWithCourseAndClassroom);
     } catch (error) {
       console.error('Error fetching sessions:', error);
     }
   };
-
+  
   const fetchCourses = async () => {
     try {
       const response = await fetch('http://localhost:3000/courses');
@@ -191,6 +203,8 @@ const Schedule = () => {
       });
   
       if (joinResponse.ok) {
+        toast.success("You have joined successfully!"); 
+
         console.log('User joined the session successfully');
         // Optionally, you can update the state or show a success message here
       } else {
@@ -206,7 +220,13 @@ const Schedule = () => {
   const localizer = momentLocalizer(moment);
 
   return (
-    <div style={{ maxWidth: '90vw', margin: 'auto', background: 'linear-gradient(to bottom, #283593, #673AB7)', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
+    <>
+        {decodedToken.role=="Student" &&  decodedToken.paid === false ? (
+      <NotPaid></NotPaid>
+
+     ) : (
+       <>
+    <div style={{ maxWidth: '90vw', margin: 'auto', background: 'linear-gradient(to bottom, #283593, #ffab00)', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
       <h2 style={{ color: '#fff' }}>Session List</h2>
       <Calendar
         localizer={localizer}
@@ -300,6 +320,17 @@ const Schedule = () => {
               <p style={{ color: '#000', marginTop: '10px' }}>Description: {courseDescription}</p>
               <p style={{ color: '#000' }}>Type: {courseType}</p>
               <p style={{ color: '#000' }}>Level: {courseLevel}</p>
+<>
+<div>Classroom n°: </div>
+              {sessionId && (
+                  <>
+                 <p style={{ color: '#000' }}>Location: {
+                 sessions.find(session => session._id === sessionId)?.classroom?.number || 'N/A'
+                 }</p>
+                  </>
+                    )}
+</>
+
               {enrolledUsers && enrolledUsers.length > 0 && (
                 <div>
                   <p style={{ color: '#000' }}>Enrolled Users:</p>
@@ -317,11 +348,16 @@ const Schedule = () => {
           <img src={closeIcon} alt="Close" style={{ position: 'absolute', top: '5px', right: '5px', cursor: 'pointer', width: '20px', height: '20px' }} onClick={handleCloseModal} />
           {/* Joindre button */}
           {userRole === 'Student' && (
-            <button className="btn btn-success" style={{ color: 'green' }} onClick={() => handleJoindreClick(sessionId)}>Joindre</button>
+            <button className="btn btn-success" style={{ color: 'green' }} onClick={() =>
+              handleJoindreClick(sessionId)}>Joindre</button>
           )}
         </div>
       </Modal>
     </div>
+    </>
+        )}
+        </>
+
   );
 };
 

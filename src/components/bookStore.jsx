@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import NotPaid from './subscription/NotPaid';
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
   const [userBooks, setUserBooks] = useState([]);
   const userId = localStorage.getItem('id');
-
+  const [decodedToken,setDecodedToken]= useState('');
   useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      setDecodedToken(jwtDecode(token));
+    }
+    
     const fetchBooks = async () => {
       try {
         const response = await axios.get('http://localhost:3000/book/get-books');
@@ -48,6 +55,11 @@ const BookList = () => {
 
   return (
     <>
+      {decodedToken.role=="Student" &&  decodedToken.paid === false ? (
+       <NotPaid></NotPaid>
+
+      ) : (
+        <>
     <br />
   <br />
   <br />
@@ -74,6 +86,8 @@ const BookList = () => {
         ))}
       </ul>
     </div>
+    </>
+      )}
     </>
     
   );

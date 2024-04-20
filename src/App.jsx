@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 
 //import './App.css'
 import LandingPage from './components/landingPage'
@@ -53,16 +53,22 @@ import TeacherCourses from './components/teacherCourses.jsx';
 import StudentsList from './components/studentsList.jsx';
 import UserNotes from './components/userNores.jsx';
 import Location from './components/backOffice/location/location';
+import PricingPack from './components/subscription/pricingPack.jsx';
+import Chat from './components/realtime-chat/Chat.jsx';
+import TeacherMessageSender from './components/realtime-chat/teacherSend.jsx';
+import StudentMessageReplier from './components/realtime-chat/studentSend.jsx';
+import TransactionList from './components/backOffice/transactionList.jsx';
 
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
 const Courses = lazy(()=> import ("./components/courses"));
 function App() {
   const navigate = useNavigate();
-  const excludedRoutes = ["/signin", "/register","/events","/courses","/market"];
+  const excludedRoutes = ["/signin", "/register","/events","/courses","/market","/pricing-pack"];
   const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin", "/admin/addsession","/admin/listsession", "/admin/listsession2", "/admin/editSession", "/admin/ListS", "/admin/ListDrag", "/admin/courses", "/admin/addcourse", "/admin/locations", "/admin/map", "/admin/addlocation", "/admin/addclassroom", "/admin/Archivedproducts", "/admin/ordersList", "/admin/products", "/admin/events", "/admin/addevent", "/admin/edit-event", "/admin/eventscalendar", "/admin/registeredusers"];
   useEffect(() => {
     const token = localStorage.getItem('userToken');
+    
     if (!excludedRoutes.includes(window.location.pathname) && AuthService.isTokenExpired(token)) {
       AuthService.logout(); 
       navigate('/');
@@ -91,7 +97,7 @@ function App() {
         <Route path="events" element={<Events />} />
         <Route path="bookstore" element={<BookStore />} />
         <Route path="skills" element={<Guitar />} />
-
+       <Route path="pricing-pack" element={<PricingPack/>} />
         <Route path="courses" element={<Courses />} />
         <Route path="market" element={<AddProductForm />} />
         <Route path="marketplace" element={<ProductList />} />
@@ -111,6 +117,10 @@ function App() {
         <Route path = "eventRegister" element={<EventRegister/>}></Route>
         <Route path = "myevents" element={<MyEvents/>}></Route>
         <Route path = "mymarks" element={<UserNotes/>}></Route>
+        <Route path = "chat" element={<Chat/>}></Route>
+        <Route path = "teacherSend/:studentId" element={<TeacherMessageSender/>}></Route>
+        <Route path = "studentSend" element={<StudentMessageReplier/>}></Route>
+
 
       </Route>
 
@@ -147,6 +157,7 @@ function App() {
           <Route path="eventscalendar" element={<EventsCalendar/>} />
           <Route path="registeredusers" element={<RegisteredUsers/>} />
           <Route path = "user" element={<Users/>}></Route>
+          <Route path = "trasnsactionList" element={<TransactionList/>}></Route>
 
 
         </Route>

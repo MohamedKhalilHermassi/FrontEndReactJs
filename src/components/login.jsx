@@ -27,7 +27,15 @@ function Login() {
       setIsLoading(true);
       const token = await UserService.login(email, password);
       const decodedToken = jwtDecode(token);
+      const expirePaidDate = new Date(decodedToken.expirePaid);
+      console.log(expirePaidDate);
+      const currentDate = new Date();
+
+
       let redirectPath = '/'; 
+      if (decodedToken.role === 'Student' && expirePaidDate < currentDate) {
+        redirectPath = '/pricing-pack';
+      }
     if (decodedToken.role === 'admin') {
       redirectPath = '/admin';
     }
