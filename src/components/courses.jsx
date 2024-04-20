@@ -3,6 +3,7 @@ import { enrollement, fetchCourses } from "../service/courseService";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import NotPaid from "./subscription/NotPaid";
 
 function Courses()
 {
@@ -11,16 +12,20 @@ function Courses()
   const [levelFilter, setLevelFilter] = useState('');
   const [type, setType] = useState('');
   const navigate = useNavigate();
+  const [decodedToken,setDecodedToken] = useState('');
 
   const levels = ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6', 'Level 7'];
   const courseTypes = ['Instrument', 'Solfege'];
 
   useEffect(() => {
+   
       fetchData();
       const token = localStorage.getItem('userToken');
       if(token){
       const decodedToken = jwtDecode(token);
+      setDecodedToken(decodedToken);
       setUserId(decodedToken.id);
+      
       }
   },[])
 
@@ -57,7 +62,11 @@ function Courses()
 
     return (
         <>
-      
+       {decodedToken.role=="Student" &&  decodedToken.paid === false ? (
+       <NotPaid></NotPaid>
+
+      ) : (
+        <>
           <section className="section team-2">
     <div className="container">
       <div className="row">
@@ -114,7 +123,6 @@ function Courses()
               <div className="card-image">
                 <div className="dropdown">
                   <button className="btn btn-link dropdown-toggle btn-icon-only" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-chalkboard-user"></i></button>
-                  <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end"><a className="dropdown-item" href="javascript:;">Instructed by {course.teacher.fullname}</a></div>
                 </div>
                 <a href="javascript:;">
                   <img className="img rounded" src={`http://localhost:3000/images/${course.image}`} />
@@ -167,6 +175,8 @@ function Courses()
       </div>
     </div>
   </section>
+          </>
+      )}
           </>
     )
 } export default Courses;

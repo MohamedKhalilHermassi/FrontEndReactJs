@@ -13,7 +13,10 @@ import EventDetails from './backOffice/event/eventDetails';
 import Form from 'react-bootstrap/Form';
 import ReactSelect from 'react-select';
 import EventsGallery from './eventsGallery';
+
 import './Events.css';
+import { jwtDecode } from 'jwt-decode';
+import NotPaid from './subscription/NotPaid';
 
 const categories = [
   { value: 'All', label: 'All' },
@@ -34,7 +37,8 @@ function Events() {
     const [showCapacityAlert, setShowCapacityAlert] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('All');
     const userId = localStorage.getItem('id');
-    
+    const [decodedToken,setDecodedToken] = useState('');
+
     const handleCategoryChange = (selectedOption) => {
       setSelectedCategory(selectedOption.value);
     };
@@ -76,6 +80,11 @@ function Events() {
   }, [selectedCategory]);
 
     useEffect(() => {
+      const token = localStorage.getItem('userToken');
+      if (token) {
+        setDecodedToken(jwtDecode(token));
+      }
+      
       fetchEvents();
   }, [fetchEvents]);
   
@@ -108,6 +117,12 @@ function Events() {
 
     return (
       <>
+       
+      {decodedToken.role=="Student" &&  decodedToken.paid === false ? (
+       <NotPaid></NotPaid>
+
+      ) : (
+        <>
         <Modal show={showModal} onHide={handleClose} className="modal-front">
           <Modal.Body>
           {currentEvent && <EventDetails event={currentEvent} onBack={handleClose} showButtons={false} />}
@@ -179,7 +194,10 @@ function Events() {
           </Pagination>
         </div>
       </>
+      )}
+      </>
     );
+    
 };
 
 export default Events;

@@ -73,6 +73,18 @@ function SessionAdd() {
        
 
       });
+    
+      if (!response.ok) {
+        // Check if response status is 400 and display the error message
+        if (response.status === 400) {
+          const responseData = await response.json();
+          throw new Error(responseData.message);
+        } else {
+          // Handle other non-400 errors
+          throw new Error(`Failed to add session: ${response.statusText}`);
+        }
+      }
+    
       const data = await response.json();
       console.log(data); 
 

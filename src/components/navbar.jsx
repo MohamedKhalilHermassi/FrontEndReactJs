@@ -7,12 +7,14 @@ export const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState('');
   const navigate = useNavigate();
+  const [decodedToken,setDecodedToken] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     if (token) {
       setIsLoggedIn(true);
       const decodedToken = jwtDecode(token);
+      setDecodedToken(decodedToken);
       setUserRole(decodedToken.role);
     }
   }, []);
@@ -49,7 +51,7 @@ export const NavBar = () => {
             </div>
           </div>
           <ul className="navbar-nav mx-auto">
-            {isLoggedIn && (
+            {isLoggedIn && decodedToken.paid===true &&  (
                 <li className="nav-item dropdown">
                   <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     My Profile
@@ -59,6 +61,7 @@ export const NavBar = () => {
                     <Link to="/myproducts" className="dropdown-item">My Products</Link>
                     <Link to="/myorders" className="dropdown-item">My Orders</Link>
                     <Link to="/mybooks" className="dropdown-item">My Books</Link>
+                    <Link to="/chat" className="dropdown-item">Chatroom</Link>
 
                     <Link to="/mycourses" className="dropdown-item">My Courses</Link><Link to="/reclamation" className="dropdown-item">My Reclamtions</Link>
                     <Link to="/myevents" className="dropdown-item">My Events</Link>

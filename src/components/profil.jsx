@@ -130,9 +130,19 @@ if(image!=''){
                       <p className="mb-1">Date of Birth:</p>
                       <p className="text-muted">{formatDateOfBirth(userData.birthday)}</p>
                     </div>
+                  
                   </div>
                   <button className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Edit Profile</button>
                 </div>
+              
+                <div className="col">
+                      <p className="mb-1">Membership Expiration:</p>
+                      <p className="text-muted">{formatDateOfBirth(userData.expirePayementDate)}</p>
+                    </div>
+                    <div className="col">
+                      <p className="mb-1">Last Payement made:</p>
+                      <p className="text-muted">{formatDateOfBirth(userData.lastPaymentDate)}</p>
+                    </div>
               </div>
             </div>
           </div>

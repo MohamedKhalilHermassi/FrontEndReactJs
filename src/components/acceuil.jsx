@@ -1,10 +1,18 @@
+import { jwtDecode } from 'jwt-decode';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import NotPaid from './subscription/NotPaid';
 
 function Acceuil() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [decodedToken,setDecodedToken] = useState('');
 
   useEffect(() => {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      setDecodedToken(jwtDecode(token));
+    }
+    
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       setIsScrolled(scrollTop > 0);
@@ -19,6 +27,12 @@ function Acceuil() {
 
   return (
     <>
+     
+       {decodedToken.role=="Student" && decodedToken.paid === false ? (
+       <NotPaid></NotPaid>
+
+      ) : (
+        <>
       <div className={`page-header ${isScrolled ? 'scrolled' : ''}`}>
         <h1 className="display-1 text-orange mx-5">ElKindy Conservatory</h1>
         <div className="page-header-image reduced-opacity" style={{backgroundImage: 'url("images/guitar-2886886_1280.jpg")'}} />
@@ -61,6 +75,8 @@ function Acceuil() {
         </div>
       </div>
     </>
+      )}
+      </>
   );
 }
 

@@ -32,7 +32,7 @@ function Schedule() {
       <br />
       <br />
       <div style={{ width: '80%', margin: 'auto', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: 'Arial, sans-serif', fontSize: '2.5em', fontWeight: 'bold', color: '#', borderBottom: '2px solid #333', paddingBottom: '10px' }}>Your Schedule</h1>
+        <h1 style={{ fontFamily: 'Arial, sans-serif', fontSize: '2.5em', fontWeight: 'bold', color: '#333', borderBottom: '2px solid #333', paddingBottom: '10px' }}>Your Schedule</h1>
         <ScheduleComponent
           currentView='Week'
           height='1080px'
@@ -48,7 +48,7 @@ function Schedule() {
               EndTime: new Date(new Date(event.startDate).getTime() + (event.duree || 0) * 60000),
               IsAllDay: false,
               Description: event.course ? event.course.description : 'No Description',
-              Location: event.classroom ? `class number: ${event.classroom.number}, ${event.classroom.location.address}, ${event.classroom.location.city}, ${event.classroom.location.state}` : 'No Location',
+              Location: event.classroom ? (event.classroom.location ? `class number: ${event.classroom.number}, ${event.classroom.location.address}, ${event.classroom.location.city}, ${event.classroom.location.state}` : 'No Location') : 'No Location',
             }))
           }}
           readonly={true}

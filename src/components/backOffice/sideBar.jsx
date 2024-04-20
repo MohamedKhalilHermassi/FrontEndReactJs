@@ -120,6 +120,20 @@ const SideBar = () => {
 
           </ul>
         </li>
+        <li className="menu-item">
+          <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#trasnsactionList" aria-expanded="false" aria-controls="trasnsactionList">
+            <i className="menu-icon fa-regular fa-credit-card" />
+            <div data-i18n="Layouts">Transaction</div>
+          </a>
+          <ul id="trasnsactionList" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li className="sidebar-item">
+              <Link className="sidebar-link menu-link" to="/admin/trasnsactionList"><i className="menu-icon fa-solid fa-hand-holding-dollar " />List of Transaction</Link>
+            </li>
+
+
+
+          </ul>
+        </li>
         
         
         <li className="menu-item">
