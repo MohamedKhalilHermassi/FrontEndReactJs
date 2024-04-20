@@ -7,8 +7,7 @@ import '@syncfusion/ej2-inputs/styles/material.css';
 import '@syncfusion/ej2-navigations/styles/material.css';
 import '@syncfusion/ej2-popups/styles/material.css';
 import '@syncfusion/ej2-react-schedule/styles/material.css';
-import { ScheduleComponent, Day, Week, WorkWeek, Month, Inject } from '@syncfusion/ej2-react-schedule';
-import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
+import { ScheduleComponent, Day, Week, Month, Inject } from '@syncfusion/ej2-react-schedule';
 import { registerLicense } from '@syncfusion/ej2-base';
 
 function Schedule() {
@@ -29,37 +28,35 @@ function Schedule() {
 
   return (
     <>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    
-    <div className="App">
-      <ScheduleComponent currentView='Week' 
-                         eventSettings={{ dataSource: apiData.map(event => ({
-                            Id: event._id,
-                            Subject: event.course ? event.course.name : 'No Name', // Check if course exists
-                            StartTime: new Date(event.startDate),
-                            EndTime: new Date(new Date(event.startDate).getTime() + (event.duree || 0) * 60000), // Calculate end time based on start time and duration
-                            IsAllDay: false,
-                            Description: event.course ? event.course.description : 'No Description', // Check if course exists
-                            Location: event.classroom ? "class number :"+ `${event.classroom.number}, ${event.classroom.location.address}, ${event.classroom.location.city}, ${event.classroom.location.state}` : 'No Location' // Check if classroom exists
-                          })) }}
-                         readonly={true} // Set readonly to true to disable editing and deleting functionalities
-      >
-        <Inject services={[Day, Week, WorkWeek, Month]} />
-      </ScheduleComponent>
-    </div>
-    <style>{`
-      /* Hide the edit and delete icons */
-      .e-schedule .e-event-popup .e-edit-button,
-      .e-schedule .e-event-popup .e-delete-button {
-        display: none;
-      }
-    `}</style>
+      <br />
+      <br />
+      <br />
+      <div style={{ width: '80%', margin: 'auto', textAlign: 'center' }}>
+        <h1 style={{ fontFamily: 'Arial, sans-serif', fontSize: '2.5em', fontWeight: 'bold', color: '#', borderBottom: '2px solid #333', paddingBottom: '10px' }}>Your Schedule</h1>
+        <ScheduleComponent
+          currentView='Week'
+          height='1080px'
+          width='100%'
+          startHour='09:00'
+          endHour='22:00'
+          eventSettings={{
+            dataSource: apiData.map(event => ({
+              Id: event._id,
+              Subject: event.course ? event.course.name : 'No Name',
+              StartTime: new Date(event.startDate),
+              EndTime: new Date(new Date(event.startDate).getTime() + (event.duree || 0) * 60000),
+              IsAllDay: false,
+              Description: event.course ? event.course.description : 'No Description',
+              Location: event.classroom ? `class number: ${event.classroom.number}, ${event.classroom.location.address}, ${event.classroom.location.city}, ${event.classroom.location.state}` : 'No Location',
+            }))
+          }}
+          readonly={true}
+        >
+          <Inject services={[Day, Week, Month]} />
+        </ScheduleComponent>
+       
+      </div>
     </>
-    
   );
 }
 

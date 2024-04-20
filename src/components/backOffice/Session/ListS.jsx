@@ -71,6 +71,7 @@ class ListS extends React.Component {
             </tr>
           </thead>
           <tbody>
+           
             {this.state.sessions.map(session => (
               <tr key={session._id}>
                   <td>{format(new Date(session.startDate), 'MMMM dd, yyyy HH:mm:ss')}</td>
