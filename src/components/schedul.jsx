@@ -39,6 +39,7 @@ function Schedule() {
           width='100%'
           startHour='09:00'
           endHour='22:00'
+      
           eventSettings={{
             dataSource: apiData.map(event => ({
               Id: event._id,
