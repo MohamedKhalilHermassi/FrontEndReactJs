@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { deleteCourse, fetchCourses } from '../../../service/courseService';
 import CourseDetails from './courseDetails';
 import toast from 'react-hot-toast';
+import {useNavigate} from 'react-router-dom';
+import { replace } from 'formik';
 
 const CourseList = () => {
+  const navigate = useNavigate();
     const [courses, setCourses] = useState([]);
     const [search, setSearch] = useState('');
     const [type, setType] = useState('');
@@ -78,7 +81,9 @@ const CourseList = () => {
         
         </div>
         <CourseDetails course = {course}/>
-        <button className='btn btn-danger mt-3 ml-auto' onClick={(e) => handleDelete(course._id)}>delete</button>
+        <button className='btn btn-secondary mt-3 ml-auto' onClick={(e) => handleDelete(course._id)}>delete</button>
+        <button className='btn btn-warning mt-3 ml-auto' onClick={(e) => navigate(`/admin/courseView/${course._id}`)}>manage</button>
+
       </div>
     </div>
   </div>))}

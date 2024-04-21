@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import  { Component } from 'react';
 import Calendar from 'react-calendar';
 import '../Session/calendar.css'; // Import custom CSS file
 

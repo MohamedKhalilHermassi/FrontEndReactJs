@@ -58,6 +58,9 @@ import Chat from './components/realtime-chat/Chat.jsx';
 import TeacherMessageSender from './components/realtime-chat/teacherSend.jsx';
 import StudentMessageReplier from './components/realtime-chat/studentSend.jsx';
 import TransactionList from './components/backOffice/transactionList.jsx';
+import CalendarShow from './components/backOffice/Session/CalendarShow.jsx';
+import CourseView from './components/backOffice/course/courseView.jsx';
+import CreateIndivSessions from './components/backOffice/Session/addIndivSession.jsx';
 
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
@@ -158,6 +161,9 @@ function App() {
           <Route path="registeredusers" element={<RegisteredUsers/>} />
           <Route path = "user" element={<Users/>}></Route>
           <Route path = "trasnsactionList" element={<TransactionList/>}></Route>
+          <Route path = "calendar" element={<CalendarShow/>}></Route>
+          <Route path = "courseView/:courseid" element={<CourseView/>}></Route>
+          <Route path = "addIndivSession" element={<CreateIndivSessions/>}></Route>
 
 
         </Route>

@@ -74,6 +74,7 @@
     "react-modal": "^3.16.1",
     "react-pdf": "^7.7.1",
     "react-select": "^5.8.0",
+    "react-tag-input-component": "^2.0.2",
     "react-toastify": "^10.0.4",
     "simple-swizzle": "^0.2.2",
     "socket.io-client": "^4.7.5",

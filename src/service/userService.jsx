@@ -15,6 +15,7 @@ const userService = {
             localStorage.setItem('userToken', token);
             localStorage.setItem('email', email);
             localStorage.setItem('id', myDecodedToken.id);
+            localStorage.setItem('level', myDecodedToken.level);
             
             return token;
           }
@@ -163,6 +164,7 @@ async banuser(email) {
     localStorage.removeItem('userToken');
     localStorage.removeItem('email');
     localStorage.removeItem('id');
+    localStorage.removeItem('level');
     
   }
 };

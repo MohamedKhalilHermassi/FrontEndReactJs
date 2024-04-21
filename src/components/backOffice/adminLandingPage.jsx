@@ -4,6 +4,8 @@ import UserService from '../../service/userService';
 const AdminLandingPage = () => {
   const [userData, setUserData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,9 +44,17 @@ const AdminLandingPage = () => {
     const [image, setimage] = useState('');
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
+
+  
+   
     const validateName = (name) => {
         const regex = /^[a-zA-Z ]{1,15}$/;
         return regex.test(name);
+      };
+      const handleRemoveTimeSlot = (index) => {
+        const updatedTimeSlots = availableTimeSlots.filter((_, i) => i !== index);
+        setAvailableTimeSlots(updatedTimeSlots);
       };
       const handleImageChange = (event) => {
         const imageFile = event.target.files[0];
@@ -84,10 +94,25 @@ const AdminLandingPage = () => {
         return password.length >= 8;
       };
  
+      const handleAddTimeSlot = () => {
+        const newTimeSlot = { startTime: '', endTime: '' };
+      
+        newTimeSlot.startTime = new Date();
+        newTimeSlot.endTime = new Date();
+        console.log(newTimeSlot);
+        setAvailableTimeSlots([...availableTimeSlots, newTimeSlot]);
+      };
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(null); 
     let isValid = true;
+    for (const timeSlot of availableTimeSlots) {
+      if (timeSlot.startTime >= timeSlot.endTime) {
+          setError("End time must be greater than start time for all time slots");
+          isValid = false;
+          break;
+      }
+  }
     if (!validateName(Firstname)) {
         isValid = false;
       }
@@ -127,6 +152,8 @@ const AdminLandingPage = () => {
   formData.append('phone', phone);
   formData.append('birthday', birthday);
   formData.append('image', image);
+  const availableTimeJSON = JSON.stringify(availableTimeSlots);
+  formData.append('availableTime', availableTimeJSON);
             const newuser = await UserService.addtetcher(formData);
             location.reload();
          } catch (error) {
@@ -266,6 +293,80 @@ const AdminLandingPage = () => {
                         <input type="file" id="image" className="form-control" onChange={handleImageChange} />
                         <label className="form-label" htmlFor="image">Image</label>
                     </div>
+              {/* AVAILABILITY */}
+              <div className="row">
+      <div className="col-md-12">
+        <h5>Available Time Slots</h5>
+        {availableTimeSlots.map((timeSlot, index) => (
+          <div key={index} className="row mb-3">
+            <div className="col-md-3">
+              <select
+                className="form-select"
+                value={timeSlot.day}
+                onChange={(e) => {
+                  const updatedTimeSlots = [...availableTimeSlots];
+                  updatedTimeSlots[index].day = e.target.value;
+                  setAvailableTimeSlots(updatedTimeSlots);
+                }}
+                required
+              >
+                <option value="">Select Day</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </div>
+            <div className="col-md-3">
+              <input
+                type="time"
+                className="form-control"
+                value={timeSlot.startTime}
+                onChange={(e) => {
+                  const updatedTimeSlots = [...availableTimeSlots];
+                  updatedTimeSlots[index].startTime = e.target.value;
+                  setAvailableTimeSlots(updatedTimeSlots);
+                }}
+                required
+              />
+            </div>
+            <div className="col-md-3">
+              <input
+                type="time"
+                className="form-control"
+                value={timeSlot.endTime}
+                onChange={(e) => {
+                  const updatedTimeSlots = [...availableTimeSlots];
+                  updatedTimeSlots[index].endTime = e.target.value;
+                  setAvailableTimeSlots(updatedTimeSlots);
+                }}
+                required
+              />
+            </div>
+            <div className="col-md-3">
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => handleRemoveTimeSlot(index)}
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        ))}
+        <button
+          type="button"
+          className="btn btn-success mb-3"
+          onClick={handleAddTimeSlot}
+        >
+          Add Time Slot
+        </button>
+      </div>
+    </div>
+
                       {/* Submit button */}
                       <button type="submit" className="btn btn-warning btn-block mb-4" >
                       {error ? "Fix errors" : "Ok"}

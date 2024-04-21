@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import '@syncfusion/ej2-base/styles/material.css';
 import '@syncfusion/ej2-buttons/styles/material.css';
 import '@syncfusion/ej2-calendars/styles/material.css';
@@ -10,7 +10,7 @@ import '@syncfusion/ej2-react-schedule/styles/material.css';
 import { ScheduleComponent, Day, Week, Month, Inject } from '@syncfusion/ej2-react-schedule';
 import { registerLicense } from '@syncfusion/ej2-base';
 
-function Schedule() {
+function CalendarShow() {
   registerLicense("Ngo9BigBOggjHTQxAR8/V1NAaF1cVGhIfEx1RHxQdld5ZFRHallYTnNWUj0eQnxTdEFjXX5ccXFVQmBfWURwVg==");
 
   const [apiData, setApiData] = useState([]);
@@ -26,18 +26,12 @@ function Schedule() {
       });
   }, []);
 
-  const userLevel = localStorage.getItem('level');
-
-  // Filter apiData to include only events with the matching level
-  const filteredData = apiData.filter(event => event.level == userLevel);
-
   return (
     <>
       <br />
       <br />
       <br />
       <div style={{ width: '80%', margin: 'auto', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: 'Arial, sans-serif', fontSize: '2.5em', fontWeight: 'bold', color: '#333', borderBottom: '2px solid #333', paddingBottom: '10px' }}>Your Schedule</h1>
         <ScheduleComponent
           currentView='Week'
           height='1080px'
@@ -46,7 +40,7 @@ function Schedule() {
           endHour='22:00'
       
           eventSettings={{
-            dataSource: filteredData.map(event => ({
+            dataSource: apiData.map(event => ({
               Id: event._id,
               Subject: event.course ? event.course.name : 'No Name',
               StartTime: new Date(event.startDate),
@@ -66,4 +60,4 @@ function Schedule() {
   );
 }
 
-export default Schedule;
+export default CalendarShow;

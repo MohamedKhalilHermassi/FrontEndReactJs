@@ -68,7 +68,7 @@ const SideBar = () => {
               <Link class="sidebar-link menu-link" to="/admin/products"><i className="menu-icon fas fa-grip" />List of products</Link>
             </li>
             <li className="sidebar-item">
-              <Link class="sidebar-link menu-link" to="/admin/soldproducts"><i className="menu-icon fas fa-circle-xmark" />Sold products</Link>
+              <Link class="sidebar-link menu-link" to="/admin/soldproducts"><i className="menu-icon fa-regular fa-money-bill-1" />Sold products</Link>
             </li>
             <li className="sidebar-item">
               <Link class="sidebar-link menu-link" to="/admin/Archivedproducts"><i className="menu-icon fas fa-circle-xmark" />Archived products</Link>
@@ -92,30 +92,29 @@ const SideBar = () => {
         </li>
         <li className="menu-item">
           <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#sessions" aria-expanded="false" aria-controls="orders">
-            <i className="menu-icon fa-solid fa-cart-shopping" />
+            <i className="menu-icon fa-solid fa-school" />
             <div data-i18n="Layouts">Sessions</div>
           </a>
           <ul id="sessions" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
             <li className="sidebar-item">
-            <Link className="sidebar-link menu-link" to="/admin/addsession"><i className="menu-icon fas fa-plus" />Create Session</Link>
+            <Link className="sidebar-link menu-link" to="/admin/addsession"><i className="menu-icon fas fa-plus" />Create Group Session</Link>
 
             </li>
             <li className="sidebar-item">
-            <Link className="sidebar-link menu-link" to="/admin/listsession"><i className="menu-icon fas fa-plus" />Sessions</Link>
+            <Link className="sidebar-link menu-link" to="/admin/addIndivSession"><i className="menu-icon fas fa-plus" />Create Indiv Session</Link>
 
             </li>
+            
             <li className="sidebar-item">
-            <Link className="sidebar-link menu-link" to="/admin/listsession2"><i className="menu-icon fas fa-plus" />Sessions</Link>
+            <Link className="sidebar-link menu-link" to="/admin/listS"><i className="menu-icon fa-solid fa-list-ul" />List of  Sessions</Link>
 
             </li>
+
             <li className="sidebar-item">
-            <Link className="sidebar-link menu-link" to="/admin/listS"><i className="menu-icon fas fa-plus" />ListS</Link>
+            <Link className="sidebar-link menu-link" to="/admin/calendar"><i className="menu-icon fa-regular fa-calendar-days" />Calendar</Link>
 
             </li>
-            <li className="sidebar-item">
-            <Link className="sidebar-link menu-link" to="/admin/ListDrag"><i className="menu-icon fas fa-plus" />ListDrag</Link>
-
-            </li>
+         
 
 
           </ul>
