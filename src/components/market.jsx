@@ -7,10 +7,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { addNoteProduct, fetchNotes, updateNote } from '../service/noteService';
 import { jwtDecode } from 'jwt-decode';
+import userService from '../service/userService';
 
 
 function ProductList() {
   const [products, setProducts] = useState([]);
+  const [recommandationFC, setRecommandationFC] = useState([]);
   const [userId, setUserId] = useState('');
   const [notes, setNotes] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
@@ -22,7 +24,10 @@ function ProductList() {
   const [priceRangeValue, setPriceRangeValue] = useState({ min: 0, max: 1000 }); // State to store current slider values
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState({});
+  const [pageNumber, setPageNumber] = useState(0);
+  const [numberOfPages, setNumberOfPages] = useState(0);
   const navigate = useNavigate();
+  const pages = new Array(numberOfPages).fill(null).map((v,i) => i);
 
   const handleClick = () => {
     navigate('/market');
@@ -37,11 +42,27 @@ function ProductList() {
     setNotes(notesData);
 }
 
+  const fetchUser = async () => {
+    try {
+      console.log(localStorage.getItem('email'));
+      const user = await userService.getUser(localStorage.getItem('email'));
+      console.log(products);
+      console.log(user.recommendedProducts);
+      console.log(products.filter(product => user.recommendedProducts.includes(product._id)));
+      setRecommandationFC(user.recommendedProducts);
+    
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/market/get-products');
-        setProducts(response.data);
+        const response = await axios.get(`http://localhost:3000/market/get-products?page=${pageNumber}`);
+        console.log(response.data.products);
+        setProducts(response.data.products);
+        setNumberOfPages(response.data.totalPages);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -51,11 +72,13 @@ function ProductList() {
     if(token){
     const decodedToken = jwtDecode(token);
     setUserId(decodedToken.id);
+    
     }
 
     getNotes();
     fetchProducts();
-  }, []);
+    fetchUser();
+  }, [pageNumber]);
 
   const handleMouseEnter = (productId, rating) => {
     setHover(prev => ({ ...prev, [productId]: rating }));
@@ -100,7 +123,14 @@ function ProductList() {
 
   );
 
-  
+  const goToPrevious = () => {
+    setPageNumber(Math.max(0, pageNumber - 1))
+  }
+
+  const goToNext = () => {
+    setPageNumber(Math.min(numberOfPages - 1, pageNumber + 1));
+  }
+
   const handleOrder = async () => {
     try {
       const productsList = cartItems.flatMap(item => Array.from({ length: item.quantity }, () => item._id));
@@ -208,6 +238,33 @@ function ProductList() {
             </div>
           </div>
         ))}
+        
+      </div>
+      
+      <h2 className="my-5">People similar to you tend to enjoy</h2>
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+        {products.filter(product => recommandationFC.includes(product._id)).map(product => (
+          <div key={product._id} className="col">
+            <div className="card h-100">
+              <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
+                <img src={`http://localhost:3000/uploads/${product.filename}`} className="card-img-top" alt={product.productName} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+              </div>
+              <div className="card-body">
+                <h5 className="card-title">{product.productName}</h5>
+                <p className="card-text">{product.productDescription}</p>
+                <h6>{product.productPrice} TND</h6>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={() => addToCart(product)} 
+                  disabled={cartItems.some(item => item._id === product._id)}
+                >
+                  {cartItems.some(item => item._id === product._id) ? "Added to Cart" : "Add to Cart"}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+        
       </div>
       </div>
       <div style={floatingCartStyle} onClick={toggleCart}>
@@ -237,7 +294,21 @@ function ProductList() {
       )}
                   <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
 
-
+  <nav aria-label="Page navigation ">
+  <ul className="pagination pagination-lg justify-content-center my-4">
+    <li className="page-item prev " onClick={goToPrevious}>
+      <a className="page-link" href="#"><i className="tf-icon bx bx-chevrons-left"></i></a>
+    </li>
+    {pages.map((pageIndex) => (
+    <li className={`page-item ${pageNumber === pageIndex ? 'active' : ''}`}>
+      <a className="page-link" href="#" onClick={() => setPageNumber(pageIndex)}>{pageIndex+1}</a>
+    </li>
+    ))}
+    <li className="page-item next" onClick={goToNext}>
+      <a className="page-link" href="#"><i className="tf-icon bx bx-chevrons-right"></i></a>
+    </li>
+  </ul>
+</nav>
     </>
   );
 }
