@@ -53,13 +53,13 @@ import TeacherCourses from './components/teacherCourses.jsx';
 import StudentsList from './components/studentsList.jsx';
 import UserNotes from './components/userNores.jsx';
 import Location from './components/backOffice/location/location';
-
+import FacialLogin from './components/FacialLogin.jsx';
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
 const Courses = lazy(()=> import ("./components/courses"));
 function App() {
   const navigate = useNavigate();
-  const excludedRoutes = ["/signin", "/register","/events","/courses","/market"];
+  const excludedRoutes = ["/signin","/FacialLogin" ,"/register","/events","/courses","/market"];
   const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin", "/admin/addsession","/admin/listsession", "/admin/listsession2", "/admin/editSession", "/admin/ListS", "/admin/ListDrag", "/admin/courses", "/admin/addcourse", "/admin/locations", "/admin/map", "/admin/addlocation", "/admin/addclassroom", "/admin/Archivedproducts", "/admin/ordersList", "/admin/products", "/admin/events", "/admin/addevent", "/admin/edit-event", "/admin/eventscalendar", "/admin/registeredusers"];
   useEffect(() => {
     const token = localStorage.getItem('userToken');
@@ -73,7 +73,7 @@ function App() {
     if (adminRoutes.includes(window.location.pathname) && !AuthService.hasPermission(token,"admin")) {
       navigate('/');
     }
-  }, [navigate]);
+}, [navigate]);
 
   
 
@@ -153,6 +153,7 @@ function App() {
     
 
       {/* Routes signin et register */}
+      <Route path="FacialLogin" element={<FacialLogin />} />
       <Route path="signin" element={<Login />} />
       <Route path="register" element={<Register />} />
     </Routes>

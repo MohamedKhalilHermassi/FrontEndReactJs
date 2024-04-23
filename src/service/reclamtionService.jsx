@@ -60,10 +60,10 @@ const reclamtionService ={
         }
       },
 
-      async resolving(id) {
+      async resolving(id,resp) {
         try {
           const token = localStorage.getItem('userToken'); 
-          const response = await axios.post(`${BASE_URL}/resolving/${id}`,{}, 
+          const response = await axios.post(`${BASE_URL}/resolving/${id}`,{ resp }, 
           {
               headers: { Authorization: `Bearer ${token}` },
           });

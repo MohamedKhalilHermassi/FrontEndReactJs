@@ -111,29 +111,20 @@ if(image!=''){
         <div className="vh-100" style={{ backgroundColor: '#f8f9fa', marginTop: '50px' }}>
         <div className="container py-5">
           <div className="row justify-content-center">
-            <div className="col-md-8">
-              <div className="card border rounded shadow-sm">
-                <div className="card-body text-center">
-                  <img src={`http://localhost:3000/${userData.image}`} alt="Profile" className="rounded-circle img-fluid mb-3" style={{ width: '150px' }} />
-                  <h4 className="mb-2">{userData.fullname}</h4>
-                  <p className="text-muted mb-4">{userData.email}</p>
-                  <div className="row">
-                    <div className="col">
-                      <p className="mb-1">Address:</p>
-                      <p className="text-muted">{userData.address}</p>
-                    </div>
-                    <div className="col">
-                      <p className="mb-1">Phone:</p>
-                      <p className="text-muted">{userData.phone}</p>
-                    </div>
-                    <div className="col">
-                      <p className="mb-1">Date of Birth:</p>
-                      <p className="text-muted">{formatDateOfBirth(userData.birthday)}</p>
-                    </div>
-                  </div>
-                  <button className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Edit Profile</button>
-                </div>
+            <div className="col-md-12">
+             
+              <div className="carddprofile">
+              <div className="cover-photoooprofile">
+              <img src={`http://localhost:3000/${userData.image}`} alt="Profile" className='profileprofile' />
               </div>
+             <h3 className="profile-namee">{userData.fullname}</h3>
+              <p className="abouttt">{userData.email} <br></br> Address:&nbsp;&nbsp;&nbsp;&nbsp; {userData.address} <br></br> Phone:&nbsp;&nbsp;&nbsp;&nbsp; {userData.phone}<br></br> Date of Birth:&nbsp;&nbsp;&nbsp;&nbsp; {formatDateOfBirth(userData.birthday)}</p>
+              <div className='abboutbtn'>
+              <button className="btnnn" data-toggle="modal" data-target="#exampleModal" onClick={()=>{setphone(userData.phone),setadress(userData.address)}}>Edit Profile</button>
+
+              </div>
+              </div>
+                
             </div>
           </div>
         </div>
@@ -167,7 +158,7 @@ if(image!=''){
                         <label className="form-label" htmlFor="form3Example3">Address</label>
                       </div>
                       <div className="form-outline mb-4">
-                        <input type="file" id="image" className="form-control" onChange={handleImageChange} />
+                        <input type="file" id="image" className="custom-file" onChange={handleImageChange} />
                         <label className="form-label" htmlFor="image">Image</label>
                     </div>
                       {/* Submit button */}

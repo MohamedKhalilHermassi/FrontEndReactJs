@@ -30,6 +30,32 @@ const userService = {
             throw new Error(error.message);
         }
       },
+      async faciallogin(email) {
+        try {
+          const response = await axios.post(`${BASE_URL}/Faciallogin`, { email });
+      
+          if (response.status === 200) {
+            const token = response.data.token;
+            const myDecodedToken = decodeToken(token);
+
+            localStorage.setItem('userToken', token);
+            localStorage.setItem('email', email);
+            localStorage.setItem('id', myDecodedToken.id);
+            
+            return token;
+          }
+          
+          else if (response.status === 401) {
+            throw new Error('Email ou mot de passe incorrect.');
+          } else if (response.status === 403) {
+            throw new Error('Accès refusé. Veuillez contacter l\'administrateur.');
+          } else {
+            throw new Error('Une erreur est survenue. Veuillez réessayer.');
+          }
+        } catch (error) {
+            throw new Error(error.message);
+        }
+      },
 async Forgetpassword(email){
   try {
     const response = await axios.post(`${BASE_URL}/forgetpassword`, { email } );

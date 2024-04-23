@@ -63,7 +63,7 @@ export const NavBar = () => {
                     <Link to="/mycourses" className="dropdown-item">My Courses</Link><Link to="/reclamation" className="dropdown-item">My Reclamtions</Link>
                     <Link to="/myevents" className="dropdown-item">My Events</Link>
                     <Link to="/mymarks" className="dropdown-item">My Marks</Link>
-
+                  
                   </div>
                 </li>
             )}
@@ -81,7 +81,6 @@ export const NavBar = () => {
             <li className="nav-item"><a className="nav-link" ><Link to="/schedule">Schedule</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/marketplace">Marketplace</Link></a></li>
             <li className="nav-item"><a className="nav-link" ><Link to="/bookstore">Book Store</Link></a></li>
-
           </ul>
           <ul className="nav navbar-nav navbar-right">
        
