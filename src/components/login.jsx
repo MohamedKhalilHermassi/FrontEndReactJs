@@ -104,7 +104,12 @@ function Login() {
               try {
                 const token = await UserService.faciallogin(user.email);
                 const decodedToken = jwtDecode(token);
+                const expirePaidDate = new Date(decodedToken.expirePaid);
+                const currentDate = new Date();
                 let redirectPath = '/'; 
+                if (decodedToken.role === 'Student' && expirePaidDate < currentDate) {
+                  redirectPath = '/pricing-pack';
+                }
               if (decodedToken.role === 'admin') {
                 redirectPath = '/admin';
               }

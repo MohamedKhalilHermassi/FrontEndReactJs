@@ -33,7 +33,7 @@ function register() {
     const videoWidth =640;
     const canvasRef =useRef();
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
-
+    const [availableTimeSlotstouched, setavailableTimeSlotstouched] = useState(false);
   
     const handleAddTimeSlot = () => {
       const newTimeSlot = { startTime: '', endTime: '' };
@@ -196,8 +196,11 @@ function register() {
        else return true;
       };
       const validateLevel = (level) => {
-        const regex = /[1-7]/;
-        return regex.test(level);
+        if(availableTimeSlotstouched){
+          const regex = /[1-7]/;
+          return regex.test(level);
+        }
+       else return true;
       };
       const areAllFieldsFilled = () => {
         return (
@@ -244,6 +247,7 @@ function register() {
     setbirthdaytouched(true);
     setphonetouched(true);
     setpasswordtouched(true);
+    setavailableTimeSlotstouched(true);
     let isValid = true;
     for (const timeSlot of availableTimeSlots) {
       if (timeSlot.startTime >= timeSlot.endTime) {
@@ -419,7 +423,7 @@ function register() {
                         </div>
                         <div className="col-md-6 mb-4">
                           <div className="form-outline">
-                            <input type="number" id="level" className="form-control" value={level} onChange={(event) => setlevel(event.target.value)}/>
+                            <input type="number" id="level" className="form-control" value={level} onChange={(event) => {setlevel(event.target.value);setavailableTimeSlotstouched(true)}}/>
                             <label className="form-label" htmlFor="form3Example2">Level { !validateLevel(level) && <span className="text-danger"> (Level must be between 1 and 7)</span> }</label>
                           </div>
                         </div>
@@ -453,7 +457,10 @@ function register() {
                         <input type="file" id="image" className=" custom-file" onChange={handleImageChange} />
                         <label className="form-label" htmlFor="image">Image</label>
                     </div>
-                    
+                    <div className="form-outline mb-4">
+                    <label className="form-label" htmlFor="image">Or</label>
+                    <button type="button" className="btn btn-primary btn-block mb-4" onClick={()=>{setopenpopup(true);startVideo();}}>Take Selfie</button>
+                    </div>
 
                     {/* AVAILABILITY */}
                     <div className="row">
@@ -532,10 +539,7 @@ function register() {
 
 
 
-                    <div className="form-outline mb-4">
-                    <label className="form-label" htmlFor="image">Or</label>
-                    <button type="button" className="btn btn-primary btn-block mb-4" onClick={()=>{setopenpopup(true);startVideo();}}>Take Selfie</button>
-                    </div>
+                  
                     
 
                       {/* Submit button */}
