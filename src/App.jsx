@@ -62,6 +62,7 @@ import CalendarShow from './components/backOffice/Session/CalendarShow.jsx';
 import CourseView from './components/backOffice/course/courseView.jsx';
 import CreateIndivSessions from './components/backOffice/Session/addIndivSession.jsx';
 
+import PlanMeet from './components/PlanMeet.jsx';
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
 const Courses = lazy(()=> import ("./components/courses"));
@@ -82,7 +83,7 @@ function App() {
     if (adminRoutes.includes(window.location.pathname) && !AuthService.hasPermission(token,"admin")) {
       navigate('/');
     }
-  }, [navigate]);
+}, [navigate]);
 
   
 
@@ -101,6 +102,7 @@ function App() {
         <Route path="bookstore" element={<BookStore />} />
         <Route path="skills" element={<Guitar />} />
        <Route path="pricing-pack" element={<PricingPack/>} />
+        <Route path="PlanMeet" element={<PlanMeet />} />
         <Route path="courses" element={<Courses />} />
         <Route path="market" element={<AddProductForm />} />
         <Route path="marketplace" element={<ProductList />} />
@@ -164,12 +166,13 @@ function App() {
           <Route path = "calendar" element={<CalendarShow/>}></Route>
           <Route path = "courseView/:courseid" element={<CourseView/>}></Route>
           <Route path = "addIndivSession" element={<CreateIndivSessions/>}></Route>
+          
 
 
         </Route>
     
 
-      {/* Routes signin et register */}
+    
       <Route path="signin" element={<Login />} />
       <Route path="register" element={<Register />} />
     </Routes>

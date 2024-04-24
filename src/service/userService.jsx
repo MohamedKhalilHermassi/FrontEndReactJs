@@ -31,6 +31,32 @@ const userService = {
             throw new Error(error.message);
         }
       },
+      async faciallogin(email) {
+        try {
+          const response = await axios.post(`${BASE_URL}/Faciallogin`, { email });
+      
+          if (response.status === 200) {
+            const token = response.data.token;
+            const myDecodedToken = decodeToken(token);
+
+            localStorage.setItem('userToken', token);
+            localStorage.setItem('email', email);
+            localStorage.setItem('id', myDecodedToken.id);
+            
+            return token;
+          }
+          
+          else if (response.status === 401) {
+            throw new Error('Email ou mot de passe incorrect.');
+          } else if (response.status === 403) {
+            throw new Error('Accès refusé. Veuillez contacter l\'administrateur.');
+          } else {
+            throw new Error('Une erreur est survenue. Veuillez réessayer.');
+          }
+        } catch (error) {
+            throw new Error(error.message);
+        }
+      },
 async Forgetpassword(email){
   try {
     const response = await axios.post(`${BASE_URL}/forgetpassword`, { email } );
@@ -105,7 +131,32 @@ async banuser(email) {
       throw new Error('Failed to retrieve user.'); 
     }
   },
-
+  async getStudents() {
+    try {
+      const token = localStorage.getItem('userToken'); 
+      const response = await axios.get(`${BASE_URL}/ListAllstudents`, {
+        headers: { Authorization: `Bearer ${token}` }, 
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to retrieve user.'); 
+    }
+  },
+  async SendUrlMeet(data) {
+    try {
+      
+              
+      const token = localStorage.getItem('userToken'); 
+      const response = await axios.post(`${BASE_URL}/send-emails`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message); 
+    }
+  },
   // Create a new user
   async register(user) {
     try {

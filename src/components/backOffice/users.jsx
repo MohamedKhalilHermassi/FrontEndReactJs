@@ -1,5 +1,5 @@
 
-function Users() {
+const  Users= () =>  {
 
     return (
         <>

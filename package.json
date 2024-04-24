@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@aldabil/react-scheduler": "^2.8.5",
+    "@aldabil/react-scheduler": "^2.8.2",
     "@ant-design/icons": "^5.3.6",
     "@emotion/styled": "^11.11.5",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -19,7 +19,7 @@
     "@fullcalendar/react": "^6.1.11",
     "@fullcalendar/timegrid": "^6.1.11",
     "@maptiler/leaflet-maptilersdk": "^2.0.0",
-    "@mui/x-charts": "^7.1.0",
+    "@mui/x-charts": "^7.3.0",
     "@popperjs/core": "^2.11.8",
     "@react-google-maps/api": "^2.19.3",
     "@react-pdf/renderer": "^3.3.8",
@@ -38,6 +38,7 @@
     "@syncfusion/ej2-react-schedule": "^24.2.8",
     "@syncfusion/ej2-splitbuttons": "^25.1.38",
     "@vis.gl/react-google-maps": "^0.7.1",
+    "@zegocloud/zego-uikit-prebuilt": "^2.0.1",
     "antd": "^5.16.0",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.2",
@@ -45,6 +46,7 @@
     "cors": "^2.8.5",
     "date-fns": "^3.6.0",
     "emoji-mart": "^5.5.2",
+    "face-api.js": "^0.22.2",
     "formik": "^2.4.5",
     "framer-motion": "^11.0.8",
     "html2canvas": "^1.4.1",

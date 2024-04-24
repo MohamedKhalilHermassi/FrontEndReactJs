@@ -32,7 +32,6 @@ const NavBar = () => {
     socket.on('Reclamation', (reclamationData) => {
       setUnreadNotifications(unreadNotifications + 1); 
       setNotification((prevNotifications) => [...prevNotifications, reclamationData]);
-      console.log(notification)
   });
 
     
@@ -47,15 +46,15 @@ const NavBar = () => {
   };
   const handleNotificationClick = () => {
     if (seen) {
-      // Si les notifications sont déjà vues, réinitialiser les valeurs
+      console.log(seen)
       setNotification(null);
       setUnreadNotifications(0);
       setSeen(false);
     } else {
-      // Si les notifications ne sont pas vues, marquer comme vues
+      console.log(seen)
       setSeen(true);
     }
-  
+ 
   };
  
   return (
@@ -74,7 +73,7 @@ const NavBar = () => {
       </button>
       
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButtonn">
-           {notification ? (
+           {notification?.length>0 ? (
           <ul className='row'>
          
            

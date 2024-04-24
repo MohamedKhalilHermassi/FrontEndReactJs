@@ -8,8 +8,8 @@ const SideBar = () => {
         <Link className="app-brand-link justify-content-center" to="/admin">
           <img className="h-75 w-75 mb-2" src={kindyLogo} alt="" />
         </Link>
-        <a href="javascript:void(0);" className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-          <i className="bx bx-chevron-left bx-sm align-middle" />
+        <a className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"><Link to="/admin">
+          <i className="bx bx-chevron-left bx-sm align-middle" /></Link>
         </a>
       </div>
       <div className="menu-inner-shadow" />
@@ -34,13 +34,13 @@ const SideBar = () => {
               <Link className="sidebar-link menu-link" to="/admin/addcourse"><i className="menu-icon fas fa-plus" />Add</Link>
             </li>
             <li className="sidebar-item">
-              <Link class="sidebar-link menu-link" to="/admin/courses"><i className="menu-icon fas fa-grip" />List of courses</Link>
+              <Link className="sidebar-link menu-link" to="/admin/courses"><i className="menu-icon fas fa-grip" />List of courses</Link>
             </li>
           </ul>
         </li>
         <li className="menu-item">
           <a href="#" className="menu-link menu-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#classrooms" aria-expanded="false" aria-controls="classrooms">
-          <i class="menu-icon fa-solid fa-chalkboard-user"></i>
+          <i className="menu-icon fa-solid fa-chalkboard-user"></i>
             <div data-i18n="Layouts">Classrooms</div>
           </a>
           <ul id="classrooms" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -48,7 +48,7 @@ const SideBar = () => {
               <Link className="sidebar-link menu-link" to="/admin/addlocation"><i className="menu-icon fas fa-plus" />Add Location</Link>
             </li>
             <li className="sidebar-item">
-              <Link class="sidebar-link menu-link" to="/admin/locations"><i className="menu-icon fas fa-grip" />List of locations</Link>
+              <Link className="sidebar-link menu-link" to="/admin/locations"><i className="menu-icon fas fa-grip" />List of locations</Link>
             </li>
           </ul>
         </li>
@@ -65,13 +65,13 @@ const SideBar = () => {
               <Link className="sidebar-link menu-link" to="/admin/books"><i className="menu-icon fas fa-list" />Books List</Link>
             </li>
             <li className="sidebar-item">
-              <Link class="sidebar-link menu-link" to="/admin/products"><i className="menu-icon fas fa-grip" />List of products</Link>
+              <Link className="sidebar-link menu-link" to="/admin/products"><i className="menu-icon fas fa-grip" />List of products</Link>
             </li>
             <li className="sidebar-item">
               <Link class="sidebar-link menu-link" to="/admin/soldproducts"><i className="menu-icon fa-regular fa-money-bill-1" />Sold products</Link>
             </li>
             <li className="sidebar-item">
-              <Link class="sidebar-link menu-link" to="/admin/Archivedproducts"><i className="menu-icon fas fa-circle-xmark" />Archived products</Link>
+              <Link className="sidebar-link menu-link" to="/admin/Archivedproducts"><i className="menu-icon fas fa-circle-xmark" />Archived products</Link>
             </li>
 
           </ul>
@@ -157,7 +157,7 @@ const SideBar = () => {
               <Link className="sidebar-link menu-link" to="/admin/eventscalendar"><i className="menu-icon fas fa-grip" />Events Calendar</Link>
             </li>
             <li className="sidebar-item">
-              <Link class="sidebar-link menu-link" to="/admin/registeredusers"><i className="menu-icon fas fa-grip" />Registered Users</Link>
+              <Link className="sidebar-link menu-link" to="/admin/registeredusers"><i className="menu-icon fas fa-grip" />Registered Users</Link>
             </li>
           </ul>
         </li>
