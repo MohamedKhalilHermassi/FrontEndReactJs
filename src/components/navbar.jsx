@@ -71,6 +71,7 @@ export const NavBar = () => {
               <>
               <li className="nav-item"><a className="nav-link" ><Link to="/add-session">Add Session</Link></a></li>
               <li className="nav-item"><a className="nav-link" ><Link to="/teachercourses">My Courses</Link></a></li>
+              <li className="nav-item"><a className="nav-link" ><Link to="/PlanMeet">Plan Meet</Link></a></li>
 
               </>
             )}

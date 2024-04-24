@@ -53,7 +53,7 @@ import TeacherCourses from './components/teacherCourses.jsx';
 import StudentsList from './components/studentsList.jsx';
 import UserNotes from './components/userNores.jsx';
 import Location from './components/backOffice/location/location';
-import FacialLogin from './components/FacialLogin.jsx';
+import PlanMeet from './components/PlanMeet.jsx';
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
 const Courses = lazy(()=> import ("./components/courses"));
@@ -91,7 +91,7 @@ function App() {
         <Route path="events" element={<Events />} />
         <Route path="bookstore" element={<BookStore />} />
         <Route path="skills" element={<Guitar />} />
-
+        <Route path="PlanMeet" element={<PlanMeet />} />
         <Route path="courses" element={<Courses />} />
         <Route path="market" element={<AddProductForm />} />
         <Route path="marketplace" element={<ProductList />} />
@@ -146,14 +146,13 @@ function App() {
           <Route path="edit-event/:id" element={<EditEvent/>} />
           <Route path="eventscalendar" element={<EventsCalendar/>} />
           <Route path="registeredusers" element={<RegisteredUsers/>} />
-          <Route path = "user" element={<Users/>}></Route>
+          
 
 
         </Route>
     
 
-      {/* Routes signin et register */}
-      <Route path="FacialLogin" element={<FacialLogin />} />
+    
       <Route path="signin" element={<Login />} />
       <Route path="register" element={<Register />} />
     </Routes>

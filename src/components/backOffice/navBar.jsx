@@ -45,7 +45,6 @@ const NavBar = () => {
    
   };
   const handleNotificationClick = () => {
-    console.log("aaa")
     if (seen) {
       console.log(seen)
       setNotification(null);

@@ -78,10 +78,10 @@ function reclamationadmin()
   series={[
     {
       data: [
-        { id: 0, value: percentages[0] * 100, label: 'techniques' },
-        { id: 1, value: percentages[1] * 100, label: 'administrative' },
-        { id: 2, value: percentages[2] * 100, label: 'communication' },
-        { id: 3, value: percentages[3] * 100, label: 'other' },
+        { id: 0, value: percentages[0] * 100, label: 'techniques',color: '#7e82fe' },
+        { id: 1, value: percentages[1] * 100, label: 'administrative',color: '#28cdef' },
+        { id: 2, value: percentages[2] * 100, label: 'communication' ,color: '#c4ccd5'},
+        { id: 3, value: percentages[3] * 100, label: 'other',color: '#d4dcdc' },
       ],
     },
   ]}

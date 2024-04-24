@@ -130,7 +130,32 @@ async banuser(email) {
       throw new Error('Failed to retrieve user.'); 
     }
   },
-
+  async getStudents() {
+    try {
+      const token = localStorage.getItem('userToken'); 
+      const response = await axios.get(`${BASE_URL}/ListAllstudents`, {
+        headers: { Authorization: `Bearer ${token}` }, 
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to retrieve user.'); 
+    }
+  },
+  async SendUrlMeet(data) {
+    try {
+      
+              
+      const token = localStorage.getItem('userToken'); 
+      const response = await axios.post(`${BASE_URL}/send-emails`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message); 
+    }
+  },
   // Create a new user
   async register(user) {
     try {
