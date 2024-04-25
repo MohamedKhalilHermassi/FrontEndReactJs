@@ -26,12 +26,13 @@ const IMAGES = [
     src: img5,
     alt: 'image5',
   },
+  
 ];
 
 const styles = {
   gallery: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', // changed from 250px to 200px
+    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', // changed from 250px to 200px
     gridGap: '10px',
   },
   galleryItem: {

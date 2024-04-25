@@ -75,6 +75,7 @@
     "react-leaflet": "^4.2.1",
     "react-modal": "^3.16.1",
     "react-pdf": "^7.7.1",
+    "react-rating-stars-component": "^2.2.0",
     "react-select": "^5.8.0",
     "react-tag-input-component": "^2.0.2",
     "react-toastify": "^10.0.4",

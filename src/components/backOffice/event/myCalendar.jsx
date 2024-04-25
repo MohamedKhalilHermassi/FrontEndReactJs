@@ -9,7 +9,6 @@ const localizer = momentLocalizer(moment);
 const MyEvent = ({ event }) => (
   <div className="custom-event" style={{ backgroundColor: event.color }}>
     <h3>{event.title}</h3>
-    <p>{event.description}</p>
   </div>
 );
 
@@ -67,7 +66,8 @@ const MyCalendar = ({ events }) => {
   }}
   eventPropGetter={(event, start, end, isSelected) => {
     let newStyle = {
-      color: "red",
+      backgroundColor: "lightblue",
+      color: "white",
     };
 
     return {

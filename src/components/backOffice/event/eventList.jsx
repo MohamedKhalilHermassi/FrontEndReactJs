@@ -52,7 +52,7 @@ const EventList = () => {
       <EventDetails event={selectedEvent} onBack={() => setSelectedEvent(null)} />
     ) : (
       <div className="container mt-5">     
-        <h1 className="mb-4">Event List</h1>
+        <h1 className="mb-4">Events List</h1>
         <div className="row">
           {currentEvents.map(event => (
             <div key={event._id} className="col-md-4 mb-4">
@@ -67,7 +67,7 @@ const EventList = () => {
                     <ListGroup.Item><strong>End Time:</strong> {new Date(event.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</ListGroup.Item>
                     <ListGroup.Item><strong>Location:</strong> {event.location}</ListGroup.Item>
                     <ListGroup.Item><strong>Capacity:</strong> {event.capacity}</ListGroup.Item>
-                    <ListGroup.Item><strong>Ticket Price:</strong> {event.ticketPrice}</ListGroup.Item>
+                    <ListGroup.Item><strong>Ticket Price:</strong> {event.ticketPrice} TND</ListGroup.Item>
                     <ListGroup.Item><strong>Category:</strong> {event.category}</ListGroup.Item>
                     <ListGroup.Item><strong>Registered Users:</strong> {event.users.length}</ListGroup.Item>
                   </ListGroup>

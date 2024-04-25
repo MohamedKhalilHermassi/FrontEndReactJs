@@ -41,6 +41,7 @@ import EventsCalendar from './components/backOffice/event/eventsCalendar.jsx'
 import EventRegister from './components/eventRegister'
 import MyEvents from './components/myevents'
 import RegisteredUsers from './components/backOffice/event/registeredUsers.jsx';
+import AdminEventRatings from './components/backOffice/event/adminEventRatings.jsx';
 
 import AddBook from './components/backOffice/addBook';
 import BookList from './components/backOffice/booklist';
@@ -161,6 +162,7 @@ function App() {
           <Route path="edit-event/:id" element={<EditEvent/>} />
           <Route path="eventscalendar" element={<EventsCalendar/>} />
           <Route path="registeredusers" element={<RegisteredUsers/>} />
+          <Route path="eventratings" element={<AdminEventRatings/>} />
           <Route path = "user" element={<Users/>}></Route>
           <Route path = "trasnsactionList" element={<TransactionList/>}></Route>
           <Route path = "calendar" element={<CalendarShow/>}></Route>

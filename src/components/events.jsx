@@ -13,8 +13,11 @@ import EventDetails from './backOffice/event/eventDetails';
 import Form from 'react-bootstrap/Form';
 import ReactSelect from 'react-select';
 import EventsGallery from './eventsGallery';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
-import './Events.css';
+
 import { jwtDecode } from 'jwt-decode';
 import NotPaid from './subscription/NotPaid';
 
@@ -38,6 +41,7 @@ function Events() {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const userId = localStorage.getItem('id');
     const [decodedToken,setDecodedToken] = useState('');
+  
 
     const handleCategoryChange = (selectedOption) => {
       setSelectedCategory(selectedOption.value);
@@ -48,12 +52,12 @@ function Events() {
       
       // Check if the user is already registered
       if (event.users.includes(userId)) {
-        alert('You are already registered for this event.');
+        toast.error('You are already registered for this event.');
         return false;
       }
       // Check if the event's capacity has been reached
       if (event.users.length >= event.capacity) {
-        alert('This event has reached its capacity. You cannot register for this event.');
+        toast.error('This event has reached its capacity. You cannot register for this event.');
         return false;
       }
 
@@ -123,6 +127,7 @@ function Events() {
 
       ) : (
         <>
+        <ToastContainer />
         <Modal show={showModal} onHide={handleClose} className="modal-front">
           <Modal.Body>
           {currentEvent && <EventDetails event={currentEvent} onBack={handleClose} showButtons={false} />}
@@ -130,13 +135,6 @@ function Events() {
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
-            </Button>
-            <Button variant="success" onClick={() =>{
-                        if (registerForEvent(currentEvent._id)) {
-                            navigate('/eventRegister', { state: { eventId: currentEvent._id } });
-                        }
-                      }}>
-              Register
             </Button>
           </Modal.Footer>
         </Modal>
@@ -162,11 +160,10 @@ function Events() {
                   <Card.Img variant="left" src={`http://localhost:3000${event.image}`} style={{ width: '30%', objectFit: 'cover' }} />
                   <Card.Body className="d-flex flex-column">
                     <Card.Header as="h5">{event.title}</Card.Header>
-                    <Card.Text>{event.description}</Card.Text>
                     <ListGroup variant="flush">
                       <ListGroup.Item><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</ListGroup.Item>
                       <ListGroup.Item><strong>Location:</strong> {event.location}</ListGroup.Item>
-                      <ListGroup.Item><strong>Ticket Price:</strong> {event.ticketPrice}</ListGroup.Item>
+                      <ListGroup.Item><strong>Ticket Price:</strong> {event.ticketPrice} TND</ListGroup.Item>
                       <div className="mt-2">
                         <Badge variant={
                           event.status === 'Incoming' ? 'primary' :
@@ -178,6 +175,13 @@ function Events() {
                       </div>
                     </ListGroup>
                     <Card.Footer className="mt-auto pt-2 d-flex justify-content-between align-items-center">
+                    <Button variant="success" onClick={() =>{
+    if (registerForEvent(event._id)) {
+        navigate('/eventRegister', { state: { eventId: event._id } });
+    }
+}}>
+              Register
+            </Button>
                       <Button variant="primary" onClick={() => viewDetails(event._id)}>View Details</Button>
                     </Card.Footer>
                   </Card.Body>

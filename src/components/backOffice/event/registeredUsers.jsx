@@ -47,6 +47,18 @@ const RegisteredUsers = () => {
     setSearchText('');
   };
 
+  const cancelParticipation = (uniqueKey) => {
+    const [userId, eventId] = uniqueKey.split('-');
+    axios.post('http://localhost:3000/events/cancel', { eventId, userId })
+      .then(response => {
+        // Remove the cancelled event from the users state
+        setUsers(users.filter(user => user.uniqueKey !== uniqueKey));
+      })
+      .catch(error => {
+        console.error('Error cancelling participation:', error);
+      });
+  };
+
   const getColumnSearchProps = dataIndex => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
@@ -104,6 +116,15 @@ const RegisteredUsers = () => {
       dataIndex: 'eventDate',
       key: 'eventDate',
       render: text => new Date(text).toLocaleDateString(),
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <Space size="middle">
+          <Button onClick={() => cancelParticipation(record.uniqueKey)}>Cancel</Button>
+        </Space>
+      ),
     },
   ];
 

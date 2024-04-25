@@ -159,6 +159,9 @@ const SideBar = () => {
             <li className="sidebar-item">
               <Link className="sidebar-link menu-link" to="/admin/registeredusers"><i className="menu-icon fas fa-grip" />Registered Users</Link>
             </li>
+            <li className="sidebar-item">
+              <Link class="sidebar-link menu-link" to="/admin/eventratings"><i className="menu-icon fas fa-grip" />Event Ratings</Link>
+            </li>
           </ul>
         </li>
       </ul>

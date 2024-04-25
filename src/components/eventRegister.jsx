@@ -3,54 +3,6 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import userService from '../service/userService';
 import { useLocation } from 'react-router-dom';
-import QRCode from 'qrcode.react';
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
-
-const PDFDocument = ({ ticketId, eventTitle, ticketPrice }) => (
-    <Document>
-        <Page style={styles.body}>
-            <View style={styles.ticket}>
-                <Text style={styles.title}>E-Ticket</Text>
-                <View style={styles.section}>
-                    <Text><Text style={styles.bold}>Ticket ID:</Text> {ticketId}</Text>
-                    <Text><Text style={styles.bold}>Event:</Text> {eventTitle}</Text>
-                    <Text><Text style={styles.bold}>Ticket Price:</Text> {ticketPrice}</Text>
-                </View>
-            </View>
-        </Page>
-    </Document>
-);
-
-const styles = StyleSheet.create({
-    body: {
-        paddingTop: 35,
-        paddingBottom: 65,
-        paddingHorizontal: 35,
-    },
-    ticket: {
-        backgroundColor: '#f9f9f9',
-        color: '#333',
-        fontFamily: 'Helvetica',
-        border: '1 solid #333',
-        borderRadius: 10,
-        padding: 10,
-        marginBottom: 20,
-    },
-    section: {
-        margin: 10,
-        padding: 10,
-        flexGrow: 1,
-    },
-    title: {
-        fontSize: 24,
-        textAlign: 'center',
-        marginBottom: 20,
-    },
-    bold: {
-        fontWeight: 'bold',
-    },
-});
-
 
 function EventRegister() {
     const location = useLocation();
@@ -59,7 +11,6 @@ function EventRegister() {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const [ticketPrice, setTicketPrice] = useState(null); 
-    const [ticketId, setTicketId] = useState(null);
     const [eventTitle, setEventTitle] = useState('');
 
     useEffect(() => {
@@ -90,8 +41,6 @@ function EventRegister() {
             if (response.status === 200) {
                 setSuccess('Successfully registered for the event!');
                 setError(null);
-                const ticketId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-                setTicketId(ticketId);
             } else {
                 setError('Failed to register for the event.');
                 setSuccess(null);
@@ -105,8 +54,16 @@ function EventRegister() {
     return (
         <div className="container mt-7">
             <h1>Register for Event</h1>
-            {error && <Alert variant="danger">{error}</Alert>}
-            {success && <Alert color='black' variant="success">{success}</Alert>}
+            {error && 
+            <Alert variant="danger" onClose={() => setError(null)} dismissible transition style={{backgroundColor: '#ff4d4d', color: '#ffffff'}}>
+                {error}
+            </Alert>
+        }
+        {success && 
+            <Alert variant="success" onClose={() => setSuccess(null)} dismissible transition style={{backgroundColor: '#33cc33', color: '#ffffff'}}>
+                {success}
+            </Alert>
+        }
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="name">
                     <Form.Label>Name</Form.Label>
@@ -126,32 +83,9 @@ function EventRegister() {
                 </Form.Group>
                 <p>Total Price: {formData.tickets * ticketPrice}</p>
                 <Button variant="primary" type="submit">Register</Button>
+                
             </Form>
-            {ticketId && (
-            <div>
-            <div style={{
-                border: '1px solid black',
-                borderRadius: '10px',
-                padding: '20px',
-                maxWidth: '600px',
-                margin: 'auto',
-                marginTop: '20px',
-                textAlign: 'center',
-                backgroundColor: '#f9f9f9',
-                color: '#333',
-                fontFamily: 'Helvetica',
-                }}>
-            <h2 style={{ fontSize: '2em', marginBottom: '20px' }}>E-Ticket</h2>
-        <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Ticket ID:</strong> {ticketId}</p>
-        <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Event:</strong> {eventTitle}</p>
-        <p style={{ fontSize: '1.2em', margin: '10px 0' }}><strong>Ticket Price:</strong> {ticketPrice}</p>
-        <QRCode value={ticketId} size={128} />
-        </div>
-        <PDFDownloadLink document={<PDFDocument ticketId={ticketId} eventTitle={eventTitle} ticketPrice={ticketPrice} />} fileName="ticket.pdf">
-                    {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download E-Ticket')}
-                </PDFDownloadLink>
-                </div>
-            )}
+            <br />
         </div>
     );
 }

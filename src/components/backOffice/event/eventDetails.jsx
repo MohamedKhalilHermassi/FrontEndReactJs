@@ -42,13 +42,6 @@ const EventDetails = ({ event, onBack, showButtons = true }) => {
     return () => clearInterval(timer);
   }, [event]);
 
-  const handleShare = () => {
-    navigator.share({
-      title: event.title,
-      text: event.description,
-      url: window.location.href,
-    });
-  };
 
   return (
     <Card className="mt-5">
@@ -81,7 +74,6 @@ const EventDetails = ({ event, onBack, showButtons = true }) => {
         {showButtons && (
           <>
             <Button className="mt-3" variant="primary" onClick={onBack}>Back to list</Button>
-            <Button className="mt-3 ml-3" variant="secondary" onClick={handleShare}>Share</Button>
           </>
         )}
       </Card.Body>

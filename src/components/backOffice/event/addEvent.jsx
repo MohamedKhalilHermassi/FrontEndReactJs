@@ -23,6 +23,7 @@ const AddEvent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showAlert, setShowAlert] = useState(false); 
   const [showToast, setShowToast] = useState(false);
+  const [touched, setTouched] = useState({});
 
   const handleChange = e => {
     if (e.target.name === 'image') {
@@ -47,7 +48,19 @@ const AddEvent = () => {
     }
   };
 
+  const handleBlur = e => {
+    setTouched(prevState => ({
+      ...prevState,
+      [e.target.name]: true
+    }));
+
+    validateForm();
+    };
   const handleSubmit = e => {
+    setTouched(prevState => ({
+      ...prevState,
+      [e.target.name]: true
+    }));
     e.preventDefault();
     const isValid = validateForm();
     if (isValid) {
@@ -66,6 +79,7 @@ const AddEvent = () => {
         startTime,
         endTime
       };
+      
 
       axios.post('http://localhost:3000/events/add', newFormData)
         .then(response => {
@@ -129,12 +143,18 @@ const AddEvent = () => {
       isValid = false;
     }
 
-    if (formData.capacity <= 0) {
+    if (!formData.capacity) {
+      errors.capacity = 'Capacity is required';
+      isValid = false;
+    } else if (isNaN(formData.capacity) || formData.capacity <= 0) {
       errors.capacity = 'Capacity must be a positive number';
       isValid = false;
     }
-
-    if (formData.ticketPrice <= 0) {
+  
+    if (!formData.ticketPrice) {
+      errors.ticketPrice = 'Ticket price is required';
+      isValid = false;
+    } else if (isNaN(formData.ticketPrice) || formData.ticketPrice <= 0) {
       errors.ticketPrice = 'Ticket price must be a positive number';
       isValid = false;
     }
@@ -163,42 +183,42 @@ const AddEvent = () => {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" style={{ marginTop: '20px' }}>
           <Form.Label>Title:</Form.Label>
-          <Form.Control type="text" name="title" value={formData.title} onChange={handleChange} isInvalid={!!errors.title} />
+          <Form.Control type="text" name="title" value={formData.title} onChange={handleChange} onBlur={handleBlur} isInvalid={touched.title && !!errors.title} />
           <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Description:</Form.Label>
-          <Form.Control as="textarea" name="description" value={formData.description} onChange={handleChange} isInvalid={!!errors.description} />
+          <Form.Control as="textarea" name="description" value={formData.description} onChange={handleChange} onBlur={handleBlur} isInvalid={touched.description && !!errors.description} />
           <Form.Control.Feedback type="invalid">{errors.description}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Date:</Form.Label>
-          <Form.Control type="date" name="date" value={formData.date} onChange={handleChange} isInvalid={!!errors.date} />
+          <Form.Control type="date" name="date" value={formData.date} onChange={handleChange} onBlur={handleBlur} isInvalid={touched.date && !!errors.date} />
           <Form.Control.Feedback type="invalid">{errors.date}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Start Time:</Form.Label>
-          <Form.Control type="time" name="startTime" value={formData.startTime} onChange={handleChange} isInvalid={!!errors.startTime} />
+          <Form.Control type="time" name="startTime" value={formData.startTime} onChange={handleChange} onBlur={handleBlur} isInvalid={touched.startTime && !!errors.startTime} />
           <Form.Control.Feedback type="invalid">{errors.startTime}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>End Time:</Form.Label>
-        <Form.Control type="time" name="endTime" value={formData.endTime} onChange={handleChange} isInvalid={!!errors.endTime}  />
+        <Form.Control type="time" name="endTime" value={formData.endTime} onChange={handleChange} onBlur={handleBlur} isInvalid={touched.endTime && !!errors.endTime}  />
         <Form.Control.Feedback type="invalid">{errors.endTime}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Location:</Form.Label>
-          <Form.Control type="text" name="location" value={formData.location} onChange={handleChange} isInvalid={!!errors.location}  />
+          <Form.Control type="text" name="location" value={formData.location} onChange={handleChange} onBlur={handleBlur} isInvalid={touched.location && !!errors.location}  />
           <Form.Control.Feedback type="invalid">{errors.location}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Capacity:</Form.Label>
-          <Form.Control type="number" name="capacity" value={formData.capacity} onChange={handleChange} isInvalid={!!errors.capacity} />
+          <Form.Control type="number" name="capacity" value={formData.capacity} onChange={handleChange} onBlur={handleBlur} isInvalid={touched.capacity && !!errors.capacity} />
           <Form.Control.Feedback type="invalid">{errors.capacity}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Ticket Price:</Form.Label>
-          <Form.Control type="number" name="ticketPrice" value={formData.ticketPrice} onChange={handleChange} isInvalid={!!errors.ticketPrice} />
+          <Form.Control type="number" name="ticketPrice" value={formData.ticketPrice} onChange={handleChange} onBlur={handleBlur} isInvalid={touched.ticketPrice && !!errors.ticketPrice} />
           <Form.Control.Feedback type="invalid">{errors.ticketPrice}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">
@@ -231,16 +251,3 @@ const AddEvent = () => {
   );
 };
 export default AddEvent;
-
-
-
-
-
-
-
-
-
-
-
-
-
