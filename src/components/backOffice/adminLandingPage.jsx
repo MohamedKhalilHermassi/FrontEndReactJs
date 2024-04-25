@@ -304,7 +304,7 @@ const AdminLandingPage = () => {
             <div className="row">
               <div className="col-lg-6 mb-4 order-0">
                 <div className="card" style={{height:"360px"}}>
-                <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
+                <h5 class="card-header m-0 me-2 pb-3">Type of Users</h5>
                 <PieChart
   series={[
     {
@@ -323,7 +323,7 @@ const AdminLandingPage = () => {
               </div>
               <div className="col-lg-6 mb-4 order-0">
                 <div className="card">
-                <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
+                <h5 class="card-header m-0 me-2 pb-3">Ages of Users</h5>
                 <BarChart
   xAxis={[{ scaleType: 'band', data: ['0-18', '19-30', '31-50', '51+'] }]}
   series={[

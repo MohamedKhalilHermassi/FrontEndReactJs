@@ -118,7 +118,7 @@ if(image!=''){
               <img src={`http://localhost:3000/${userData.image}`} alt="Profile" className='profileprofile' />
               </div>
              <h3 className="profile-namee">{userData.fullname}</h3>
-              <p className="abouttt">{userData.email} <br></br> Address:&nbsp;&nbsp;&nbsp;&nbsp; {userData.address} <br></br> Phone:&nbsp;&nbsp;&nbsp;&nbsp; {userData.phone}<br></br> Date of Birth:&nbsp;&nbsp;&nbsp;&nbsp; {formatDateOfBirth(userData.birthday)}<br></br> Membership Expiration:&nbsp;&nbsp;&nbsp;&nbsp; {formatDateOfBirth(userData.userData.expirePayementDate)}<br></br>Last Payement made:&nbsp;&nbsp;&nbsp;&nbsp; {formatDateOfBirth(userData.userData.lastPaymentDate)}</p>
+              <p className="abouttt">{userData.email} <br></br> Address:&nbsp;&nbsp;&nbsp;&nbsp; {userData.address} <br></br> Phone:&nbsp;&nbsp;&nbsp;&nbsp; {userData.phone}<br></br> Date of Birth:&nbsp;&nbsp;&nbsp;&nbsp; {formatDateOfBirth(userData.birthday)}<br></br> Membership Expiration:&nbsp;&nbsp;&nbsp;&nbsp; {formatDateOfBirth(userData.expirePayementDate)}<br></br>Last Payement made:&nbsp;&nbsp;&nbsp;&nbsp; {formatDateOfBirth(userData.lastPaymentDate)}</p>
               <div className='abboutbtn'>
               <button className="btnnn" data-toggle="modal" data-target="#exampleModal" onClick={()=>{setphone(userData.phone),setadress(userData.address)}}>Edit Profile</button>
              
