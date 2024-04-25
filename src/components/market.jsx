@@ -196,7 +196,7 @@ function ProductList() {
         </div>
         <h2 className="mb-4">Featured Products</h2>
     
-        <div className="row row-cols-1 row-cols-md-4 g-4">
+        <div className="row row-cols-1 row-cols-md-3 g-4">
         {filteredProducts.map(product => (
           <div key={product._id} className="col">
             <div className="card h-100">
@@ -205,15 +205,16 @@ function ProductList() {
               </div>
               <div className="card-body">
                 <h5 className="card-title">{product.productName}</h5>
-                <p className="card-text">{product.productDescription}</p>
                 <h6>{product.productPrice} TND</h6>
                 <button 
                   className="btn btn-primary" 
                   onClick={() => addToCart(product)} 
                   disabled={cartItems.some(item => item._id === product._id)}
                 >
+                  <i className="me-1 fa fa-shopping-basket" />
                   {cartItems.some(item => item._id === product._id) ? "Added to Cart" : "Add to Cart"}
                 </button>
+                <button type="button" class="btn btn-info" onClick={()=>{navigate(`/marketplace/details/${product._id}`)}}>View Details</button>
                 <br />
                 {[...Array(5)].map((star, index) =>{
                   const currentRating = index+1;
@@ -251,15 +252,16 @@ function ProductList() {
               </div>
               <div className="card-body">
                 <h5 className="card-title">{product.productName}</h5>
-                <p className="card-text">{product.productDescription}</p>
                 <h6>{product.productPrice} TND</h6>
                 <button 
                   className="btn btn-primary" 
                   onClick={() => addToCart(product)} 
                   disabled={cartItems.some(item => item._id === product._id)}
                 >
+                  <i className="me-1 fa fa-shopping-basket" />
                   {cartItems.some(item => item._id === product._id) ? "Added to Cart" : "Add to Cart"}
                 </button>
+                <button type="button" class="btn btn-info" onClick={()=>{navigate(`/marketplace/details/${product._id}`)}}>View Details</button>
               </div>
             </div>
           </div>

@@ -53,6 +53,7 @@ import TeacherCourses from './components/teacherCourses.jsx';
 import StudentsList from './components/studentsList.jsx';
 import UserNotes from './components/userNores.jsx';
 import Location from './components/backOffice/location/location';
+import ProductDetails from './components/productDetails.jsx';
 
 const Events = lazy(()=> import("./components/events"));
 const Profil = lazy(()=> import("./components/profil"));
@@ -94,7 +95,11 @@ function App() {
 
         <Route path="courses" element={<Courses />} />
         <Route path="market" element={<AddProductForm />} />
-        <Route path="marketplace" element={<ProductList />} />
+        <Route path="marketplace" >
+          <Route path='' element={<ProductList />}/>
+          <Route path='details/:id' element={<ProductDetails/>}/>
+        </Route>
+
         <Route path="Profil" element={<Profil />} />
         <Route path = "myproducts" element={<MyProducts/>}></Route>
         <Route path = "myorders" element={<MyOrders/>}></Route>
