@@ -1,7 +1,7 @@
 import { lazy } from 'react'
-import  { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-//import './App.css'
+import './App.css'
 import LandingPage from './components/landingPage'
 import {  Routes, Route ,useNavigate } from 'react-router-dom'
 import Dashboard from './components/backOffice/Dashboard'
@@ -62,6 +62,7 @@ import TransactionList from './components/backOffice/transactionList.jsx';
 import CalendarShow from './components/backOffice/Session/CalendarShow.jsx';
 import CourseView from './components/backOffice/course/courseView.jsx';
 import CreateIndivSessions from './components/backOffice/Session/addIndivSession.jsx';
+import ProductDetails from './components/productDetails.jsx';
 
 import PlanMeet from './components/PlanMeet.jsx';
 const Events = lazy(()=> import("./components/events"));
@@ -73,7 +74,6 @@ function App() {
   const adminRoutes = ["/admin", "/admin/products","/admin/user","/admin/editadmin", "/admin/addsession","/admin/listsession", "/admin/listsession2", "/admin/editSession", "/admin/ListS", "/admin/ListDrag", "/admin/courses", "/admin/addcourse", "/admin/locations", "/admin/map", "/admin/addlocation", "/admin/addclassroom", "/admin/Archivedproducts", "/admin/ordersList", "/admin/products", "/admin/events", "/admin/addevent", "/admin/edit-event", "/admin/eventscalendar", "/admin/registeredusers"];
   useEffect(() => {
     const token = localStorage.getItem('userToken');
-    
     if (!excludedRoutes.includes(window.location.pathname) && AuthService.isTokenExpired(token)) {
       AuthService.logout(); 
       navigate('/');
@@ -84,7 +84,7 @@ function App() {
     if (adminRoutes.includes(window.location.pathname) && !AuthService.hasPermission(token,"admin")) {
       navigate('/');
     }
-}, [navigate]);
+  }, [navigate]);
 
   
 
@@ -106,7 +106,11 @@ function App() {
         <Route path="PlanMeet" element={<PlanMeet />} />
         <Route path="courses" element={<Courses />} />
         <Route path="market" element={<AddProductForm />} />
-        <Route path="marketplace" element={<ProductList />} />
+        <Route path="marketplace" >
+          <Route path='' element={<ProductList />}/>
+          <Route path='details/:id' element={<ProductDetails/>}/>
+        </Route>
+
         <Route path="Profil" element={<Profil />} />
         <Route path = "myproducts" element={<MyProducts/>}></Route>
         <Route path = "myorders" element={<MyOrders/>}></Route>
@@ -168,13 +172,13 @@ function App() {
           <Route path = "calendar" element={<CalendarShow/>}></Route>
           <Route path = "courseView/:courseid" element={<CourseView/>}></Route>
           <Route path = "addIndivSession" element={<CreateIndivSessions/>}></Route>
-          
+
 
 
         </Route>
     
 
-    
+      {/* Routes signin et register */}
       <Route path="signin" element={<Login />} />
       <Route path="register" element={<Register />} />
     </Routes>
