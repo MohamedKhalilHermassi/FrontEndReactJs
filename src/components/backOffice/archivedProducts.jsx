@@ -17,7 +17,7 @@ function ProductList() {
         const response = await axios.get('http://localhost:3000/market/get-products',{
           headers: headers,
         });
-        setProducts(response.data);
+        setProducts(response.data.products);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -28,6 +28,7 @@ function ProductList() {
 
   // Filter out archived products
   const filteredProducts = products.filter(product => product.archived);
+  console.log(filteredProducts);
 
   return (
     <> 
@@ -58,7 +59,15 @@ function ProductList() {
                     />
                   </td>
                   <td>{product.productName}</td>
-                  <td>{product.productDescription}</td>
+                  <td>{product.productDescription.length > 200 ? (
+                <>
+                  {product.productDescription.substring(0, 200)}
+                  <br/>
+                  {product.productDescription.substring(200)}
+                </>
+              ) : (
+                product.productDescription
+              )}</td>
                   <td>{product.productPrice} TND</td>
                  
                 </tr>

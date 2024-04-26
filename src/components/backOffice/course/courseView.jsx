@@ -110,7 +110,7 @@ const CourseView = () => {
           onChange={(value) =>
             setSelected(
               value.map((studentName) => ({
-                id: studentList.find((student) => student.fullname === studentName)._id,
+                id: studentList.find((student) => student.fullname === studentName)?._id,
                 fullname: studentName,
               }))
             )
@@ -132,7 +132,7 @@ const CourseView = () => {
           >
             <option value="">Select User</option>
             {studentList.map((student) => (
-              <option key={student._id} value={student._id}>
+              <option key={student?._id} value={student?._id}>
                 {student.fullname}
               </option>
             ))}

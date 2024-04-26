@@ -177,7 +177,7 @@ function CreateIndivSessions() {
                         <p>Matching Available Times:</p>
                         {matchingAvailableTimes.map((time) => (
                             <div key={time._id} className="form-check">
-                                <input className="form-check-input" type="radio" name="matchingTime" id={time._id} value={time._id} onChange={() => setSelectedTimeSlot(time._id)} />
+                                <input className="form-check-input" type="checkbox" name="matchingTime" id={time._id} value={time._id} onChange={() => setSelectedTimeSlot(time._id)} />
                                 <label className="form-check-label" htmlFor={time._id}>
                                     {time.day}: {time.startTime} - {time.endTime}
                                 </label>

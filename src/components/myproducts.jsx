@@ -19,7 +19,7 @@ function MyProducts() {
           headers: headers,
         });
         // Filter out archived products
-        const products = response.data;
+        const products = response.data.products;
         setProducts(products);
       } catch (error) {
         console.error('Error fetching products:', error);

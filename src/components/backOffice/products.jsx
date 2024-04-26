@@ -18,7 +18,7 @@ function ProductListBack() {
           headers: headers,
         });
         // Filter out archived products
-        const filteredProducts = response.data.filter(product => !product.archived);
+        const filteredProducts = response.data.products.filter(product => !product.archived);
         setProducts(filteredProducts);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -94,7 +94,15 @@ function ProductListBack() {
                     />
                   </td>
                   <td>{product.productName}</td>
-                  <td>{product.productDescription}</td>
+                  <td> {product.productDescription.length > 130 ? (
+                <>
+                  {product.productDescription.substring(0, 130)}
+                  <br/>
+                  {product.productDescription.substring(130)}
+                </>
+              ) : (
+                product.productDescription
+              )}</td>
                   <td>{product.productPrice} TND</td>
                   <td>
                     {product.productAvailability === null ? 'Waiting...' : product.productAvailability ? <FaCheck style={{ color: 'green' }} /> : <FaTimes style={{ color: 'red' }} />}

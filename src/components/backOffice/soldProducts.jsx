@@ -8,7 +8,7 @@ const SoldProducts = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:3000/market/get-products');
-        const soldProductsData = response.data.filter(product => product.sold === true);
+        const soldProductsData = response.data.products.filter(product => product.sold === true);
         setSoldProducts(soldProductsData);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -20,7 +20,7 @@ const SoldProducts = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center mb-4">Sold Products</h1>
+      <h1 className="text-center my-4">Sold Products</h1>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -43,7 +43,15 @@ const SoldProducts = () => {
                 />
               </td>
               <td>{product.productName}</td>
-              <td>{product.productDescription}</td>
+              <td>{product.productDescription.length > 130 ? (
+                <>
+                  {product.productDescription.substring(0, 130)}
+                  <br/>
+                  {product.productDescription.substring(130)}
+                </>
+              ) : (
+                product.productDescription
+              )}</td>
               <td>${product.productPrice}</td>
               <td>{product.sold ? 'Yes' : 'No'}</td>
             </tr>

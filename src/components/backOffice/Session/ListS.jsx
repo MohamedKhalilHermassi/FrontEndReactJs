@@ -80,14 +80,14 @@ class ListS extends React.Component {
                 <td>{session.course.name} {session.course.level} </td>
 
                 <td>
-              number°  {session.classroom.number}
+              number°  {session.classroom?.number}
                 </td>
                 <td>
-                {session.classroom.floor}
+                {session.classroom?.floor}
 
                 </td>
                 <td>
-              {session.classroom.location.address}, {session.classroom.location.city}
+              {session.classroom?.location.address}, {session.classroom?.location.city}
 
                 </td>
                 <td>
