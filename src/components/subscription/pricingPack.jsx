@@ -69,7 +69,7 @@ const PricingPack = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await fetch('http://localhost:3000/payement/pay', {
+        const response = await fetch('https://backendexpressjsback.onrender.com/payement/pay', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const PricingPack = () => {
         // Handle error
       }
       try {
-        const response = await axios.post('http://localhost:3000/transaction/add', formData); // Replace 'your-route' with your actual route
+        const response = await axios.post('https://backendexpressjsback.onrender.com/transaction/add', formData); // Replace 'your-route' with your actual route
         if (response.data.success) {
           console.log('Transaction created successfully');
           // Handle success

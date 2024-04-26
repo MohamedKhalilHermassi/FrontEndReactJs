@@ -13,7 +13,7 @@ const MyEvents = () => {
   const userId = localStorage.getItem('id');
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/events/user/${userId}/events`)
+    axios.get(`https://backendexpressjsback.onrender.com/events/user/${userId}/events`)
       .then(response => {
         setEvents(response.data);
        // Create an object with the user's ratings for each event
@@ -45,7 +45,7 @@ const MyEvents = () => {
       toast.error('You cannot cancel participation in a finished or cancelled event');
       return;
     }
-    axios.post('http://localhost:3000/events/cancel', { eventId, userId })
+    axios.post('https://backendexpressjsback.onrender.com/events/cancel', { eventId, userId })
       .then(response => {
         setEvents(events.filter(event => event._id !== eventId));
         toast.success('Successfully cancelled participation in the event');
@@ -68,7 +68,7 @@ const MyEvents = () => {
     return;
   }
     const rating = ratings[eventId];
-    axios.post('http://localhost:3000/events/rate', { eventId, userId, rating })
+    axios.post('https://backendexpressjsback.onrender.com/events/rate', { eventId, userId, rating })
       .then(response => {
         console.log('Rating submitted:', response.data);
         toast.success('Rating submitted successfully');

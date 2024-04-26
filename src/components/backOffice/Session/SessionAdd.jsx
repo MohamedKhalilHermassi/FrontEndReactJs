@@ -24,7 +24,7 @@ function SessionAdd() {
 
   const fetchCourses = async () => {
     try {
-      const response = await fetch('http://localhost:3000/courses');
+      const response = await fetch('https://backendexpressjsback.onrender.com/courses');
       const data = await response.json();
       setCourses(data);
     } catch (error) {
@@ -34,7 +34,7 @@ function SessionAdd() {
 
   const fetchTeachers = async () => {
     try {
-      const response = await fetch('http://localhost:3000/users/teachers');
+      const response = await fetch('https://backendexpressjsback.onrender.com/users/teachers');
       const data = await response.json();
       setTeachers(data);
     } catch (error) {
@@ -44,7 +44,7 @@ function SessionAdd() {
 
   const fetchClassrooms = async () => {
     try {
-      const response = await fetch('http://localhost:3000/classrooms');
+      const response = await fetch('https://backendexpressjsback.onrender.com/classrooms');
       const data = await response.json();
       setClassrooms(data);
     } catch (error) {
@@ -64,7 +64,7 @@ function SessionAdd() {
     e.preventDefault();
     
     try {
-      const response = await fetch('http://localhost:3000/sessions/add', {
+      const response = await fetch('https://backendexpressjsback.onrender.com/sessions/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

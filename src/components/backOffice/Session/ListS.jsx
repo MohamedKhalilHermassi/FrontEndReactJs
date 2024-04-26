@@ -14,14 +14,14 @@ class ListS extends React.Component {
   async componentDidMount() {
     try {
       // Fetch sessions
-      const sessionsResponse = await fetch('http://localhost:3000/sessions');
+      const sessionsResponse = await fetch('https://backendexpressjsback.onrender.com/sessions');
       let sessionsData = await sessionsResponse.json();
   
       // Sort sessions by start date
       sessionsData = sessionsData.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
       
       // Fetch courses
-      const coursesResponse = await fetch('http://localhost:3000/courses');
+      const coursesResponse = await fetch('https://backendexpressjsback.onrender.com/courses');
       const coursesData = await coursesResponse.json();
       
       // Convert courses data to object for easier access
@@ -43,7 +43,7 @@ class ListS extends React.Component {
 
   handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:3000/sessions/${id}`, {
+      await fetch(`https://backendexpressjsback.onrender.com/sessions/${id}`, {
         method: 'DELETE'
       });
       this.setState(prevState => ({

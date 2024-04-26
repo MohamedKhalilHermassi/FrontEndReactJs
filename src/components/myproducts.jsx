@@ -15,7 +15,7 @@ function MyProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/market/user/${userId}/products`, {
+        const response = await axios.get(`https://backendexpressjsback.onrender.com/market/user/${userId}/products`, {
           headers: headers,
         });
         // Filter out archived products
@@ -49,7 +49,7 @@ function MyProducts() {
               <tr key={product._id}>
                 <td>
                   <img
-                    src={`http://localhost:3000/uploads/${product.filename}`}
+                    src={`https://backendexpressjsback.onrender.com/uploads/${product.filename}`}
                     alt={product.productName}
                     style={{ maxWidth: '100px', maxHeight: '100px', width: 'auto', height: 'auto' }}
                   />

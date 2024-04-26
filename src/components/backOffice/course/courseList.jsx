@@ -67,7 +67,7 @@ const CourseList = () => {
     <div key={index} className="card p-3 mb-2 w-100 h-100">
       <div className="d-flex justify-content-between">
 <div className="view view-cascade overlay">
-  <img className="card-img-top" src={`http://localhost:3000/images/${course.image}`} alt="Card image cap" />
+  <img className="card-img-top" src={`https://backendexpressjsback.onrender.com/images/${course.image}`} alt="Card image cap" />
   <a href="#!">
     <div className="mask rgba-white-slight waves-effect waves-light" />
   </a>

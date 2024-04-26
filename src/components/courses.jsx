@@ -79,7 +79,7 @@ function Courses() {
                                                         <button className="btn btn-link dropdown-toggle btn-icon-only" type="button" data-toggle="dropdown" aria-expanded="false"><i className="fa-solid fa-chalkboard-user"></i></button>
                                                     </div>
                                                     <a href="javascript:;">
-                                                        <img className="img rounded" src={`http://localhost:3000/images/${course.image}`} alt="Course" />
+                                                        <img className="img rounded" src={`https://backendexpressjsback.onrender.com/images/${course.image}`} alt="Course" />
                                                     </a>
                                                 </div>
                                             </div>

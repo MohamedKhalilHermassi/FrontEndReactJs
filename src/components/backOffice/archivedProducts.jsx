@@ -14,7 +14,7 @@ function ProductList() {
         };
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/market/get-products',{
+        const response = await axios.get('https://backendexpressjsback.onrender.com/market/get-products',{
           headers: headers,
         });
         setProducts(response.data.products);
@@ -53,7 +53,7 @@ function ProductList() {
                 <tr key={product._id}>
                   <td>
                     <img
-                      src={`http://localhost:3000/uploads/${product.filename}`}
+                      src={`https://backendexpressjsback.onrender.com/uploads/${product.filename}`}
                       alt={product.productName}
                       style={{ width: '100px', height: 'auto' }}
                     />

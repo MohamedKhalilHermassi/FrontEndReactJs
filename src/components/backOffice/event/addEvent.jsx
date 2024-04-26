@@ -30,7 +30,7 @@ const AddEvent = () => {
       const formData = new FormData();
       formData.append('image', e.target.files[0]);
   
-      axios.post('http://localhost:3000/upload', formData)
+      axios.post('https://backendexpressjsback.onrender.com/upload', formData)
         .then(res => {
           setFormData(prevState => ({
             ...prevState,
@@ -81,7 +81,7 @@ const AddEvent = () => {
       };
       
 
-      axios.post('http://localhost:3000/events/add', newFormData)
+      axios.post('https://backendexpressjsback.onrender.com/events/add', newFormData)
         .then(response => {
           console.log('Event created:', response.data);
           toast.success('Event created successfully!'); 

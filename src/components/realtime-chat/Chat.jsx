@@ -11,7 +11,7 @@ const Chat = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/messages/get-all');
+        const response = await axios.get('https://backendexpressjsback.onrender.com/api/messages/get-all');
         const sortedMessages = response.data.map(message => ({
           ...message,
           timestamp: new Date(message.timestamp) // Convert timestamp to Date object
@@ -42,10 +42,10 @@ const Chat = () => {
       content: input,
     };
     console.log(newMessage);
-    await axios.post('http://localhost:3000/api/messages/send-message', newMessage);
+    await axios.post('https://backendexpressjsback.onrender.com/api/messages/send-message', newMessage);
 
     socket.emit('message', newMessage);
-    const response = await axios.get('http://localhost:3000/api/messages/get-all');
+    const response = await axios.get('https://backendexpressjsback.onrender.com/api/messages/get-all');
     const sortedMessages = response.data.map(message => ({
       ...message,
       timestamp: new Date(message.timestamp) // Convert timestamp to Date object

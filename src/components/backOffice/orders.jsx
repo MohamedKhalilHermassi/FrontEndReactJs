@@ -17,7 +17,7 @@ function OrdersList() {
           'Content-Type': 'application/json',
         };
 
-        const response = await axios.get('http://localhost:3000/orders/get-orders', {
+        const response = await axios.get('https://backendexpressjsback.onrender.com/orders/get-orders', {
           headers: headers,
         });
 

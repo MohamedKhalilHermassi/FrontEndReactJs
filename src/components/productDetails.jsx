@@ -22,7 +22,7 @@ function ProductDetails() {
 
   const fetchProductById = async (id) =>{
     try{
-    const response = await axios.get(`http://localhost:3000/market/getproductbyid/${id}`);
+    const response = await axios.get(`https://backendexpressjsback.onrender.com/market/getproductbyid/${id}`);
     console.log(response.data);
     setProduct(response.data);
     setProducts(response.data.produitsSimilaires);
@@ -46,7 +46,7 @@ const handleOrder = async () => {
   try {
     const productsList = cartItems.flatMap(item => Array.from({ length: item.quantity }, () => item._id));
     
-    const response = await axios.post('http://localhost:3000/orders/add-order', {
+    const response = await axios.post('https://backendexpressjsback.onrender.com/orders/add-order', {
         totalPrice: totalPrice,
         user: localStorage.getItem('id'),
         products: productsList,
@@ -111,7 +111,7 @@ const handleMouseLeave = (productId) => {
         <aside className="col-lg-6">
           <div className="border rounded-4 mb-3 d-flex justify-content-center">
             <a data-fslightbox="mygalley" className="rounded-4" target="_blank" data-type="image" >
-              <img style={{maxWidth: '100%', maxHeight: '100vh', margin: 'auto'}} className="rounded-4 fit" src={`http://localhost:3000/uploads/${product?.filename}`} />
+              <img style={{maxWidth: '100%', maxHeight: '100vh', margin: 'auto'}} className="rounded-4 fit" src={`https://backendexpressjsback.onrender.com/uploads/${product?.filename}`} />
             </a>
           </div>
           {/* thumbs-wrap.// */}
@@ -178,7 +178,7 @@ const handleMouseLeave = (productId) => {
           <div key={product._id} className="col">
             <div className="card h-100">
               <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
-                <img src={`http://localhost:3000/uploads/${product.filename}`} className="card-img-top" alt={product.productName} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                <img src={`https://backendexpressjsback.onrender.com/uploads/${product.filename}`} className="card-img-top" alt={product.productName} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
               </div>
               <div className="card-body">
                 <h5 className="card-title">{product.productName}</h5>
@@ -233,7 +233,7 @@ const handleMouseLeave = (productId) => {
            {cartItems.map(item => (
              <li key={item._id}>
                <div>
-                 <img src={`http://localhost:3000/uploads/${item.filename}`} alt={item.productName} style={{ width: '50px', height: '50px', marginRight: '10px' }} />
+                 <img src={`https://backendexpressjsback.onrender.com/uploads/${item.filename}`} alt={item.productName} style={{ width: '50px', height: '50px', marginRight: '10px' }} />
                  <span>{item.productName} - {item.productPrice} TND - Quantity: {item.quantity}</span>
                  <RiCloseCircleLine className="text-danger" style={{ cursor: 'pointer' }} onClick={() => removeFromCart(item._id)} />
 

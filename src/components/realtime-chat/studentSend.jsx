@@ -8,7 +8,7 @@ const StudentMessageReplier = () => {
 
   const replyMessage = async () => {
     try {
-      await axios.post('http://localhost:3000/api/messages/send-message', {
+      await axios.post('https://backendexpressjsback.onrender.com/api/messages/send-message', {
         senderId: localStorage.getItem('id'), 
         recipientId: "662168da82cc402d546d57ee", 
         content

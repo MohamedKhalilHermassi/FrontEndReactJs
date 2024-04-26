@@ -89,7 +89,7 @@ function Login() {
           const image1 = document.createElement('img');
           const image2 = document.createElement('img');
           image1.src = imageUrl;
-          image2.src = `http://localhost:3000/${user.image}`;
+          image2.src = `https://backendexpressjsback.onrender.com/${user.image}`;
           image2.crossOrigin='anonymous';
           await Promise.all([
             image1.decode(),

@@ -12,13 +12,13 @@ const RegisteredUsers = () => {
     const fetchUsers = async () => {
       try {
         // Fetch all events
-        const eventsResponse = await axios.get(`http://localhost:3000/events`);
+        const eventsResponse = await axios.get(`https://backendexpressjsback.onrender.com/events`);
         const events = eventsResponse.data;
     
         // For each event, fetch its users
         let allUsers = [];
         for (const event of events) {
-          const usersResponse = await axios.get(`http://localhost:3000/events/event/${event._id}/users`);
+          const usersResponse = await axios.get(`https://backendexpressjsback.onrender.com/events/event/${event._id}/users`);
           const usersWithEventInfo = usersResponse.data.map(user => ({ ...user, eventTitle: event.title, eventDate: event.date, uniqueKey: `${user._id}-${event._id}` }));
           allUsers = [...allUsers, ...usersWithEventInfo];
         }
@@ -49,7 +49,7 @@ const RegisteredUsers = () => {
 
   const cancelParticipation = (uniqueKey) => {
     const [userId, eventId] = uniqueKey.split('-');
-    axios.post('http://localhost:3000/events/cancel', { eventId, userId })
+    axios.post('https://backendexpressjsback.onrender.com/events/cancel', { eventId, userId })
       .then(response => {
         // Remove the cancelled event from the users state
         setUsers(users.filter(user => user.uniqueKey !== uniqueKey));
