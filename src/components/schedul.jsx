@@ -30,6 +30,7 @@ function Schedule() {
 
   // Filter apiData to include only events with the matching level
   const filteredData = apiData.filter(event => event.level == userLevel);
+  console.log(apiData);
 
   return (
     <>
@@ -37,6 +38,7 @@ function Schedule() {
       <br />
       <br />
       <div style={{ width: '80%', margin: 'auto', textAlign: 'center' }}>
+        <div className='mt-5'></div>
         <h1 style={{ fontFamily: 'Arial, sans-serif', fontSize: '2.5em', fontWeight: 'bold', color: '#333', borderBottom: '2px solid #333', paddingBottom: '10px' }}>Your Schedule</h1>
         <ScheduleComponent
           currentView='Week'

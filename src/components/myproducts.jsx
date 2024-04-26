@@ -19,7 +19,7 @@ function MyProducts() {
           headers: headers,
         });
         // Filter out archived products
-        const products = response.data.products;
+        const products = response.data;
         setProducts(products);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -55,7 +55,17 @@ function MyProducts() {
                   />
                 </td>
                 <td>{product.productName}</td>
-                <td>{product.productDescription}</td>
+                <td>{product.productDescription.length > 80 ? (
+                <>
+                  {product.productDescription.substring(0, 120)}
+                  <br/>
+                  {product.productDescription.substring(120, 270)}
+                  <br/>
+                  {product.productDescription.substring(270)}
+                </>
+              ) : (
+                product.productDescription
+              )}</td>
                 <td>${product.productPrice.toFixed(2)}</td>
                 <td>{product.productType}</td>
                 <td>
