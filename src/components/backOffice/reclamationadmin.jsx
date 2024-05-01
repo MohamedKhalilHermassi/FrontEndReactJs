@@ -181,7 +181,7 @@ function reclamationadmin()
       <div>
   {filess &&filess.map(file => (
     <div key={file}>
-      <img src={`https://backendexpressjsback.onrender.com/${file}`} alt="Profile" className="img-fluid mb-3" style={{ width: '150px' }} />
+      <img src={`http://localhost:3000/${file}`} alt="Profile" className="img-fluid mb-3" style={{ width: '150px' }} />
     </div>
   ))}
   { filess === null && (

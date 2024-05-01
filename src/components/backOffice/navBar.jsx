@@ -100,7 +100,7 @@ const NavBar = () => {
                 <a className="nav-link dropdown-toggle hide-arrow"  data-bs-toggle="dropdown">
                   <div className="avatar avatar-online">
                   {userData ? (
-                    <img src={`https://backendexpressjsback.onrender.com/${userData.image}`} alt="" className="w-px-40 h-auto rounded-circle" />
+                    <img src={`http://localhost:3000/${userData.image}`} alt="" className="w-px-40 h-auto rounded-circle" />
                     ) : (
                       <p>Loading...</p>
                     )}
@@ -113,7 +113,7 @@ const NavBar = () => {
                         <div className="flex-shrink-0 me-3">
                           <div className="avatar avatar-online">
                           {userData ? (
-                    <img src={`https://backendexpressjsback.onrender.com/${userData.image}`} alt="" className="w-px-40 h-auto rounded-circle" />
+                    <img src={`http://localhost:3000/${userData.image}`} alt="" className="w-px-40 h-auto rounded-circle" />
                     ) : (
                       <p>Loading...</p>
                     )}

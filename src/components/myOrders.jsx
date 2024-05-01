@@ -15,7 +15,7 @@ function MyOrders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`https://backendexpressjsback.onrender.com/orders/get-my-orders/${userId}`, {
+        const response = await axios.get(`http://localhost:3000/orders/get-my-orders/${userId}`, {
           headers: headers,
         });
         // Filter out archived products

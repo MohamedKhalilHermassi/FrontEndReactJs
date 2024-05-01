@@ -10,7 +10,7 @@ const MyBooks = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get(`https://backendexpressjsback.onrender.com/book/get-my-books/${userId}`);
+        const response = await axios.get(`http://localhost:3000/book/get-my-books/${userId}`);
         setBooks(response.data.books);
         setLoading(false);
       } catch (error) {
@@ -57,7 +57,7 @@ const MyBooks = () => {
                   <td>{book.Author}</td>
                   <td>
                     <button
-                      onClick={() => openPDF(`https://backendexpressjsback.onrender.com/uploads/${book.filename}`)}
+                      onClick={() => openPDF(`http://localhost:3000/uploads/${book.filename}`)}
                       style={styles.readButton}
                       onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
                       onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}

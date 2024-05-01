@@ -17,7 +17,7 @@ const EventList = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
   
     useEffect(() => {
-      axios.get('https://backendexpressjsback.onrender.com/events')
+      axios.get('http://localhost:3000/events')
         .then(response => {
           setEvents(response.data);
         })
@@ -27,7 +27,7 @@ const EventList = () => {
     }, []);
   
     const handleDelete = (id) => {
-        axios.delete(`https://backendexpressjsback.onrender.com/events/delete/${id}`)
+        axios.delete(`http://localhost:3000/events/delete/${id}`)
         .then(() => {
             setEvents(events.filter(event => event._id !== id));
         })

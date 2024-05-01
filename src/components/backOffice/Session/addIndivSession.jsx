@@ -15,7 +15,7 @@ function CreateIndivSessions() {
     const navigate = useNavigate();
     useEffect(() => {
         // Fetch student data
-        fetch('https://backendexpressjsback.onrender.com/users/students')
+        fetch('http://localhost:3000/users/students')
             .then(response => response.json())
             .then(data => {
                 setStudents(data);
@@ -23,7 +23,7 @@ function CreateIndivSessions() {
             .catch(error => console.error('Error fetching students:', error));
 
         // Fetch course data
-        fetch('https://backendexpressjsback.onrender.com/courses')
+        fetch('http://localhost:3000/courses')
             .then(response => response.json())
             .then(data => {
                 // Filter courses of type "Instrument" and extract course details
@@ -38,7 +38,7 @@ function CreateIndivSessions() {
         setSelectedCourseId(selectedId);
 
         // Fetch the selected course details to get the teacher's name
-        const response = await fetch(`https://backendexpressjsback.onrender.com/courses/${selectedId}`);
+        const response = await fetch(`http://localhost:3000/courses/${selectedId}`);
         const data = await response.json();
 
         // Extract the teacher's name and ID from the selected course object
@@ -57,7 +57,7 @@ function CreateIndivSessions() {
     const handleCreateSession = async () => {
         try {
             console.log("teacher id : ", teacherid);
-            const responseSession = await fetch(`https://backendexpressjsback.onrender.com/users/match-available-time/${selectedStudentId}/${teacherid}`);
+            const responseSession = await fetch(`http://localhost:3000/users/match-available-time/${selectedStudentId}/${teacherid}`);
             const sessionData = await responseSession.json();
 
             console.log('Matching available times:', sessionData.matchingAvailableTimes);
@@ -112,7 +112,7 @@ function CreateIndivSessions() {
     
             console.log('Request Body:', requestBody);
 
-            const response = await fetch(`https://backendexpressjsback.onrender.com/sessions/addindiv/${selectedStudentId}/${teacherid}`, {
+            const response = await fetch(`http://localhost:3000/sessions/addindiv/${selectedStudentId}/${teacherid}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

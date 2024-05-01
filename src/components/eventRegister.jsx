@@ -22,7 +22,7 @@ function EventRegister() {
             });
         }
         
-        axios.get(`https://backendexpressjsback.onrender.com/events/${eventId}`).then(response => {
+        axios.get(`http://localhost:3000/events/${eventId}`).then(response => {
             setEventTitle(response.data.title);    
             setTicketPrice(response.data.ticketPrice);
         });
@@ -37,7 +37,7 @@ function EventRegister() {
         const userId = localStorage.getItem('id');
         const data = { ...formData, userId: userId };
         try {
-            const response = await axios.post('https://backendexpressjsback.onrender.com/events/register', data);
+            const response = await axios.post('http://localhost:3000/events/register', data);
             if (response.status === 200) {
                 setSuccess('Successfully registered for the event!');
                 setError(null);

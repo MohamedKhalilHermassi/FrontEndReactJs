@@ -69,7 +69,7 @@ function Events() {
       setLoading(true);
       setError(null);
       try {
-          const response = await axios.get('https://backendexpressjsback.onrender.com/events');
+          const response = await axios.get('http://localhost:3000/events');
           let filteredEvents = response.data;
           if (selectedCategory !== 'All') {
             filteredEvents = filteredEvents.filter(event => event.category === selectedCategory);

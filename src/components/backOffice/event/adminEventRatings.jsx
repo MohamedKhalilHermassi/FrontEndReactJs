@@ -12,7 +12,7 @@ const AdminEventRatings = () => {
 
   const fetchEventRatings = async () => {
     try {
-      const response = await axios.get('https://backendexpressjsback.onrender.com/events/admin/ratings');
+      const response = await axios.get('http://localhost:3000/events/admin/ratings');
       setEventRatings(response.data);
     } catch (error) {
       setError('Error fetching event ratings');

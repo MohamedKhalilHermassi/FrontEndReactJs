@@ -105,7 +105,7 @@ function AddProductForm() {
         'Content-Type': 'multipart/form-data',
       };
       
-      axios.post('https://backendexpressjsback.onrender.com/market/add-product', formDataToSend, {
+      axios.post('http://localhost:3000/market/add-product', formDataToSend, {
         headers: headers
       });
 

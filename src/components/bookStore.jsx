@@ -16,7 +16,7 @@ const BookList = () => {
     
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('https://backendexpressjsback.onrender.com/book/get-books');
+        const response = await axios.get('http://localhost:3000/book/get-books');
         setBooks(response.data);
       } catch (error) {
         console.error('Error fetching books:', error);
@@ -29,7 +29,7 @@ const BookList = () => {
   useEffect(() => {
     const fetchUserBooks = async () => {
       try {
-        const response = await axios.get(`https://backendexpressjsback.onrender.com/book/get-my-books/${userId}`);
+        const response = await axios.get(`http://localhost:3000/book/get-my-books/${userId}`);
         setUserBooks(response.data.books.map(book => book._id));
       } catch (error) {
         console.error('Error fetching user books:', error);
@@ -45,7 +45,7 @@ const BookList = () => {
 
   const handleBuyBook = async (bookId) => {
     try {
-      await axios.put(`https://backendexpressjsback.onrender.com/book/buy-book/${bookId}/${userId}`);
+      await axios.put(`http://localhost:3000/book/buy-book/${bookId}/${userId}`);
       setUserBooks([...userBooks, bookId]); // Add the newly bought book to the user's books
     } catch (error) {
       console.error('Error buying book:', error);

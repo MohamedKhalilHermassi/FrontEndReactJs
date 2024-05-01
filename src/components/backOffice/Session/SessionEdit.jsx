@@ -21,9 +21,9 @@ const SessionEdit = () => {
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const sessionResponse = await fetch(`https://backendexpressjsback.onrender.com/sessions/${id}`);
+        const sessionResponse = await fetch(`http://localhost:3000/sessions/${id}`);
         const sessionData = await sessionResponse.json();
-        const coursesResponse = await fetch('https://backendexpressjsback.onrender.com/courses');
+        const coursesResponse = await fetch('http://localhost:3000/courses');
         const coursesData = await coursesResponse.json();
     
     console.log(sessionData) ;
@@ -61,7 +61,7 @@ const SessionEdit = () => {
       return; // Exit function early if start date is before current date
     }
     try {
-      const response = await fetch(`https://backendexpressjsback.onrender.com/sessions/${id}`, {
+      const response = await fetch(`http://localhost:3000/sessions/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

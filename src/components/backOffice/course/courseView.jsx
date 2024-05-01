@@ -14,7 +14,7 @@ const CourseView = () => {
 
   useEffect(() => {
     // Fetch course data from the backend API
-    fetch(`https://backendexpressjsback.onrender.com/courses/${courseid}`)
+    fetch(`http://localhost:3000/courses/${courseid}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data);
@@ -26,7 +26,7 @@ const CourseView = () => {
       });
 
     // Fetch student list from the backend API
-    fetch(`https://backendexpressjsback.onrender.com/users/students`)
+    fetch(`http://localhost:3000/users/students`)
       .then((response) => response.json())
       .then((data) => {
         // Filter student list to include only students not enrolled in the current course
@@ -62,7 +62,7 @@ const CourseView = () => {
       }
 
       // Make PUT request to enroll the student in the course
-      fetch(`https://backendexpressjsback.onrender.com/courses/enroll/${courseid}/${selectedUser}`, {
+      fetch(`http://localhost:3000/courses/enroll/${courseid}/${selectedUser}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

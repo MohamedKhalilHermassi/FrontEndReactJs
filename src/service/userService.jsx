@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { decodeToken  } from "react-jwt";
 
-const BASE_URL =  'https://backendexpressjsback.onrender.com/users'; 
+const BASE_URL =  'http://localhost:3000/users'; 
 
 const userService = {
     async login(email, password) {
@@ -216,7 +216,7 @@ async banuser(email) {
     localStorage.removeItem('email');
     localStorage.removeItem('id');
     localStorage.removeItem('level');
-    
+    localStorage.removeItem('type');
   }
 };
 

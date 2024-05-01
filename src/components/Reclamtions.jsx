@@ -3,7 +3,7 @@ import ReclamtionService from '../service/reclamtionService';
 import axios from 'axios';
 function Reclamtions()
 {
-  const BASE_URL =  'https://backendexpressjsback.onrender.com/Reclamtions'; 
+  const BASE_URL =  'http://localhost:3000/Reclamtions'; 
     const [error, setError] = useState(null);
     const [ReclamtionData, setReclamtionData] = useState(null);
     const [id, setId] = useState('');
@@ -187,7 +187,7 @@ function Reclamtions()
                                 {reclamation.files  && (
                                   <div>
                                     {reclamation.files.map(file => (
-                                 <img src={`https://backendexpressjsback.onrender.com/${file}`} alt="Profile" className="img-fluid mb-3" style={{ width: '150px' }} />
+                                 <img src={`http://localhost:3000/${file}`} alt="Profile" className="img-fluid mb-3" style={{ width: '150px' }} />
                                   ))}
                                   </div>
                                 )}

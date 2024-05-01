@@ -14,7 +14,7 @@ function ProductListBack() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://backendexpressjsback.onrender.com/market/get-products',{
+        const response = await axios.get('http://localhost:3000/market/get-products',{
           headers: headers,
         });
         // Filter out archived products
@@ -31,7 +31,7 @@ function ProductListBack() {
   const handleAccept = async (productId) => {
     try {
    
-      await axios.put(`https://backendexpressjsback.onrender.com/market/products/${productId}`, {
+      await axios.put(`http://localhost:3000/market/products/${productId}`, {
         productAvailability: true 
       }, {
         headers: headers 
@@ -52,7 +52,7 @@ function ProductListBack() {
   const handleReject = async (productId) => {
     try {
       // Send request to delete the product
-      await axios.put(`https://backendexpressjsback.onrender.com/market/archiveProducts/${productId}`, { 
+      await axios.put(`http://localhost:3000/market/archiveProducts/${productId}`, { 
      archived: true
     },{
       headers: headers });
@@ -88,7 +88,7 @@ function ProductListBack() {
                 <tr key={product._id}>
                   <td>
                     <img
-                      src={`https://backendexpressjsback.onrender.com/uploads/${product.filename}`}
+                      src={`http://localhost:3000/uploads/${product.filename}`}
                       alt={product.productName}
                       style={{ width: '100px', height: 'auto' }}
                     />

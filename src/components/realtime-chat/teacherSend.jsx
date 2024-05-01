@@ -9,7 +9,7 @@ const TeacherMessageSender = () => {
   
     const sendMessage = async () => {
       try {
-        await axios.post('https://backendexpressjsback.onrender.com/api/messages/send-message', {
+        await axios.post('http://localhost:3000/api/messages/send-message', {
           senderId: localStorage.getItem('id'), 
           recipientId: studentId, 
           content

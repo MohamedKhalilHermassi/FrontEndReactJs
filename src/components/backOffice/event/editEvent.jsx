@@ -25,7 +25,7 @@ const EditEvent = () => {
     });
 
     useEffect(() => {
-        axios.get(`https://backendexpressjsback.onrender.com/events/${id}`)
+        axios.get(`http://localhost:3000/events/${id}`)
             .then(response => {
                 if (response.data) {
                     response.data.date = new Date(response.data.date).toISOString().slice(0, 10);
@@ -129,11 +129,11 @@ const EditEvent = () => {
         const imageData = new FormData();
         imageData.append('image', formData.image);
 
-        axios.post('https://backendexpressjsback.onrender.com/upload', imageData)
+        axios.post('http://localhost:3000/upload', imageData)
             .then(response => {
                 const data = { ...newFormData, image: response.data.imageUrl };
 
-                return axios.put(`https://backendexpressjsback.onrender.com/events/edit/${id}`, data);
+                return axios.put(`http://localhost:3000/events/edit/${id}`, data);
             })
             .then(response => {
                 console.log('Event updated:', response.data);

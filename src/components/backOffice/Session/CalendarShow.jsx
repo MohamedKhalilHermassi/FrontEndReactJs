@@ -16,7 +16,7 @@ function CalendarShow() {
   const [apiData, setApiData] = useState([]);
 
   useEffect(() => {
-    fetch('https://backendexpressjsback.onrender.com/sessions')
+    fetch('http://localhost:3000/sessions')
       .then(response => response.json())
       .then(data => {
         setApiData(data);

@@ -14,7 +14,7 @@ function StudentsList() {
     useEffect(() => {
         const fetchCourse = async () => {
             try {
-                const response = await axios.get(`https://backendexpressjsback.onrender.com/courses/${courseId}`);
+                const response = await axios.get(`http://localhost:3000/courses/${courseId}`);
                 setCourse(response.data);
                 setCourseName(response.data.name); // Saving course name
             } catch (error) {
@@ -28,7 +28,7 @@ function StudentsList() {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await axios.get(`https://backendexpressjsback.onrender.com/courses/students-of-course/${courseId}`);
+                const response = await axios.get(`http://localhost:3000/courses/students-of-course/${courseId}`);
                 setStudents(response.data);
             } catch (error) {
                 console.error('Error fetching students:', error);
@@ -55,9 +55,9 @@ function StudentsList() {
 
     const handleAddNote = async (studentId) => {
         try {
-            await axios.put(`https://backendexpressjsback.onrender.com/courses/add-note/${studentId}`, { courseName, mark });
+            await axios.put(`http://localhost:3000/courses/add-note/${studentId}`, { courseName, mark });
             // Refresh students list after adding note
-            const response = await axios.get(`https://backendexpressjsback.onrender.com/courses/students-of-course/${courseId}`);
+            const response = await axios.get(`http://localhost:3000/courses/students-of-course/${courseId}`);
             setStudents(response.data);
             setMark(''); // Reset mark input after adding note
         } catch (error) {

@@ -34,7 +34,7 @@ class SessionDrag extends Component {
 
   fetchSessions = async () => {
     try {
-      const response = await fetch('https://backendexpressjsback.onrender.com/sessions');
+      const response = await fetch('http://localhost:3000/sessions');
       const sessionsData = await response.json();
       this.setState({ sessions: sessionsData });
     } catch (error) {
@@ -44,7 +44,7 @@ class SessionDrag extends Component {
 
   fetchCourses = async () => {
     try {
-      const response = await fetch('https://backendexpressjsback.onrender.com/courses');
+      const response = await fetch('http://localhost:3000/courses');
       const coursesData = await response.json();
       this.setState({ courses: coursesData });
     } catch (error) {
