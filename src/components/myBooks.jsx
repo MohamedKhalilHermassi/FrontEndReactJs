@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const MyBooks = () => {
@@ -11,7 +11,13 @@ const MyBooks = () => {
     const fetchBooks = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/book/get-my-books/${userId}`);
-        setBooks(response.data.books);
+        // Filter out duplicate books based on _id
+        const uniqueBooks = response.data.books.filter((book, index, self) =>
+          index === self.findIndex((b) => (
+            b._id === book._id
+          ))
+        );
+        setBooks(uniqueBooks);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user books:', error);
@@ -30,8 +36,11 @@ const MyBooks = () => {
   };
 
   return (
+    <>
+   <br />
+   <br />
+   <br />
     <div style={styles.bookListContainer}>
-      <h1 style={styles.bookListTitle}>My Books</h1>
       {loading ? (
         <p>Loading...</p>
       ) : books.length === 0 ? (
@@ -45,7 +54,7 @@ const MyBooks = () => {
                 <th>Description</th>
                 <th>Price</th>
                 <th>Author</th>
-                <th>Read</th> {/* New column for the "Read" button */}
+                <th>Read</th>
               </tr>
             </thead>
             <tbody>
@@ -78,25 +87,33 @@ const MyBooks = () => {
         </div>
       )}
     </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br /><br /><br />
+    <br />
+    <br /><br /><br /><br /><br />
+    <br />
+    <br />
+    <br />
+    </>
   );
 };
 
 const styles = {
-    readButton: {
-        backgroundColor: '#007bff',
-        color: '#fff',
-        border: 'none',
-        padding: '8px 16px',
-        borderRadius: '4px',
-        cursor: 'pointer',
-        outline: 'none',
-        transition: 'background-color 0.3s',
-      },
-    
-      readButtonHover: {
-        backgroundColor: '#0056b3',
-      },
+  readButton: {
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    padding: '8px 16px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    outline: 'none',
+    transition: 'background-color 0.3s',
+  },
   bookListContainer: {
+    
     maxWidth: '800px',
     margin: '0 auto',
     padding: '20px',
@@ -122,7 +139,7 @@ const styles = {
   },
   iframe: {
     width: '100%',
-    height: '600px',
+    height: '1000px',
     marginTop: '20px',
   },
   closeButton: {

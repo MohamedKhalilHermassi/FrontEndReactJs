@@ -7,7 +7,7 @@ const BookList = () => {
   const [books, setBooks] = useState([]);
   const [userBooks, setUserBooks] = useState([]);
   const userId = localStorage.getItem('id');
-  const [decodedToken,setDecodedToken]= useState('');
+  const [decodedToken, setDecodedToken] = useState('');
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     if (token) {
@@ -43,62 +43,66 @@ const BookList = () => {
     return userBooks.includes(bookId);
   };
 
-  const handleBuyBook = async (bookId) => {
-    try {
-      await axios.put(`http://localhost:3000/book/buy-book/${bookId}/${userId}`);
-      setUserBooks([...userBooks, bookId]); // Add the newly bought book to the user's books
-    } catch (error) {
-      console.error('Error buying book:', error);
-      alert('Failed to buy book. Please try again.');
-    }
+  const handleBuyBook = async (bookprice,bookid) => {
+
+   
+
+    localStorage.setItem('bookId',bookid)
+    await axios.post('http://localhost:3000/payement/floucibook',{amount:bookprice})
+    .then((result)=>{
+      console.log(result.data)
+      window.location.replace(result.data.result.link); 
+      
+    }).catch((err)=>console.log(err));
   };
 
   return (
     <>
-      {decodedToken.role=="Student" &&  decodedToken.paid === false ? (
-       <NotPaid></NotPaid>
-
-      ) : (
-        <>
     <br />
-  <br />
-  <br />
-
-  <br />
-  
-    <div style={styles.bookListContainer}>
-      <h1 style={styles.bookListTitle}>Book List</h1>
-      <ul style={styles.bookList}>
-        {books.map(book => (
-          <li key={book._id} style={styles.bookItem}>
-            <div>
-              <h2>{book.bookName}</h2>
-              <p>{book.bookDescription}</p>
-              <p>Price: ${book.bookPrice}</p>
-              <p>Author: {book.author}</p>
-              {isBookOwned(book._id) ? (
-                <p>Owned</p>
-              ) : (
-                <button onClick={() => handleBuyBook(book._id)} style={styles.buyButton}>Buy Book</button>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-    </>
+      {decodedToken.role === "Student" && decodedToken.paid === false ? (
+        <NotPaid />
+      ) : (
+        <div style={styles.marketplaceContainer}>
+          <div style={styles.bookListContainer}>
+            <h1 style={styles.bookListTitle}>Book List</h1>
+            <ul style={styles.bookList}>
+              {books.map(book => (
+                <li key={book._id} style={styles.bookItem}>
+                  <div style={styles.bookItemContent}>
+                    <img width={150} src="https://cdn3d.iconscout.com/3d/premium/thumb/book-9492860-7767263.png" alt="" style={styles.bookImage} />
+                    <div style={styles.bookDetails}>
+                      <h2 style={styles.bookName}>{book.bookName}</h2>
+                      <p style={styles.bookDescription}>{book.bookDescription}</p>
+                      <p style={styles.bookInfo}>Price: {book.bookPrice} TND</p>
+                      <p style={styles.bookInfo}>Author: {book.Author}</p>
+                      {isBookOwned(book._id) ? (
+                        <p style={styles.ownedLabel}>Owned</p>
+                      ) : (
+                        <button onClick={() => handleBuyBook((book.bookPrice)*1000,book._id)} style={styles.buyButton}>Buy Book</button>
+                      )}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       )}
     </>
-    
   );
 };
 
 const styles = {
-  bookListContainer: {
-    maxWidth: '800px',
+  marketplaceContainer: {
+    maxWidth: '1200px',
     margin: '0 auto',
     padding: '20px',
     fontFamily: 'Arial, sans-serif',
+  },
+  bookListContainer: {
+    maxWidth: '1600px',
+    margin: '0 auto',
+    padding: '20px',
   },
   bookListTitle: {
     textAlign: 'center',
@@ -110,23 +114,35 @@ const styles = {
   bookList: {
     listStyleType: 'none',
     padding: 0,
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   bookItem: {
-    marginBottom: '30px',
+    margin: '0 10px 20px',
     border: '1px solid #ddd',
-    padding: '20px',
     borderRadius: '5px',
     boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
     transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+    flex: '0 1 calc(33.333% - 20px)', // Adjust the width of each book item
+    minWidth: '250px', // Minimum width for each book item
+    boxSizing: 'border-box',
     '&:hover': {
       transform: 'translateY(-5px)',
       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
     },
   },
-  bookDetails: {
+  bookItemContent: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    padding: '20px',
+  },
+  bookImage: {
+    marginBottom: '20px',
+  },
+  bookDetails: {
+    textAlign: 'center',
   },
   bookName: {
     fontSize: '20px',
@@ -139,9 +155,6 @@ const styles = {
     color: '#666',
   },
   bookInfo: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
     marginBottom: '10px',
     color: '#666',
   },
@@ -163,6 +176,5 @@ const styles = {
     color: '#4CAF50',
   },
 };
-
 
 export default BookList;

@@ -13,7 +13,7 @@ export async function fetchNotes(){
 
 export async function addNoteProduct(note){
     try{
-        const response = await axios.post(`${endPoint}/addproductnote`, note);
+        const response = await axios.post(`${endPoint}addproductnote`, note);
         return response.data;
     }catch(error){
         throw new Error(`Error adding product note: ${error.message}`);

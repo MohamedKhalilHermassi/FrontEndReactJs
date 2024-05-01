@@ -64,6 +64,8 @@ import CourseView from './components/backOffice/course/courseView.jsx';
 import CreateIndivSessions from './components/backOffice/Session/addIndivSession.jsx';
 import ProductDetails from './components/productDetails.jsx';
 import PayementSuccess from './components/PayementSuccess.jsx';
+import BookSuccess from './components/bookSuccess.jsx';
+import ProductSuccess from './components/productBoughtSuccess.jsx';
 
 import PlanMeet from './components/PlanMeet.jsx';
 const Events = lazy(()=> import("./components/events"));
@@ -132,7 +134,10 @@ function App() {
         <Route path = "teacherSend/:studentId" element={<TeacherMessageSender/>}></Route>
         <Route path = "studentSend" element={<StudentMessageReplier/>}></Route>
         <Route path = "/success" element={<PayementSuccess/>}></Route>
+        <Route path = "/bookSuccess" element={<BookSuccess/>}></Route>
+        <Route path = "/productSuccess" element={<ProductSuccess/>}></Route>
 
+        
 
       </Route>
 

@@ -138,22 +138,28 @@ function ProductList() {
   }
 
   const handleOrder = async () => {
-    try {
+ 
       const productsList = cartItems.flatMap(item => Array.from({ length: item.quantity }, () => item._id));
+      localStorage.setItem('totalPrice',totalPrice);
+      localStorage.setItem('products',productsList);
+      const price = totalPrice*1000;
 
-      const response = await axios.post('http://localhost:3000/orders/add-order', {
-        totalPrice: totalPrice,
-        user: localStorage.getItem('id'),
-        products: productsList,
-      });
-      toast.success('Your order has been placed successfully!');
-      setCartItems([]);
-      setTotalPrice(0);
-      setShowCart(false);
-    } catch (error) {
-      console.error('Error placing order:', error);
-      toast.error('Failed to place order. Please try again later.');
-    }
+      await axios.post('http://localhost:3000/payement/flouciproduct',{amount:price})
+      .then((result)=>{
+        console.log(result.data)
+        window.location.replace(result.data.result.link); 
+        
+      }).catch((err)=>console.log(err));
+      // const response = await axios.post('http://localhost:3000/orders/add-order', {
+      //   totalPrice: totalPrice,
+      //   user: localStorage.getItem('id'),
+      //   products: productsList,
+      // });
+      // toast.success('Your order has been placed successfully!');
+      // setCartItems([]);
+      // setTotalPrice(0);
+      // setShowCart(false);
+   
   };
 
   return (
