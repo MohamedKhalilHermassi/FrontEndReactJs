@@ -66,6 +66,7 @@ import ProductDetails from './components/productDetails.jsx';
 import PayementSuccess from './components/PayementSuccess.jsx';
 import BookSuccess from './components/bookSuccess.jsx';
 import ProductSuccess from './components/productBoughtSuccess.jsx';
+import Coursedetailfront from './components/coursedetailfront.jsx' ;
 
 import PlanMeet from './components/PlanMeet.jsx';
 const Events = lazy(()=> import("./components/events"));
@@ -108,6 +109,7 @@ function App() {
        <Route path="pricing-pack" element={<PricingPack/>} />
         <Route path="PlanMeet" element={<PlanMeet />} />
         <Route path="courses" element={<Courses />} />
+        <Route path="courses/:id" element={<Coursedetailfront />} />
         <Route path="market" element={<AddProductForm />} />
         <Route path="marketplace" >
           <Route path='' element={<ProductList />}/>
