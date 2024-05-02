@@ -1,0 +1,192 @@
+.title {
+    color: #333;
+    font-size: 3rem; 
+    text-align: center;
+    margin-bottom: 2rem; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+}
+
+.container {
+    max-width: 960px;
+    margin: auto;
+}
+
+.container h1 {
+    color: #333;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.container .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.container .row .col-md-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.container .row .col-md-12 .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.container .row .col-md-12 .card:hover {
+    transform: scale(1.02);
+}
+
+.container .row .col-md-12 .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    opacity: 0.1;
+}
+
+
+
+.container .row .col-md-12 .card .card-img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.container .row .col-md-12 .card:hover .card-img {
+    transform: scale(1.1);
+}
+
+.container .row .col-md-12 .card .card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container .row .col-md-12 .card .card-body .card-header {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.container .row .col-md-12 .card .card-body .card-text {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.container .row .col-md-12 .card .card-body .card-footer {
+    border-top: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .row .col-md-12 .card .card-body .card-footer .btn {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: all 0.3s ease-in-out;
+}
+
+.container .row .col-md-12 .card .card-body .card-footer .btn:hover {
+    color: #fff;
+    background-color: #0056b3;
+    border-color: #004085;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.container .row .col-md-12 .card .card-body .card-footer .btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.container .pagination {
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.container .pagination .page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.container .pagination .page-item .page-link {
+    color: #007bff;
+}
+
+.container .pagination .page-item .page-link:hover {
+    color: #0056b3;
+}
+
+.category-select-container {
+    z-index: 2000; 
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+.category-select-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.category-select-container:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.category-select-container select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    font-size: 1rem;
+    color: #333;
+    transition: all 0.3s ease-in-out;
+}
+
+.category-select-container select:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.category-select-container select:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.category-select-container select:focus {
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+.modal-front {
+    z-index: 2500 !important; 
+}
