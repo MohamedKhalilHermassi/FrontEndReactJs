@@ -11,7 +11,7 @@ function Coursdetails() {
 
   useEffect(() => {
     console.log('Fetching course details...');
-    fetch(`http://localhost:3000/courses/${id}`)
+    fetch(`https://backendexpressjs-2.onrender.com/courses/${id}`)
       .then(response => response.json())
       .then(data => {
         console.log('Course details fetched successfully:', data);
@@ -51,7 +51,7 @@ function Coursdetails() {
         <div className="col-lg-8">
           <div className="card-body pt-0">
             <div>
-              <img className="img rounded h-75 w-75" src={`http://localhost:3000/images/${course.image}`} />
+              <img className="img rounded h-75 w-75" src={`https://backendexpressjs-2.onrender.com/images/${course.image}`} />
             </div>
             <h4 className="display-4 mb-0">{course.name}</h4>
             <p className="lead">{course.courseType}</p>

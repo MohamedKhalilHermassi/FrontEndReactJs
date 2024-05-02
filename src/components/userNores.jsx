@@ -8,7 +8,7 @@ function UserNotes() {
     useEffect(() => {
         const fetchUserNotes = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/courses/notes/${userId}`);
+                const response = await axios.get(`https://backendexpressjs-2.onrender.com/courses/notes/${userId}`);
                 setNotes(response.data.notes);
             } catch (error) {
                 console.error('Error fetching user notes:', error);

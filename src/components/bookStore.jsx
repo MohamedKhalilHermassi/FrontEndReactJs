@@ -16,7 +16,7 @@ const BookList = () => {
     
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/book/get-books');
+        const response = await axios.get('https://backendexpressjs-2.onrender.com/book/get-books');
         setBooks(response.data);
       } catch (error) {
         console.error('Error fetching books:', error);
@@ -29,7 +29,7 @@ const BookList = () => {
   useEffect(() => {
     const fetchUserBooks = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/book/get-my-books/${userId}`);
+        const response = await axios.get(`https://backendexpressjs-2.onrender.com/book/get-my-books/${userId}`);
         setUserBooks(response.data.books.map(book => book._id));
       } catch (error) {
         console.error('Error fetching user books:', error);
@@ -48,7 +48,7 @@ const BookList = () => {
    
 
     localStorage.setItem('bookId',bookid)
-    await axios.post('http://localhost:3000/payement/floucibook',{amount:bookprice})
+    await axios.post('https://backendexpressjs-2.onrender.com/payement/floucibook',{amount:bookprice})
     .then((result)=>{
       console.log(result.data)
       window.location.replace(result.data.result.link); 

@@ -13,11 +13,11 @@ function PaymentSuccess() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/payement/verify/${paymentId}`)
+        axios.get(`https://backendexpressjs-2.onrender.com/payement/verify/${paymentId}`)
             .then((result) => {
                 console.log(result.data);
                 if (result.data.result.status === "SUCCESS") {
-                    axios.put('http://localhost:3000/payement/pay',{userid:localStorage.getItem('id'),type:localStorage.getItem('type')})
+                    axios.put('https://backendexpressjs-2.onrender.com/payement/pay',{userid:localStorage.getItem('id'),type:localStorage.getItem('type')})
                     setSuccess(true);
                     setTimeout(()=>{
                         navigate('/signin')
