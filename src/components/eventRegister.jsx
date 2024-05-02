@@ -3,6 +3,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import userService from '../service/userService';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function EventRegister() {
     const location = useLocation();
@@ -12,7 +13,7 @@ function EventRegister() {
     const [success, setSuccess] = useState(null);
     const [ticketPrice, setTicketPrice] = useState(null); 
     const [eventTitle, setEventTitle] = useState('');
-
+    const navigate = useNavigate();
     useEffect(() => {
         // Fetch the authenticated user's data from localStorage
         const email = localStorage.getItem('email');
@@ -41,6 +42,9 @@ function EventRegister() {
             if (response.status === 200) {
                 setSuccess('Successfully registered for the event!');
                 setError(null);
+                setTimeout(() => {
+                    navigate('/events');
+                }, 2000);
             } else {
                 setError('Failed to register for the event.');
                 setSuccess(null);
