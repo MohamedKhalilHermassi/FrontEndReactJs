@@ -62,7 +62,7 @@ function ProductList() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/market/get-products?page=${pageNumber}`);
+        const response = await axios.get(`http://localhost:3000/market/get-paginated-products?page=${pageNumber}`);
         console.log(response.data.products);
         setProducts(response.data.products);
         setNumberOfPages(response.data.totalPages);

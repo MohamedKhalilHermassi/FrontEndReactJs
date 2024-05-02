@@ -13,4 +13,8 @@ input[type=radio]{
 .star{
 cursor: pointer;
 }
+td {
+    white-space: pre;
+  }
+  
   

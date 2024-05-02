@@ -8,7 +8,7 @@ const SoldProducts = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:3000/market/get-products');
-        const soldProductsData = response.data.products.filter(product => product.sold === true);
+        const soldProductsData = response.data.filter(product => product.sold === true);
         setSoldProducts(soldProductsData);
       } catch (error) {
         console.error('Error fetching products:', error);
