@@ -6,7 +6,7 @@ const SideBar = () => {
       {/* Menu */}
       <div className="app-brand demo">
         <Link className="app-brand-link justify-content-center" to="/admin">
-          <img className="h-75 w-75 mb-2" src={kindyLogo} alt="" />
+          <img className="h-75 w-75 mb-2" src='https://firebasestorage.googleapis.com/v0/b/elkindy-5cf2d.appspot.com/o/Untitled-1.png?alt=media&token=2db9a247-4072-4d20-b4bf-5badfcd93de0' alt="" />
         </Link>
         <a className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"><Link to="/admin">
           <i className="bx bx-chevron-left bx-sm align-middle" /></Link>

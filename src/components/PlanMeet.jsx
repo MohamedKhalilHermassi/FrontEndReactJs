@@ -200,11 +200,11 @@ function PlanMeet()
                             <td>{user.email}</td>
                             <td>
                             {ListeEmails.includes(user.email) ? (
-        <button className="btn-danger" onClick={() => removeFromList(user.email)}>
+        <button className="btn" style={{backgroundColor:"#feaa00",color:'white'}} onClick={() => removeFromList(user.email)}>
           Remove
         </button>
       ) : (
-        <button className="btn-success" onClick={() => addtolist(user.email)}>
+        <button className="btn" style={{backgroundColor:"#feaa00",color:'white'}} onClick={() => addtolist(user.email)}>
           Add
         </button>
       )}
