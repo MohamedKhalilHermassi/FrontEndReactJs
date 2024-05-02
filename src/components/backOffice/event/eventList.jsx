@@ -17,7 +17,7 @@ const EventList = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
   
     useEffect(() => {
-      axios.get('http://localhost:3000/events')
+      axios.get('https://backendexpressjs-2.onrender.com/events')
         .then(response => {
           setEvents(response.data);
         })
@@ -27,7 +27,7 @@ const EventList = () => {
     }, []);
   
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:3000/events/delete/${id}`)
+        axios.delete(`https://backendexpressjs-2.onrender.com/events/delete/${id}`)
         .then(() => {
             setEvents(events.filter(event => event._id !== id));
         })
@@ -57,7 +57,7 @@ const EventList = () => {
           {currentEvents.map(event => (
             <div key={event._id} className="col-md-4 mb-4">
               <Card className="h-100 shadow">
-              <Card.Img variant="top" src={`http://localhost:3000${event.image}`} />
+              <Card.Img variant="top" src={`https://backendexpressjs-2.onrender.com${event.image}`} />
                 <Card.Header as="h5">{event.title}</Card.Header>
                 <Card.Body className="pb-0">
                   <Card.Text>{event.description}</Card.Text>

@@ -4,11 +4,11 @@ import io from 'socket.io-client';
 
 const StudentMessageReplier = () => {
   const [content, setContent] = useState('');
-  const socket = io('http://localhost:3000');
+  const socket = io('https://backendexpressjs-2.onrender.com');
 
   const replyMessage = async () => {
     try {
-      await axios.post('http://localhost:3000/api/messages/send-message', {
+      await axios.post('https://backendexpressjs-2.onrender.com/api/messages/send-message', {
         senderId: localStorage.getItem('id'), 
         recipientId: "662168da82cc402d546d57ee", 
         content

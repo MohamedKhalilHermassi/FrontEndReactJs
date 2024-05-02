@@ -23,7 +23,7 @@ function EventRegister() {
             });
         }
         
-        axios.get(`http://localhost:3000/events/${eventId}`).then(response => {
+        axios.get(`https://backendexpressjs-2.onrender.com/events/${eventId}`).then(response => {
             setEventTitle(response.data.title);    
             setTicketPrice(response.data.ticketPrice);
         });
@@ -42,7 +42,7 @@ function EventRegister() {
                 const userId = localStorage.getItem('id');
                 const data = { ...formData, userId: userId };
                 try {
-                    const response = await axios.post('http://localhost:3000/events/register', data);
+                    const response = await axios.post('https://backendexpressjs-2.onrender.com/events/register', data);
                     if (response.status === 200) {
                         setSuccess('Successfully registered for the event!');
                         setError(null);
@@ -61,7 +61,7 @@ function EventRegister() {
             else if (event.ticketPrice!=0)
                 {
                     const total = event.ticketPrice*1000;
-                    await axios.post('http://localhost:3000/payement/flouciproduct',{amount:total})
+                    await axios.post('https://backendexpressjs-2.onrender.com/payement/flouciproduct',{amount:total})
                     .then((result)=>{
                       console.log(result.data)
                       window.location.replace(result.data.result.link); 

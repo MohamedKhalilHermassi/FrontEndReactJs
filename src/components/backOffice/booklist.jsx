@@ -9,7 +9,7 @@ function BookList() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/book/get-books');
+        const response = await axios.get('https://backendexpressjs-2.onrender.com/book/get-books');
         setBooks(response.data);
         setLoading(false);
       } catch (error) {
@@ -26,7 +26,7 @@ function BookList() {
 
   const handleDeleteBook = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/book/delete-book/${id}`);
+      await axios.delete(`https://backendexpressjs-2.onrender.com/book/delete-book/${id}`);
       setBooks(books.filter(book => book._id !== id));
       setSelectedBook(null); // Clear selected book if deleted
     } catch (error) {
@@ -71,7 +71,7 @@ function BookList() {
             <div className="mt-3">
               <h3>{selectedBook.bookName}</h3>
               <iframe
-                src={`http://localhost:3000/uploads/${selectedBook.filename}`}
+                src={`https://backendexpressjs-2.onrender.com/uploads/${selectedBook.filename}`}
                 width="100%"
                 height="600px"
               ></iframe>
