@@ -5,9 +5,10 @@ import { MdEmojiEmotions } from "react-icons/md";
 export default function NewComment({
   handleSubmit,
   placeholder = "Add comment...",
+  initialText="",
   buttonText
 }) {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(initialText);
   const [showEmojiSelector, setShowEmojiSelector] = useState(false);
 
   const emojis = ["🥺", "😴", "😊", "😂", "😍", "👍", "👎", "🙌", "🎉", "❤️"];
