@@ -30,12 +30,15 @@ function MyOrders() {
   }, []);
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4" style={{ height: '600px', overflowY: 'auto' }}> {/* Set the height and overflow */}
       <h2 className="mb-4">My Orders</h2>
       {orders.length === 0 ? (
         <>
         <br />
-        <h1 className="text-center ">You haven't made any orders yet</h1>
+        
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <img width="64" height="64" src="https://img.icons8.com/arcade/64/fast-cart.png" alt="fast-cart"/>        <p>Sorry, you haven't made any orders yet</p>
+      </div>
         <br />
         <br />
 

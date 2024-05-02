@@ -87,7 +87,7 @@ const MyEvents = () => {
   };
   
   return (
-    <div className="container mt-7">
+    <div className="container mt-7" style={{ height: '600px', overflowY: 'auto' }}>
       <ToastContainer />
       {events.length > 0 ? (
         <div style={cardContainerStyle}>
@@ -143,8 +143,9 @@ const MyEvents = () => {
       ))}
     </div>
     ) : (
-      <p>You have no events.</p>
-    )}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+<img width="96" height="96" src="https://img.icons8.com/fluency/96/event.png" alt="event"/>      <p>Sorry, you are not registered to attend any event.</p>
+    </div>    )}
   </div>
   );
 };

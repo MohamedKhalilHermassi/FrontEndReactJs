@@ -6,15 +6,16 @@ function ProductListBack() {
   const [products, setProducts] = useState([]);
   const token = localStorage.getItem('userToken');
   
-        // Set headers with the token
-        const headers = {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        };
+  // Set headers with the token
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/market/get-products',{
+        const response = await axios.get('http://localhost:3000/market/get-products', {
           headers: headers,
         });
         // Filter out archived products
@@ -31,13 +32,11 @@ function ProductListBack() {
 
   const handleAccept = async (productId) => {
     try {
-   
       await axios.put(`http://localhost:3000/market/products/${productId}`, {
         productAvailability: true 
       }, {
         headers: headers 
       });
-
       
       setProducts(products.map(product => {
         if (product._id === productId) {
@@ -54,9 +53,10 @@ function ProductListBack() {
     try {
       // Send request to delete the product
       await axios.put(`http://localhost:3000/market/archiveProducts/${productId}`, { 
-     archived: true
-    },{
-      headers: headers });
+        archived: true
+      }, {
+        headers: headers
+      });
       
       // Remove the deleted product from the local state
       setProducts(products.filter(product => product._id !== productId));
@@ -78,7 +78,6 @@ function ProductListBack() {
               <tr>
                 <th>Image</th>
                 <th>Name</th>
-                <th>Description</th>
                 <th>Price</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -95,30 +94,28 @@ function ProductListBack() {
                     />
                   </td>
                   <td>{product.productName}</td>
-                  <td>{product.productDescription}</td>
                   <td>{product.productPrice} TND</td>
                   <td>
                     {product.productAvailability === null ? 'Waiting...' : product.productAvailability ? <FaCheck style={{ color: 'green' }} /> : <FaTimes style={{ color: 'red' }} />}
                   </td>
                   <td>
-  <button
-    className="btn btn-success"
-    onClick={() => handleAccept(product._id)}
-    disabled={product.productAvailability === true}
-    title={product.productAvailability ? "Product is already on market" : ""}
-  >
-    Accept
-  </button>
-  <button
-    className="btn btn-danger"
-    onClick={() => handleReject(product._id)}
-    disabled={product.productAvailability === true}
-    title={product.productAvailability ? "Product is already on market" : ""}
-  >
-    Delete
-  </button>
-</td>
-
+                    <button
+                      className="btn btn-success"
+                      onClick={() => handleAccept(product._id)}
+                      disabled={product.productAvailability === true}
+                      title={product.productAvailability ? "Product is already on market" : ""}
+                    >
+                      Accept
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleReject(product._id)}
+                      disabled={product.productAvailability === true}
+                      title={product.productAvailability ? "Product is already on market" : ""}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

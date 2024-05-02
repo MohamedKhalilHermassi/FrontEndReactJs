@@ -44,7 +44,10 @@ const MyBooks = () => {
       {loading ? (
         <p>Loading...</p>
       ) : books.length === 0 ? (
-        <p>You haven't bought any books yet.</p>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <br />
+<img width="64" height="64" src="https://img.icons8.com/arcade/64/books.png" alt="books"/>             <p>Sorry, you bought any books</p>
+      </div>
       ) : (
         <div>
           <table style={styles.table}>

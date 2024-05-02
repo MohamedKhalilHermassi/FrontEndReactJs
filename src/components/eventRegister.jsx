@@ -34,25 +34,41 @@ function EventRegister() {
     };
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        const userId = localStorage.getItem('id');
-        const data = { ...formData, userId: userId };
-        try {
-            const response = await axios.post('http://localhost:3000/events/register', data);
-            if (response.status === 200) {
-                setSuccess('Successfully registered for the event!');
-                setError(null);
-                setTimeout(() => {
-                    navigate('/events');
-                }, 2000);
-            } else {
-                setError('Failed to register for the event.');
-                setSuccess(null);
+
+        if (event.ticketPrice===0)
+            {
+                event.preventDefault();
+
+                const userId = localStorage.getItem('id');
+                const data = { ...formData, userId: userId };
+                try {
+                    const response = await axios.post('http://localhost:3000/events/register', data);
+                    if (response.status === 200) {
+                        setSuccess('Successfully registered for the event!');
+                        setError(null);
+                        setTimeout(() => {
+                            navigate('/events');
+                        }, 2000);
+                    } else {
+                        setError('Failed to register for the event.');
+                        setSuccess(null);
+                    }
+                } catch (error) {
+                    setError('Failed to register for the event.');
+                    setSuccess(null);
+                }
             }
-        } catch (error) {
-            setError('Failed to register for the event.');
-            setSuccess(null);
-        }
+            else if (event.ticketPrice!=0)
+                {
+                    const total = event.ticketPrice*1000;
+                    await axios.post('http://localhost:3000/payement/flouciproduct',{amount:total})
+                    .then((result)=>{
+                      console.log(result.data)
+                      window.location.replace(result.data.result.link); 
+                      
+                    }).catch((err)=>console.log(err));
+                }
+       
     };
 
     return (
