@@ -40,6 +40,7 @@ import EditEvent from './components/backOffice/event/editEvent.jsx'
 import EventsCalendar from './components/backOffice/event/eventsCalendar.jsx'
 import EventRegister from './components/eventRegister'
 import MyEvents from './components/myevents'
+import ChatBot from './components/chatbot.jsx';
 import RegisteredUsers from './components/backOffice/event/registeredUsers.jsx';
 import AdminEventRatings from './components/backOffice/event/adminEventRatings.jsx';
 
@@ -129,6 +130,7 @@ function App() {
         <Route path = "reclamation" element={<Reclamtions/>}></Route>
         <Route path = "eventRegister" element={<EventRegister/>}></Route>
         <Route path = "myevents" element={<MyEvents/>}></Route>
+        <Route path = "chatbot" element={<ChatBot/>}></Route>
         <Route path = "mymarks" element={<UserNotes/>}></Route>
         <Route path = "chat" element={<Chat/>}></Route>
         <Route path = "teacherSend/:studentId" element={<TeacherMessageSender/>}></Route>
