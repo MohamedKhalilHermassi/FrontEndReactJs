@@ -118,6 +118,11 @@ const RegisteredUsers = () => {
       render: text => new Date(text).toLocaleDateString(),
     },
     {
+      title: 'Tickets',
+      dataIndex: 'tickets',
+      key: 'tickets',
+    },
+    {
       title: 'Action',
       key: 'action',
       render: (text, record) => (

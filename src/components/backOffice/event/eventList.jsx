@@ -69,7 +69,7 @@ const EventList = () => {
                     <ListGroup.Item><strong>Capacity:</strong> {event.capacity}</ListGroup.Item>
                     <ListGroup.Item><strong>Ticket Price:</strong> {event.ticketPrice} TND</ListGroup.Item>
                     <ListGroup.Item><strong>Category:</strong> {event.category}</ListGroup.Item>
-                    <ListGroup.Item><strong>Registered Users:</strong> {event.users.length}</ListGroup.Item>
+                    <ListGroup.Item><strong>Participants:</strong> {event.users.length}</ListGroup.Item>
                   </ListGroup>
                 </Card.Body>
                 <Card.Footer className="pt-2">

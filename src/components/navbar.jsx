@@ -62,7 +62,7 @@ export const NavBar = () => {
                     <Link to="/myorders" className="dropdown-item">My Orders</Link>
                     <Link to="/mybooks" className="dropdown-item">My Books</Link>
                     <Link to="/chat" className="dropdown-item">Chatroom</Link>
-
+                    <Link to="/chatbot" className="dropdown-item">ChatBot</Link>
                     <Link to="/mycourses" className="dropdown-item">My Courses</Link><Link to="/reclamation" className="dropdown-item">My Reclamtions</Link>
                     <Link to="/myevents" className="dropdown-item">My Events</Link>
                     <Link to="/mymarks" className="dropdown-item">My Marks</Link>

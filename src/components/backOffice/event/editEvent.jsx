@@ -93,7 +93,7 @@ const EditEvent = () => {
                 error = value > 0 ? '' : 'Capacity must be a positive number';
                 break;
             case 'ticketPrice':
-                error = value > 0 ? '' : 'Ticket price must be a positive number';
+                error = value >= 0 ? '' : 'Ticket price must be a positive number';
                 break;
             default:
                 break;

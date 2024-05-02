@@ -151,14 +151,13 @@ const AddEvent = () => {
       isValid = false;
     }
   
-    if (!formData.ticketPrice) {
+    if (formData.ticketPrice === undefined || formData.ticketPrice === '') {
       errors.ticketPrice = 'Ticket price is required';
       isValid = false;
-    } else if (isNaN(formData.ticketPrice) || formData.ticketPrice <= 0) {
-      errors.ticketPrice = 'Ticket price must be a positive number';
+    } else if (isNaN(formData.ticketPrice) || formData.ticketPrice < 0) {
+      errors.ticketPrice = 'Ticket price must be a non-negative number';
       isValid = false;
     }
-
     setErrors(errors);
     return isValid;
   };
