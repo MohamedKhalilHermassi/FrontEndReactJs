@@ -33,6 +33,7 @@ function Acceuil() {
 
       ) : (
         <>
+
       <div className={`page-header ${isScrolled ? 'scrolled' : ''}`}>
         <h1 className="display-1 text-orange mx-5">ElKindy Conservatory</h1>
         <div className="page-header-image reduced-opacity" style={{backgroundImage: 'url("images/guitar-2886886_1280.jpg")'}} />

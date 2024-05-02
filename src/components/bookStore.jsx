@@ -62,7 +62,9 @@ const BookList = () => {
       {decodedToken.role === "Student" && decodedToken.paid === false ? (
         <NotPaid />
       ) : (
+        
         <div style={styles.marketplaceContainer}>
+          
           <div style={styles.bookListContainer}>
             <h1 style={styles.bookListTitle}>Book List</h1>
             <ul style={styles.bookList}>

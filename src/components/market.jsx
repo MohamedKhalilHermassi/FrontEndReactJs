@@ -172,6 +172,7 @@ function ProductList() {
         <br /><br />
         <br />
         <div className="container py-4">
+          <br />
           <button
               className='btn btn-secondary rounded-pill px-4 py-2 mx-auto d-block'
               onClick={handleClick}
@@ -179,7 +180,6 @@ function ProductList() {
           >
             Become a Seller
           </button>
-          <button className='btn btn-info rounded-pill mx-auto d-block mt-1' onClick={handleClickTest}>Test your skills</button>
           <br />
           <div className="input-group mb-3">
             <span className="input-group-text"><i className="bi bi-search"></i></span>
@@ -337,7 +337,7 @@ export default ProductList;
 
 const floatingCartStyle = {
   position: 'fixed',
-  bottom: '20px',
+  bottom: '150px',
   right: '20px',
   backgroundColor: '#fff',
   border: '1px solid #ccc',
@@ -354,6 +354,7 @@ const cartCountStyle = {
   position: 'absolute',
   top: '-10px',
   right: '-10px',
+  
   backgroundColor: 'red',
   color: '#fff',
   padding: '5px 8px',
@@ -362,7 +363,7 @@ const cartCountStyle = {
 
 const cartDropdownStyle = {
   position: 'fixed',
-  bottom: '100px',
+  bottom: '200px',
   right: '20px',
   backgroundColor: '#fff',
   border: '1px solid #ccc',
