@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Spinner, Alert } from 'react-bootstrap';
+import { Card, Spinner, Alert, Container,Row,Col } from 'react-bootstrap';
 import { Pie } from 'react-chartjs-2';
 
 const AdminEventRatings = () => {
@@ -69,23 +69,11 @@ const AdminEventRatings = () => {
       </div>
     );
   };
-
   return (
     <>
       <style jsx>{`
-        .event-ratings-table {
-          background-color: #ffffff;
-          color: #333333;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .event-ratings-table th {
-          background-color: #4BC0C0;
-          color: #ffffff;
-        }
-
         .chart-container {
-          width: 150px; /* Smaller width for the rating distribution column */
+          width: 150px;
           height: 150px;
           display: flex;
           justify-content: center;
@@ -96,42 +84,38 @@ const AdminEventRatings = () => {
         }
       `}</style>
       <br />
-      <Table striped bordered hover className="event-ratings-table">
-        <thead>
-          <tr>
-            <th>Event Name</th>
-            <th>Average Rating</th>
-            <th>Total Ratings</th>
-            <th>Rating Distribution</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Container>
+        <Row>
           {eventRatings.length > 0 ? (
             eventRatings.map(({ eventId, eventName, averageRating, totalRatings, ratingDistribution }) => (
-              <tr key={eventId}>
-                <td>{eventName}</td>
-                <td>{averageRating}</td>
-                <td>{totalRatings}</td>
-                <td style={{ width: '150px' }}> {/* Smaller width for the rating distribution td */}
-                  {chartLoading ? (
-                    <Spinner animation="border" />
-                  ) : chartError ? (
-                    <Alert variant="danger">{chartError}</Alert>
-                  ) : (
-                    <EventRatingChart ratingDistribution={ratingDistribution} />
-                  )}
-                </td>
-              </tr>
+              <Col md={4} key={eventId}>
+                <Card className="mb-4">
+                  <Card.Body>
+                    <Card.Title>{eventName}</Card.Title>
+                    <Card.Text>Average Rating: {averageRating}</Card.Text>
+                    <Card.Text>Total Ratings: {totalRatings}</Card.Text>
+                    <div style={{ width: '150px' }}>
+                      {chartLoading ? (
+                        <Spinner animation="border" />
+                      ) : chartError ? (
+                        <Alert variant="danger">{chartError}</Alert>
+  
+                      ) : (
+                        <EventRatingChart ratingDistribution={ratingDistribution} />
+                      )}
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
             ))
           ) : (
-            <tr>
-              <td colSpan="4">No ratings to display</td>
-            </tr>
+            <Col>
+              <Alert variant="info">No ratings to display</Alert>
+            </Col>
           )}
-        </tbody>
-      </Table>
+        </Row>
+      </Container>
     </>
   );
 };
-
 export default AdminEventRatings;

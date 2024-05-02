@@ -14,7 +14,7 @@ function ChatBot() {
   async function generateAnswer(e) {
     setGeneratingAnswer(true);
     e.preventDefault();
-    setAnswer("Loading your answer...");
+    setAnswer("Loading answer...");
   
     const eventKeywords = ['event', 'events', 'concert', 'festival', 'show'];
   
