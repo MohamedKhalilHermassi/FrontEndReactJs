@@ -48,6 +48,7 @@ function Events() {
     };
 
     const registerForEvent = (eventId) => {
+      console.log('hello sir')
       const event = events.find(e => e._id === eventId);
       
       // Check if the user is already registered

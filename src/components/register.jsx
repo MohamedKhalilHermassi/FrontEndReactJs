@@ -518,7 +518,7 @@ function register() {
             <div className="col-md-3">
               <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-secondary"
                 onClick={() => handleRemoveTimeSlot(index)}
               >
                 Remove
@@ -528,7 +528,7 @@ function register() {
         ))}
         <button
           type="button"
-          className="btn btn-success mb-3"
+          className="btn btn-primary mb-3"
           onClick={handleAddTimeSlot}
         >
           Add Time Slot
