@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { addClassroom } from '../../../service/classroomService';
+import { classValidator } from '../../Validators/classValidator';
 
 function ClassroomAdd() {
   const classroomTypes = ['Instrument', 'Solfege'];
@@ -19,7 +20,7 @@ function ClassroomAdd() {
 
       const {values, handleBlur, handleChange, handleSubmit, errors, touched, isValid, setFieldValue} = useFormik({
         initialValues : initialValues, 
-        //validationSchema: courseValidator,
+        validationSchema: classValidator,
         onSubmit: async (values) => {
             values.location = locationId;
             values.status = 'available'
@@ -43,7 +44,7 @@ function ClassroomAdd() {
             <span className="input-group-text"></span>
             <input type="number" name='number' min={0} value={values.number} onBlur={handleBlur} onChange={handleChange} id="basic-icon-default-email" className={errors.number && touched.number ? "form-control is-invalid" : "form-control"} />
           </div>
-          {errors.floor && touched.floor && <p className='alert alert-danger text-dark fw-bold'>{errors.floor}</p>}
+          {errors.number && touched.number && <p className='alert alert-danger text-dark fw-bold'>{errors.number}</p>}
           {/*<div className="form-text"> You can use letters, numbers &amp; periods </div>*/}
 
         </div>

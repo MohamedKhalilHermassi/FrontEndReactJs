@@ -5,7 +5,6 @@ const endPoint = import.meta.env.VITE_APIURL+'classrooms/';
 
 export async function addClassroom(classroom){
     try{
-            console.log(classroom);
             const response = await axios.post(endPoint, classroom);
             toast.success('Classroom added successfully!',
             {

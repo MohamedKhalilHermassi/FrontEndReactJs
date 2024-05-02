@@ -87,14 +87,6 @@ function AddLocation() {
         </div>
         {errors.city && touched.city && <p className='alert alert-danger text-dark fw-bold'>{errors.city}</p>}
         </div>
-
-        <div className="mb-3">
-          <label className="form-label" htmlFor="basic-icon-default-fullname">Address</label>
-          <div className="input-group input-group-merge">
-            <input type="text" name='address' value={values.address} onBlur={handleBlur} onChange={handleChange} className={errors.address && touched.address ? "form-control is-invalid" : "form-control"} id="basic-icon-default-fullname" placeholder="17 rue habib bourguiba" />
-          </div>
-          {errors.address && touched.address && <p className='alert alert-danger text-dark fw-bold'>{errors.address}</p>}
-        </div>
       <div className='my-4'>
         <LocationMap getlocation = {getlocation}>
         </LocationMap>
