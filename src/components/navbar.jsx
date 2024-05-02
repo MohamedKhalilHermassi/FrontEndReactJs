@@ -32,7 +32,7 @@ export const NavBar = () => {
     <nav className="navbar navbar-expand-lg bg-white navbar-absolute">
       <div className="container">
         <div className="navbar-translate">
-        <img src="images/Untitled-1.png" alt="Elkindy" width={150} />
+        <img src="https://firebasestorage.googleapis.com/v0/b/elkindy-5cf2d.appspot.com/o/Untitled-1.png?alt=media&token=2db9a247-4072-4d20-b4bf-5badfcd93de0" alt="Elkindy" width={150} />
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#example-header-2" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>

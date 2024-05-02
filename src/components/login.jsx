@@ -389,7 +389,7 @@ function Login() {
                   <div className="card-body px-4 py-5 px-md-5">
                     
                     <div className="text-center">
-            <img src="../public/images/Untitled-1.png" className="img-fluid mx-auto mb-5" alt="Responsive Image" />
+            <img src="https://firebasestorage.googleapis.com/v0/b/elkindy-5cf2d.appspot.com/o/Untitled-1.png?alt=media&token=2db9a247-4072-4d20-b4bf-5badfcd93de0" className="img-fluid mx-auto mb-5" alt="Responsive Image" />
                     </div>
 
                       
