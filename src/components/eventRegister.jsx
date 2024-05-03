@@ -35,8 +35,7 @@ function EventRegister() {
 
     const handleSubmit = async (event) => {
 
-        if (event.ticketPrice===0)
-            {
+     
                 event.preventDefault();
 
                 const userId = localStorage.getItem('id');
@@ -57,17 +56,7 @@ function EventRegister() {
                     setError('Failed to register for the event.');
                     setSuccess(null);
                 }
-            }
-            else if (event.ticketPrice!=0)
-                {
-                    const total = event.ticketPrice*1000;
-                    await axios.post('https://backendexpressjs-2.onrender.com/payement/flouciproduct',{amount:total})
-                    .then((result)=>{
-                      console.log(result.data)
-                      window.location.replace(result.data.result.link); 
-                      
-                    }).catch((err)=>console.log(err));
-                }
+         
        
     };
 
