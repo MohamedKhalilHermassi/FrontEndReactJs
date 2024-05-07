@@ -10,7 +10,8 @@ const AdminLandingPage = () => {
   const [loader, setloader] =useState(false);
   const [usersByRole, setusersByRole] = useState([]);
   const [ageRanges, setageRanges] = useState([]);
- 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(3); 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -192,6 +193,9 @@ const AdminLandingPage = () => {
         console.log(newTimeSlot);
         setAvailableTimeSlots([...availableTimeSlots, newTimeSlot]);
       };
+      const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = userData.slice(indexOfFirstUser, indexOfLastUser);
   const handleSubmit = async (event) => {
     event.preventDefault();
     setFirstnametouched(true);
@@ -284,7 +288,7 @@ const AdminLandingPage = () => {
         }
       };
   };
-
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div>
     <div className="content-wrapper">
@@ -350,47 +354,25 @@ const AdminLandingPage = () => {
                 <div className="col-sm-7">
                   <div className="card-body">
                     <h5 className="card-title text-primary">Search ! 🎉</h5>
+                    <div className="col-sm-5 text-center text-sm-left">
+                 
+                </div>
                     <div className="navbar-nav align-items-center">
                       <div className="mb-4 d-flex align-items-center">
                         <i className="bx bx-search fs-4 lh-0" />
-                        <input 
+                        <div className='row'>
+                          <div className='col-6'>
+                          <input 
                           type="text" 
                           className="form-control border-0 shadow-none" 
                           placeholder="Search..." 
                           aria-label="Search..." 
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th>Fullname</th>
-                          <th>Email</th>
-                          <th>Role</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {filteredUsers.map(user => (
-                          <tr key={user.email}>
-                            <td>{user.fullname}</td>
-                            <td>{user.email}</td>
-                            <td>{user.role}</td>
-                            <td>
-                              <button className={`btn ${user.status ? 'btn-danger' : 'btn-success'}`} onClick={() => handleBanUser(user.email)}>
-                                {user.status ? 'Ban' : 'Unban'}
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div className="col-sm-5 text-center text-sm-left">
-                  <div className="card-body pb-0 px-0 px-md-4">
+                        /></div>
+                          </div>
+                          <div className='col-6' style={{paddingLeft: '400px'}}>
+                          <div className="card-body pb-0 px-0 px-md-4">
                     <img src="backoffice/assets/img/illustrations/man-with-laptop-light.png" height={140} alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" />
                     <div className="text-center">
                       <button type="button" className="btn"  style={{ backgroundColor: 'transparent' }} data-toggle="modal" data-target="#exampleModal">
@@ -398,7 +380,48 @@ const AdminLandingPage = () => {
                       </button>
                       </div>
                   </div>
+                          </div>
+                        </div>
+                       
+                      
+                    </div>
+                    <table className="table">
+        <thead>
+          <tr>
+            <th>Fullname</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentUsers.map(user => (
+            <tr key={user.email}>
+              <td>{user.fullname}</td>
+              <td>{user.email}</td>
+              <td>{user.role}</td>
+              <td>
+                <button className={`btn ${user.status ? 'btn-danger' : 'btn-success'}`} onClick={() => handleBanUser(user.email)}>
+                  {user.status ? 'Ban' : 'Unban'}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {/* Pagination */}
+      <ul className="pagination">
+        {Array.from({ length: Math.ceil(userData.length / usersPerPage) }).map((_, index) => (
+          <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+            <button onClick={() => paginate(index + 1)} className="page-link">
+              {index + 1}
+            </button>
+          </li>
+        ))}
+      </ul>
+                  </div>
                 </div>
+               
               </div>
             </div>
           </div>

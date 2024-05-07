@@ -25,6 +25,8 @@ export function getUrlParams(
 }
 function PlanMeet()
 {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(1);
     const [userData, setUserData] = useState(null);
     const [Url, setUrl] = useState(null);
     const [date, setdate] = useState(null);
@@ -66,6 +68,10 @@ function PlanMeet()
     
         fetchDatastudents();
       }, []);
+     
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
       const addtolist= (email)=>{
         setListeEmails((prevEmails) => [...prevEmails, email]);
       }
@@ -151,7 +157,9 @@ function PlanMeet()
 
 
   };
-
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
     return (
         <>
         <div>
@@ -186,33 +194,44 @@ function PlanMeet()
                       </div>
                     </div>
                     <table className="table">
-                      <thead>
-                        <tr>
-                          <th>Fullname</th>
-                          <th>Email</th>
-                          <th>Add</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {filteredUsers.map(user => (
-                          <tr key={user.email}>
-                            <td>{user.fullname}</td>
-                            <td>{user.email}</td>
-                            <td>
-                            {ListeEmails.includes(user.email) ? (
-        <button className="btn" style={{backgroundColor:"#feaa00",color:'white'}} onClick={() => removeFromList(user.email)}>
-          Remove
-        </button>
-      ) : (
-        <button className="btn" style={{backgroundColor:"#feaa00",color:'white'}} onClick={() => addtolist(user.email)}>
-          Add
-        </button>
-      )}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+        <thead>
+          <tr>
+            <th>Fullname</th>
+            <th>Email</th>
+            <th>Add</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentUsers.map(user => (
+            <tr key={user.email}>
+              <td>{user.fullname}</td>
+              <td>{user.email}</td>
+              <td>
+                {ListeEmails.includes(user.email) ? (
+                  <button className="btn" style={{ backgroundColor: "#feaa00", color: 'white' }} onClick={() => removeFromList(user.email)}>
+                    Remove
+                  </button>
+                ) : (
+                  <button className="btn" style={{ backgroundColor: "#feaa00", color: 'white' }} onClick={() => addtolist(user.email)}>
+                    Add
+                  </button>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <br></br>
+      {/* Pagination */}
+      <ul className="pagination">
+        {Array.from({ length: Math.ceil(filteredUsers.length / usersPerPage) }).map((_, index) => (
+          <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+            <button onClick={() => paginate(index + 1)} className="page-link" style={{ backgroundColor: "#feaa00", color: 'white' }}>
+              {index + 1}
+            </button>
+          </li>
+        ))}
+      </ul>
                   </div>
                 </div>
                 <div className="col-sm-5 text-center text-sm-left">
