@@ -26,7 +26,7 @@ export function getUrlParams(
 function PlanMeet()
 {
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(1);
+  const [usersPerPage] = useState(3);
     const [userData, setUserData] = useState(null);
     const [Url, setUrl] = useState(null);
     const [date, setdate] = useState(null);
