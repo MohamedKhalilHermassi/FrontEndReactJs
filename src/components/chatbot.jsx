@@ -20,7 +20,7 @@ function ChatBot() {
   
     try {
       if (eventKeywords.some(keyword => question.toLowerCase().includes(keyword))) {
-        const dbResponse = await axios.get(`http://localhost:3000/events`, {
+        const dbResponse = await axios.get(`https://backendexpressjs-2.onrender.com/events`, {
           params: {
             query: question,
           },

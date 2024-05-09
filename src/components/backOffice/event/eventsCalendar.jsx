@@ -16,7 +16,7 @@ const EventsCalendar = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/events')
+    axios.get('https://backendexpressjs-2.onrender.com/events')
       .then(response => {
         const transformedEvents = response.data.map(event => ({
           ...event,

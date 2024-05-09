@@ -13,7 +13,7 @@ const MyEvents = () => {
   const userId = localStorage.getItem('id');
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/events/user/${userId}/events`)
+    axios.get(`https://backendexpressjs-2.onrender.com/events/user/${userId}/events`)
       .then(response => {
         setEvents(response.data);
        // Create an object with the user's ratings for each event
@@ -45,7 +45,7 @@ const MyEvents = () => {
       toast.error('You cannot cancel participation in a finished or cancelled event');
       return;
     }
-    axios.post('http://localhost:3000/events/cancel', { eventId, userId })
+    axios.post('https://backendexpressjs-2.onrender.com/events/cancel', { eventId, userId })
       .then(response => {
         setEvents(events.filter(event => event._id !== eventId));
         toast.success('Successfully cancelled participation in the event');
@@ -68,7 +68,7 @@ const MyEvents = () => {
     return;
   }
     const rating = ratings[eventId];
-    axios.post('http://localhost:3000/events/rate', { eventId, userId, rating })
+    axios.post('https://backendexpressjs-2.onrender.com/events/rate', { eventId, userId, rating })
       .then(response => {
         console.log('Rating submitted:', response.data);
         toast.success('Rating submitted successfully');
@@ -93,7 +93,7 @@ const MyEvents = () => {
         <div style={cardContainerStyle}>
         {events.map((event, index) => (
          <Card key={event._id} style={{ width: '15rem', marginBottom: '1rem', marginRight: '1rem', fontSize: '0.8rem' }}>
-            <Card.Img variant="top" src={`http://localhost:3000${event.image}`} />
+            <Card.Img variant="top" src={`https://backendexpressjs-2.onrender.com${event.image}`} />
             <Card.Body>
               <Card.Title>{event.title}</Card.Title>
               <Card.Text>

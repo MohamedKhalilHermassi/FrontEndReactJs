@@ -10,7 +10,7 @@ const MyBooks = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/book/get-my-books/${userId}`);
+        const response = await axios.get(`https://backendexpressjs-2.onrender.com/book/get-my-books/${userId}`);
         // Filter out duplicate books based on _id
         const uniqueBooks = response.data.books.filter((book, index, self) =>
           index === self.findIndex((b) => (
@@ -69,7 +69,7 @@ const MyBooks = () => {
                   <td>{book.Author}</td>
                   <td>
                     <button
-                      onClick={() => openPDF(`http://localhost:3000/uploads/${book.filename}`)}
+                      onClick={() => openPDF(`https://backendexpressjs-2.onrender.com/uploads/${book.filename}`)}
                       style={styles.readButton}
                       onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
                       onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}

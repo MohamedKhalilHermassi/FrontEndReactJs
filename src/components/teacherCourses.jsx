@@ -10,7 +10,7 @@ function TeacherCourses() {
   useEffect(() => {
     async function fetchCourses() {
       try {
-        const response = await axios.get(`http://localhost:3000/sessions/teacher/${teacherId}`);
+        const response = await axios.get(`https://backendexpressjs-2.onrender.com/sessions/teacher/${teacherId}`);
         setCourses(response.data);
       } catch (error) {
         console.error('Error fetching courses:', error);

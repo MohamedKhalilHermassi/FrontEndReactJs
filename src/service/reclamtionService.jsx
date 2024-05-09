@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL =  'http://localhost:3000/Reclamtions'; 
+const BASE_URL =  'https://backendexpressjs-2.onrender.com/Reclamtions'; 
 const reclamtionService ={
     async addreclamation(reclamation) {
         try {

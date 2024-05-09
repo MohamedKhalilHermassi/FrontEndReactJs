@@ -55,7 +55,7 @@ function register() {
       setlevel(selectedLevel);
       if (selectedLevel) {
         try {
-          const response = await axios.get(`http://localhost:3000/sessions/getbylevel/${selectedLevel}`);
+          const response = await axios.get(`https://backendexpressjs-2.onrender.com/sessions/getbylevel/${selectedLevel}`);
           setSessions(response.data);
         } catch (error) {
           console.error('Error fetching sessions:', error);

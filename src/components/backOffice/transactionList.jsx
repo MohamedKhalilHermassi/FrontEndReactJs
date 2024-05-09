@@ -8,7 +8,7 @@ const TransactionList = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/transaction/all');
+        const response = await axios.get('https://backendexpressjs-2.onrender.com/transaction/all');
         setTransactions(response.data.data); 
         renderPieChart(response.data.data);
       } catch (error) {

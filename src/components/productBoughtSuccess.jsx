@@ -16,12 +16,12 @@ function ProductSuccess() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/payement/verify/${paymentId}`)
+        axios.get(`https://backendexpressjs-2.onrender.com/payement/verify/${paymentId}`)
             .then((result) => {
                 console.log(result.data);
                 if (result.data.result.status === "SUCCESS") {
 
-      const response =  axios.post('http://localhost:3000/orders/add-order', {
+      const response =  axios.post('https://backendexpressjs-2.onrender.com/orders/add-order', {
         totalPrice: localStorage.getItem('totalPrice'),
         user: localStorage.getItem('id'),
         products: localStorage.getItem('products'),
