@@ -16,14 +16,14 @@ function bookSuccess() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`https://backendexpressjs-2.onrender.com/payement/verify/${paymentId}`)
+        axios.get(`http://localhost:3000/payement/verify/${paymentId}`)
             .then((result) => {
                 console.log(result.data);
                 if (result.data.result.status === "SUCCESS") {
 
 
                     try {
-                         axios.put(`https://backendexpressjs-2.onrender.com/book/buy-book/${bookId}/${userId}`);
+                         axios.put(`http://localhost:3000/book/buy-book/${bookId}/${userId}`);
                          setSuccess(true);
                       } catch (error) {
                         console.error('Error buying book:', error);

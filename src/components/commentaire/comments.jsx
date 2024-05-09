@@ -22,7 +22,7 @@ function Comments({ courseId }) {
 
     const fetchComments = async () => {
         try {
-            const response = await fetch(`https://backendexpressjs-2.onrender.com/commentaires/getcoursescomments/${courseId}`);
+            const response = await fetch(`http://localhost:3000/commentaires/getcoursescomments/${courseId}`);
             const data = await response.json();
             setBackendComments(data);
         } catch (error) {
@@ -38,7 +38,7 @@ function Comments({ courseId }) {
                 return;
             }
         
-            const response = await fetch(`https://backendexpressjs-2.onrender.com/commentaires/course/${courseId}`, { 
+            const response = await fetch(`http://localhost:3000/commentaires/course/${courseId}`, { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ function Comments({ courseId }) {
 
     const deleteComment = async (commentId) => {
         try {
-            await fetch(`https://backendexpressjs-2.onrender.com/commentaires/delete/${commentId}`, { 
+            await fetch(`http://localhost:3000/commentaires/delete/${commentId}`, { 
                 method: 'DELETE',
             });
             
@@ -70,7 +70,7 @@ function Comments({ courseId }) {
 
     const updateComment = async (text, commentId) => {
         try {
-            const response = await fetch(`https://backendexpressjs-2.onrender.com/commentaires/editCommentaire/${commentId}`, {
+            const response = await fetch(`http://localhost:3000/commentaires/editCommentaire/${commentId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

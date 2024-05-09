@@ -115,7 +115,7 @@ if(image!=''){
             <div className="col-md-8">
               <div className="card border rounded shadow-sm">
                 <div className="card-body text-center">
-                  <img src={`https://backendexpressjs-2.onrender.com/${userData.image}`} alt="Profile" className="rounded-circle img-fluid mb-3" style={{ width: '150px' }} />
+                  <img src={`http://localhost:3000/${userData.image}`} alt="Profile" className="rounded-circle img-fluid mb-3" style={{ width: '150px' }} />
                   <h4 className="mb-2">{userData.fullname}</h4>
                   <p className="text-muted mb-4">{userData.email}</p>
                   <div className="row">

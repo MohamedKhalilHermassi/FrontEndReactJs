@@ -57,7 +57,7 @@ export default function Comment(props) {
     }
 
     try {
-      const response = await fetch(`https://backendexpressjs-2.onrender.com/commentaires/updateScore/${props.id}`, {
+      const response = await fetch(`http://localhost:3000/commentaires/updateScore/${props.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export default function Comment(props) {
 
   const addReplyToComment = async (text) => {
     try {
-      const response = await fetch(`https://backendexpressjs-2.onrender.com/commentaires/addReply/${props.id}`, {
+      const response = await fetch(`http://localhost:3000/commentaires/addReply/${props.id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ export default function Comment(props) {
         <div className="comment-heading">
           <img
             className="user-avatar"
-            src={props.user.image ? `https://backendexpressjs-2.onrender.com/${props.user.image}` : defaultAvatar}
+            src={props.user.image ? `http://localhost:3000/${props.user.image}` : defaultAvatar}
             alt="user avatar"
           />
           <p className="username">{`${props.user.fullname}`}</p>

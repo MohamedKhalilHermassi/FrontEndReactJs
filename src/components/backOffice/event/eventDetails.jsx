@@ -47,7 +47,7 @@ const EventDetails = ({ event, onBack, showButtons = true }) => {
     <Card className="mt-5">
       <Card.Header as="h2">{event.title}</Card.Header>
       <Card.Body>
-        <Card.Img variant="top" src={`https://backendexpressjs-2.onrender.com${event.image}`} />
+        <Card.Img variant="top" src={`http://localhost:3000${event.image}`} />
         <Card.Text className="mt-3">{event.description}</Card.Text>
         <ListGroup variant="flush">
           <ListGroup.Item><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</ListGroup.Item>

@@ -14,14 +14,14 @@ class ListS extends React.Component {
   async componentDidMount() {
     try {
       // Fetch sessions
-      const sessionsResponse = await fetch('https://backendexpressjs-2.onrender.com/sessions');
+      const sessionsResponse = await fetch('http://localhost:3000/sessions');
       let sessionsData = await sessionsResponse.json();
   
       // Sort sessions by start date
       sessionsData = sessionsData.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
       
       // Fetch courses
-      const coursesResponse = await fetch('https://backendexpressjs-2.onrender.com/courses');
+      const coursesResponse = await fetch('http://localhost:3000/courses');
       const coursesData = await coursesResponse.json();
       
       // Convert courses data to object for easier access
@@ -43,7 +43,7 @@ class ListS extends React.Component {
 
   handleDelete = async (id) => {
     try {
-      await fetch(`https://backendexpressjs-2.onrender.com/sessions/${id}`, {
+      await fetch(`http://localhost:3000/sessions/${id}`, {
         method: 'DELETE'
       });
       this.setState(prevState => ({
@@ -64,6 +64,9 @@ class ListS extends React.Component {
               <th>Start Date</th>
               <th>Duration</th>
               <th>Course</th>
+              <th>Capacity</th>
+
+              <th>Level</th>
               <th>Classroom</th>
               <th>Floor</th>
               <th>Address</th>
@@ -77,9 +80,12 @@ class ListS extends React.Component {
                   <td>{format(new Date(session.startDate), 'MMMM dd, yyyy HH:mm:ss')}</td>
                 <td>{session.duree}</td>
                 {/* Display course name instead of ID */}
-                <td>{session.course.name} {session.course.level} </td>
+                <td>{session.course.name} </td>
+                <td>{session.capacity} </td>
+                <td>{session.level} </td>
 
                 <td>
+                  
               number°  {session.classroom?.number}
                 </td>
                 <td>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { decodeToken  } from "react-jwt";
 
-const BASE_URL =  'https://backendexpressjs-2.onrender.com/users'; 
+const BASE_URL =  'http://localhost:3000/users'; 
 
 const userService = {
     async login(email, password) {

@@ -2,6 +2,7 @@ import {  useNavigate } from "react-router-dom";
 import  { useState,useRef,useEffect } from 'react';
 import UserService from '../service/userService';
 import * as faceapi from 'face-api.js';
+import axios from 'axios';
 
 function register() {
     const [email, setEmail] = useState('');
@@ -11,6 +12,8 @@ function register() {
     const [birthday, setbirthday] = useState('');
     const [address, setadress] = useState('');
     const [level,setlevel] = useState('');
+    const [groupsession,setgroupsession] = useState('');
+    const [willingToStudySolfege, setWillingToStudySolfege] = useState(false);
     const [password, setPassword] = useState('');
     const [image, setimage] = useState('');
     const [passwordtouched, setpasswordtouched] = useState(false);
@@ -34,7 +37,37 @@ function register() {
     const canvasRef =useRef();
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
     const [availableTimeSlotstouched, setavailableTimeSlotstouched] = useState(false);
-  
+    const [sessions, setSessions] = useState([]);
+    const [myinstruments,setmyinstruments] = useState([]);
+
+    const handleinstrument = (instrument)=>{
+      console.log(instrument);
+      if(!myinstruments.includes(instrument))
+        {
+          myinstruments.push(instrument);
+          setmyinstruments(myinstruments);
+          console.log(myinstruments);
+        }
+       
+    }
+    const handleChange = async (e) => {
+      const selectedLevel = e.target.value;
+      setlevel(selectedLevel);
+      if (selectedLevel) {
+        try {
+          const response = await axios.get(`http://localhost:3000/sessions/getbylevel/${selectedLevel}`);
+          setSessions(response.data);
+        } catch (error) {
+          console.error('Error fetching sessions:', error);
+        }
+      } else {
+        setSessions([]);
+      }
+    };
+   const handleSessionSelection = (id)=>{
+    console.log('id',id);
+    setgroupsession(id);
+   }
     const handleAddTimeSlot = () => {
       const newTimeSlot = { startTime: '', endTime: '' };
     
@@ -44,7 +77,9 @@ function register() {
       setAvailableTimeSlots([...availableTimeSlots, newTimeSlot]);
     };
     
-    
+    const handleToggleChange = (e) => {
+      setWillingToStudySolfege(!willingToStudySolfege);
+    };
   
     const handleRemoveTimeSlot = (index) => {
       const updatedTimeSlots = availableTimeSlots.filter((_, i) => i !== index);
@@ -209,7 +244,7 @@ function register() {
           Firstname &&
           Lastname &&
           phone &&
-          level &&
+          myinstruments &&
           birthday &&
           address &&
           password &&
@@ -271,6 +306,9 @@ function register() {
       if (!validatePhone(phone)) {
         isValid = false;
       }
+      if (!validateLevel(level)) {
+        isValid = false;
+      }
   
       if (!validatePassword(password)) {
         isValid = false;
@@ -299,6 +337,8 @@ function register() {
   formData.append('phone', phone);
   formData.append('birthday', birthday);
   formData.append('level',level);
+  formData.append('groupsession',groupsession);
+  formData.append('favouriteInstrument',myinstruments);
   formData.append('image', image);
   const availableTimeJSON = JSON.stringify(availableTimeSlots);
   formData.append('availableTime', availableTimeJSON);
@@ -421,13 +461,134 @@ function register() {
                             <label className="form-label" htmlFor="form3Example2">Last name  { !validateLastName(Lastname) && <span className="text-danger"> (Last name can only contain letters and spaces (max 15 characters))</span> }</label>
                           </div>
                         </div>
-                        <div className="col-md-6 mb-4">
-                          <div className="form-outline">
-                            <input type="number" id="level" className="form-control" value={level} onChange={(event) => {setlevel(event.target.value);setavailableTimeSlotstouched(true)}}/>
-                            <label className="form-label" htmlFor="form3Example2">Level { !validateLevel(level) && <span className="text-danger"> (Level must be between 1 and 7)</span> }</label>
-                          </div>
-                        </div>
+                        <div className="mb-3">
+  <p>Are you willing to study solfege?</p>
+  <div className="form-check form-switch">
+    <input
+      className="form-check-input"
+      type="checkbox"
+      id="studySolfegeSwitch"
+      checked={willingToStudySolfege}
+      onChange={handleToggleChange}
+    />
+    <label className="form-check-label" htmlFor="studySolfegeSwitch">
+      {willingToStudySolfege ? 'Yes' : 'No'}
+    </label>
+  </div>
+</div>
+{/* Level input */}
+{willingToStudySolfege && (
+  <div className="form-outline mb-4">
+<select
+          className="form-select"
+          value={level}
+          onChange={handleChange}
+        >
+          <option value="">Select Level</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+  <label className="form-label">Level</label>
+</div>
+)}
+
+
                       </div>
+
+                      <div>
+  {sessions
+  .filter((session) => session.capacity - session.students.length > 0)
+  .map((session) => (
+    <div key={session._id} className="form-check">
+      <input
+        type="checkbox"
+        className="form-check-input"
+        id={session._id}
+        value={session._id}
+        onChange={() => handleSessionSelection(session._id)}
+      />
+      <label className="form-check-label" htmlFor={session._id}>
+        Start Date: {new Date(session.startDate).toLocaleString()} | Level: {session.level} | Remaining Places : {session.capacity - session.students.length}
+      </label>
+    </div>
+  ))}
+</div>
+Instruments :
+<div>
+  
+    <div className="form-check">
+      <input
+        type="checkbox"
+        className="form-check-input"
+        
+        value="guitar"
+        onChange={() => handleinstrument("guitar")}
+
+      />
+      <label className="form-check-label" >
+        Guitar
+      </label>
+    </div>
+ 
+</div>
+<div>
+  
+    <div className="form-check">
+      <input
+        type="checkbox"
+        className="form-check-input"
+        
+        value="piano"
+        onChange={() => handleinstrument("piano")}
+
+      />
+      <label className="form-check-label" >
+        Piano
+      </label>
+    </div>
+ 
+</div>
+<div>
+  
+    <div className="form-check">
+      <input
+        type="checkbox"
+        className="form-check-input"
+        
+        value="Violon"
+        onChange={() => handleinstrument("Violon")}
+
+      />
+      <label className="form-check-label" >
+        Violon
+      </label>
+    </div>
+ 
+</div>
+<div>
+  
+    <div className="form-check">
+      <input
+        type="checkbox"
+        className="form-check-input"
+        
+        value="Saxophone"
+        onChange={() => handleinstrument("Saxophone")}
+
+      />
+      <label className="form-check-label" >
+        Saxophone
+      </label>
+    </div>
+ 
+</div>
+<br />
+<br />
                        {/* phone input */}
                        <div className="form-outline mb-4">
                         <input type="number" id="phone" className="form-control" value={phone} onChange={(event) => {setphone(event.target.value);setphonetouched(true)}}/>

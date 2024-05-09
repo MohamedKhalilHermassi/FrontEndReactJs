@@ -70,7 +70,7 @@ function Events() {
       setLoading(true);
       setError(null);
       try {
-          const response = await axios.get('https://backendexpressjs-2.onrender.com/events');
+          const response = await axios.get('http://localhost:3000/events');
           let filteredEvents = response.data;
           if (selectedCategory !== 'All') {
             filteredEvents = filteredEvents.filter(event => event.category === selectedCategory);
@@ -158,7 +158,7 @@ function Events() {
       {events.filter(event => event.status !== 'Finished' && event.status !== 'Canceled').map(event => (
         <div key={event._id} className="col-md-12 mb-4">
           <Card className="h-100 shadow flex-md-row">
-                  <Card.Img variant="left" src={`https://backendexpressjs-2.onrender.com${event.image}`} style={{ width: '30%', objectFit: 'cover' }} />
+                  <Card.Img variant="left" src={`http://localhost:3000${event.image}`} style={{ width: '30%', objectFit: 'cover' }} />
                   <Card.Body className="d-flex flex-column">
                     <Card.Header as="h5">{event.title}</Card.Header>
                     <ListGroup variant="flush">

@@ -62,7 +62,7 @@ function ProductList() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`https://backendexpressjs-2.onrender.com/market/get-paginated-products?page=${pageNumber}`);
+        const response = await axios.get(`http://localhost:3000/market/get-paginated-products?page=${pageNumber}`);
         console.log(response.data.products);
         setProducts(response.data.products);
         setNumberOfPages(response.data.totalPages);
@@ -144,13 +144,13 @@ function ProductList() {
       localStorage.setItem('products',productsList);
       const price = totalPrice*1000;
 
-      await axios.post('https://backendexpressjs-2.onrender.com/payement/flouciproduct',{amount:price})
+      await axios.post('http://localhost:3000/payement/flouciproduct',{amount:price})
       .then((result)=>{
         console.log(result.data)
         window.location.replace(result.data.result.link); 
         
       }).catch((err)=>console.log(err));
-      // const response = await axios.post('https://backendexpressjs-2.onrender.com/orders/add-order', {
+      // const response = await axios.post('http://localhost:3000/orders/add-order', {
       //   totalPrice: totalPrice,
       //   user: localStorage.getItem('id'),
       //   products: productsList,
@@ -218,7 +218,7 @@ function ProductList() {
                 <div key={product._id} className="col">
                   <div className="card h-100">
                     <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
-                      <img src={`https://backendexpressjs-2.onrender.com/uploads/${product.filename}`} className="card-img-top" alt={product.productName} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                      <img src={`http://localhost:3000/uploads/${product.filename}`} className="card-img-top" alt={product.productName} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
                     </div>
                     <div className="card-body">
                       <h5 className="card-title">{product.productName}</h5>
@@ -265,7 +265,7 @@ function ProductList() {
                 <div key={product._id} className="col">
                   <div className="card h-100">
                     <div style={{ width: '100%', height: '300px', overflow: 'hidden' }}>
-                      <img src={`https://backendexpressjs-2.onrender.com/uploads/${product.filename}`} className="card-img-top" alt={product.productName} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                      <img src={`http://localhost:3000/uploads/${product.filename}`} className="card-img-top" alt={product.productName} style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
                     </div>
                     <div className="card-body">
                       <h5 className="card-title">{product.productName}</h5>
@@ -298,7 +298,7 @@ function ProductList() {
                   {cartItems.map(item => (
                       <li key={item._id}>
                         <div>
-                          <img src={`https://backendexpressjs-2.onrender.com/uploads/${item.filename}`} alt={item.productName} style={{ width: '50px', height: '50px', marginRight: '10px' }} />
+                          <img src={`http://localhost:3000/uploads/${item.filename}`} alt={item.productName} style={{ width: '50px', height: '50px', marginRight: '10px' }} />
                           <span>{item.productName} - {item.productPrice} TND - Quantity: {item.quantity}</span>
                           <RiCloseCircleLine className="text-danger" style={{ cursor: 'pointer' }} onClick={() => removeFromCart(item._id)} />
 

@@ -7,6 +7,7 @@ function SessionAdd() {
     startDate: '',
     duree: '',
     level: '',
+    capacity:'',
     course: '',
     teacher: '',
     classroom: ''
@@ -24,7 +25,7 @@ function SessionAdd() {
 
   const fetchCourses = async () => {
     try {
-      const response = await fetch('https://backendexpressjs-2.onrender.com/courses');
+      const response = await fetch('http://localhost:3000/courses');
       const data = await response.json();
       setCourses(data);
     } catch (error) {
@@ -34,7 +35,7 @@ function SessionAdd() {
 
   const fetchTeachers = async () => {
     try {
-      const response = await fetch('https://backendexpressjs-2.onrender.com/users/teachers');
+      const response = await fetch('http://localhost:3000/users/teachers');
       const data = await response.json();
       setTeachers(data);
     } catch (error) {
@@ -44,7 +45,7 @@ function SessionAdd() {
 
   const fetchClassrooms = async () => {
     try {
-      const response = await fetch('https://backendexpressjs-2.onrender.com/classrooms');
+      const response = await fetch('http://localhost:3000/classrooms');
       const data = await response.json();
       setClassrooms(data);
     } catch (error) {
@@ -64,7 +65,7 @@ function SessionAdd() {
     e.preventDefault();
     
     try {
-      const response = await fetch('https://backendexpressjs-2.onrender.com/sessions/add', {
+      const response = await fetch('http://localhost:3000/sessions/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -93,6 +94,7 @@ function SessionAdd() {
         startDate: '',
         duree: '',
         level: '',
+        capacity:'',
         course: '',
         teacher: '',
         classroom: ''
@@ -121,6 +123,18 @@ function SessionAdd() {
           {[...Array(7).keys()].map(level => (
             <option key={level + 1} value={level + 1}>{level + 1}</option>
           ))}
+        </select>
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Capacity:</label>
+        <select className="form-select" name="capacity" value={formData.capacity} onChange={handleChange} required>
+          <option value="">Select capacity</option>
+          <option value="10">10 Students</option>
+          <option value="12">12 Students</option>
+          <option value="14">14 Students</option>
+          <option value="16">16 Students</option>
+
+
         </select>
       </div>
       <div className="mb-3">

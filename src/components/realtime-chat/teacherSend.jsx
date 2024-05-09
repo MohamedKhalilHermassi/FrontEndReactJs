@@ -5,11 +5,11 @@ import io from 'socket.io-client';
 const TeacherMessageSender = () => {
     const { studentId } = useParams(); 
     const [content, setContent] = useState('');
-    const socket = io('https://backendexpressjs-2.onrender.com');
+    const socket = io('http://localhost:3000');
   
     const sendMessage = async () => {
       try {
-        await axios.post('https://backendexpressjs-2.onrender.com/api/messages/send-message', {
+        await axios.post('http://localhost:3000/api/messages/send-message', {
           senderId: localStorage.getItem('id'), 
           recipientId: studentId, 
           content

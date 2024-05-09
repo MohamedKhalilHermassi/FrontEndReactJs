@@ -10,7 +10,7 @@ function TeacherCourses() {
   useEffect(() => {
     async function fetchCourses() {
       try {
-        const response = await axios.get(`https://backendexpressjs-2.onrender.com/courses/my-courses/${teacherId}`);
+        const response = await axios.get(`http://localhost:3000/sessions/teacher/${teacherId}`);
         setCourses(response.data);
       } catch (error) {
         console.error('Error fetching courses:', error);
@@ -31,21 +31,21 @@ function TeacherCourses() {
         <table className="table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Type</th>
-              <th>Level</th>
+            <th>duree</th>
+
+              <th>startDate</th>
+              <th>capacity</th>
+              <th>level</th>
               <th>Students</th>
             </tr>
           </thead>
           <tbody>
             {courses.map(course => (
               <tr key={course._id}>
-                <td>{course.name}</td>
-                <td>{course.description}</td>
-                <td>{course.hourly_based_price} TND</td>
-                <td>{course.courseType}</td>
+                <td>{course.duree}</td>
+                <td>{course.startDate}</td>
+
+                <td>{course.capacity}</td>
                 <td>{course.level}</td>
                 <td>
                   <button

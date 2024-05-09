@@ -17,7 +17,7 @@ class SessionList extends Component {
 
   fetchSessions = async () => {
     try {
-      const response = await fetch('https://backendexpressjs-2.onrender.com/sessions'); // Adjust the URL accordingly
+      const response = await fetch('http://localhost:3000/sessions'); // Adjust the URL accordingly
       const data = await response.json();
       // Parse startDate string to Date object for each session
       data.forEach(session => {

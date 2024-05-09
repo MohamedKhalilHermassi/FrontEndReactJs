@@ -34,11 +34,11 @@ class SessionList extends Component {
 
   fetchSessions = async () => {
     try {
-      const response = await fetch('https://backendexpressjs-2.onrender.com/sessions');
+      const response = await fetch('http://localhost:3000/sessions');
       const sessionsData = await response.json();
 
       // Fetch courses separately
-      const coursesResponse = await fetch('https://backendexpressjs-2.onrender.com/courses');
+      const coursesResponse = await fetch('http://localhost:3000/courses');
       const coursesData = await coursesResponse.json();
 
       // Map sessions and include course information
@@ -61,7 +61,7 @@ class SessionList extends Component {
 
   fetchCourses = async () => {
     try {
-      const response = await fetch('https://backendexpressjs-2.onrender.com/courses');
+      const response = await fetch('http://localhost:3000/courses');
       const data = await response.json();
       this.setState({ courses: data });
     } catch (error) {

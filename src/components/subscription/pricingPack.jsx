@@ -21,7 +21,7 @@ const PricingPack = () => {
 
   const pay = async (amount) => {
    
-    await axios.post("https://backendexpressjs-2.onrender.com/payement/flouci",{amount:amount}).then((result)=>{
+    await axios.post("http://localhost:3000/payement/flouci",{amount:amount}).then((result)=>{
       window.location.replace(result.data.result.link); 
     console.log(result.data) 
       const link = response.data.result.link;

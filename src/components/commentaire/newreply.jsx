@@ -59,7 +59,7 @@ export default function Reply(props) {
         <div className="comment-heading">
           <img
             className="user-avatar"
-            src={props.user.image ? `https://backendexpressjs-2.onrender.com/${props.user.image}` : defaultAvatar}
+            src={props.user.image ? `http://localhost:3000/${props.user.image}` : defaultAvatar}
             alt="user avatar"
           />
           <p className="username">{`${props.currentUser.username}`}</p>

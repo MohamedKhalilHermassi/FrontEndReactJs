@@ -14,7 +14,7 @@ function StudentsList() {
     useEffect(() => {
         const fetchCourse = async () => {
             try {
-                const response = await axios.get(`https://backendexpressjs-2.onrender.com/courses/${courseId}`);
+                const response = await axios.get(`http://localhost:3000/sessions/${courseId}`);
                 setCourse(response.data);
                 setCourseName(response.data.name); // Saving course name
             } catch (error) {
@@ -28,8 +28,8 @@ function StudentsList() {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await axios.get(`https://backendexpressjs-2.onrender.com/courses/students-of-course/${courseId}`);
-                setStudents(response.data);
+                const response = await axios.get(`http://localhost:3000/sessions/${courseId}`);
+                setStudents(response.data.students);
             } catch (error) {
                 console.error('Error fetching students:', error);
             }
@@ -55,9 +55,9 @@ function StudentsList() {
 
     const handleAddNote = async (studentId) => {
         try {
-            await axios.put(`https://backendexpressjs-2.onrender.com/courses/add-note/${studentId}`, { courseName, mark });
+            await axios.put(`http://localhost:3000/courses/add-note/${studentId}`, { courseName, mark });
             // Refresh students list after adding note
-            const response = await axios.get(`https://backendexpressjs-2.onrender.com/courses/students-of-course/${courseId}`);
+            const response = await axios.get(`http://localhost:3000/courses/students-of-course/${courseId}`);
             setStudents(response.data);
             setMark(''); // Reset mark input after adding note
         } catch (error) {
@@ -70,7 +70,7 @@ function StudentsList() {
     };
 
     return (
-        <div className="container mt-4">
+        <div className="container mt-4" style={{ height: '1000px', overflowY: 'auto' }}>
             <h2 className="mb-4">Students List</h2>
             <table className="table">
                 <thead>
@@ -87,21 +87,10 @@ function StudentsList() {
                             <td>{index + 1}</td>
                             <td>{student.fullname}</td>
                             <td>{student.email}</td>
+                           
                             <td>
-                                {hasNoteForCourse(student) ? getNoteForCourse(student) : (
-                                    <input
-                                        type="number"
-                                        value={mark}
-                                        onChange={(e) => setMark(e.target.value)}
-                                        placeholder="Enter mark"
-                                    />
-                                )}
-                            </td>
-                            <td>
-                                {!hasNoteForCourse(student) && (
-                                    <button onClick={() => handleAddNote(student._id)} className="btn btn-primary">Add Note</button>
-                                )}
-                                <button onClick={() => handleChat()} className="btn btn-secondary">Chat</button> 
+                              
+                                <button onClick={() => navigate('')} className="btn btn-secondary">Observations</button> 
                             </td>
                         </tr>
                     ))}
